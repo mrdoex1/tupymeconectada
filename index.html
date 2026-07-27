@@ -11,13 +11,14 @@
     
     <style>
         :root {
-            --bg-color: #111827;
-            --card-bg: #1f2937;
+            --bg-color: #0d1117;
+            --card-bg: rgba(22, 27, 34, 0.7);
+            --card-border: rgba(0, 163, 255, 0.2);
             --primary-blue: #00A3FF;
             --accent-blue: #38bdf8;
             --text-white: #ffffff;
-            --text-gray: #9ca3af;
-            --transition: all 0.3s ease;
+            --text-gray: #94a3b8;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -32,22 +33,23 @@
             background-color: var(--bg-color);
             color: var(--text-white);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* HEADER / NAVBAR */
+        /* HEADER / NAVBAR CON EFECTO GLASSMORPHISM */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(17, 24, 39, 0.95);
-            backdrop-filter: blur(10px);
+            background-color: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(12px);
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 5%;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .logo-container {
@@ -79,36 +81,40 @@
 
         .nav-links a:hover {
             color: var(--primary-blue);
+            text-shadow: 0 0 10px rgba(0, 163, 255, 0.5);
         }
 
         .cta-header {
-            background-color: var(--primary-blue);
+            background: linear-gradient(135deg, var(--primary-blue), #0284c7);
             color: var(--text-white);
-            padding: 10px 20px;
+            padding: 10px 22px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 163, 255, 0.3);
             transition: var(--transition);
         }
 
         .cta-header:hover {
-            background-color: var(--accent-blue);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 163, 255, 0.5);
         }
 
-        /* HERO / BANNER IMPONENTE */
+        /* HERO / BANNER IMPONENTE CON DEGRADADOS Y ANIMACIÓN SUAVE */
         .hero {
-            padding: 180px 5% 100px 5%;
+            padding: 180px 5% 120px 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 50px;
             min-height: 100vh;
-            background: radial-gradient(circle at 80% 20%, rgba(0, 163, 255, 0.15) 0%, transparent 40%);
+            background: radial-gradient(circle at 70% 30%, rgba(0, 163, 255, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 10% 80%, rgba(2, 132, 199, 0.08) 0%, transparent 40%);
         }
 
         .hero-content {
             max-width: 600px;
+            animation: fadeInLeaning 1s ease-out;
         }
 
         .hero-content h1 {
@@ -119,11 +125,13 @@
         }
 
         .hero-content h1 span {
-            color: var(--primary-blue);
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero-content p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-gray);
             margin-bottom: 30px;
         }
@@ -135,7 +143,7 @@
 
         .btn-primary, .btn-secondary {
             padding: 14px 28px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
             text-decoration: none;
             display: inline-flex;
@@ -145,38 +153,52 @@
         }
 
         .btn-primary {
-            background-color: var(--primary-blue);
+            background: linear-gradient(135deg, var(--primary-blue), #0284c7);
             color: var(--text-white);
+            box-shadow: 0 4px 20px rgba(0, 163, 255, 0.4);
         }
 
         .btn-primary:hover {
-            background-color: var(--accent-blue);
-            box-shadow: 0 0 20px rgba(0, 163, 255, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 163, 255, 0.6);
         }
 
         .btn-secondary {
-            background-color: transparent;
-            border: 2px solid var(--text-gray);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             color: var(--text-white);
+            backdrop-filter: blur(5px);
         }
 
         .btn-secondary:hover {
             border-color: var(--primary-blue);
             color: var(--primary-blue);
+            background: rgba(0, 163, 255, 0.05);
+        }
+
+        /* ANIMACIÓN FLOTANTE PARA LA IMAGEN HERO */
+        .hero-image {
+            position: relative;
         }
 
         .hero-image img {
             width: 100%;
-            max-width: 500px;
+            max-width: 520px;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 163, 255, 0.15);
+            border: 1px solid rgba(0, 163, 255, 0.2);
+            animation: floatImage 6s ease-in-out infinite;
         }
 
-        /* SECCIÓN DE SERVICIOS */
+        @keyframes floatImage {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* SECCIÓN DE SERVICIOS CON DEGRADADOS DE FONDO */
         .services {
-            padding: 100px 5%;
-            background-color: rgba(31, 41, 55, 0.5);
+            padding: 110px 5%;
+            background: linear-gradient(180deg, var(--bg-color) 0%, rgba(18, 24, 38, 0.6) 100%);
         }
 
         .section-title {
@@ -202,38 +224,66 @@
         }
 
         .service-card {
-            background-color: var(--card-bg);
-            padding: 40px 30px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 45px 35px;
+            border-radius: 18px;
+            border: 1px solid var(--card-border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* EFECTO DE LUZ INTERNA EN HOVER */
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(0, 163, 255, 0.15), transparent 60%);
+            opacity: 0;
             transition: var(--transition);
         }
 
         .service-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
             border-color: var(--primary-blue);
-            box-shadow: 0 10px 30px rgba(0, 163, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 163, 255, 0.15);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
         }
 
         .service-card i {
             font-size: 2.5rem;
             color: var(--primary-blue);
             margin-bottom: 20px;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .service-card:hover i {
+            transform: scale(1.1);
         }
 
         .service-card h3 {
             font-size: 1.4rem;
             margin-bottom: 15px;
+            position: relative;
         }
 
         .service-card p {
             color: var(--text-gray);
             font-size: 0.95rem;
+            position: relative;
         }
 
-        /* DEMOS FUNCIONALES */
+        /* DEMOS FUNCIONALES CON ZOOM SUAVE EN IMÁGENES */
         .demos {
-            padding: 100px 5%;
+            padding: 110px 5%;
         }
 
         .demos-grid {
@@ -244,54 +294,70 @@
 
         .demo-card {
             background: var(--card-bg);
-            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--card-border);
             transition: var(--transition);
         }
 
         .demo-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 15px 35px rgba(0, 163, 255, 0.15);
+        }
+
+        .demo-img-wrapper {
+            overflow: hidden;
+            height: 210px;
+            width: 100%;
         }
 
         .demo-img {
-            height: 200px;
+            height: 100%;
             width: 100%;
             object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .demo-card:hover .demo-img {
+            transform: scale(1.08);
         }
 
         .demo-info {
-            padding: 25px;
+            padding: 30px;
         }
 
         .demo-info h3 {
             margin-bottom: 10px;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
         }
 
         .demo-info p {
             color: var(--text-gray);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             margin-bottom: 20px;
         }
 
         .link-demo {
-            color: var(--primary-blue);
+            color: var(--accent-blue);
             text-decoration: none;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            transition: var(--transition);
         }
 
         .link-demo:hover {
-            text-decoration: underline;
+            color: var(--primary-blue);
+            gap: 12px;
         }
 
         /* PREGUNTAS FRECUENTES (FAQ ACORDEÓN) */
         .faq {
-            padding: 100px 5%;
-            background-color: rgba(31, 41, 55, 0.5);
+            padding: 110px 5%;
+            background: linear-gradient(180deg, rgba(18, 24, 38, 0.6) 0%, var(--bg-color) 100%);
         }
 
         .faq-container {
@@ -301,14 +367,21 @@
 
         .faq-item {
             background: var(--card-bg);
+            backdrop-filter: blur(10px);
             margin-bottom: 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
             overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item.active {
+            border-color: var(--primary-blue);
+            box-shadow: 0 5px 20px rgba(0, 163, 255, 0.1);
         }
 
         .faq-question {
-            padding: 20px 25px;
+            padding: 22px 25px;
             width: 100%;
             background: none;
             border: none;
@@ -327,10 +400,15 @@
             color: var(--primary-blue);
         }
 
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: var(--primary-blue);
+        }
+
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.4s ease, padding 0.4s ease;
             padding: 0 25px;
             color: var(--text-gray);
             font-size: 0.95rem;
@@ -338,24 +416,25 @@
 
         .faq-item.active .faq-answer {
             max-height: 200px;
-            padding-bottom: 20px;
+            padding-bottom: 22px;
         }
 
         .faq-item.active .faq-question i {
             transform: rotate(180deg);
         }
 
-        /* REDES SOCIALES / INSTAGRAM BANNER */
+        /* REDES SOCIALES / INSTAGRAM BANNER CON DEGRADADO LLAMATIVO */
         .instagram-banner {
-            padding: 80px 5%;
+            padding: 90px 5%;
             text-align: center;
-            background: linear-gradient(135deg, rgba(0, 163, 255, 0.1), rgba(17, 24, 39, 1));
+            background: radial-gradient(circle at center, rgba(220, 39, 67, 0.15) 0%, rgba(13, 17, 23, 1) 70%);
             border-top: 1px solid rgba(255,255,255,0.05);
             border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: relative;
         }
 
         .instagram-banner h2 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 15px;
         }
 
@@ -370,24 +449,25 @@
             gap: 10px;
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             color: white;
-            padding: 12px 30px;
+            padding: 14px 32px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
+            box-shadow: 0 6px 20px rgba(220, 39, 67, 0.4);
             transition: var(--transition);
         }
 
         .ig-btn:hover {
-            opacity: 0.9;
             transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(220, 39, 67, 0.6);
         }
 
         /* SECCIÓN DE CONTACTO */
         .contact {
-            padding: 100px 5%;
+            padding: 110px 5%;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 60px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -399,7 +479,7 @@
 
         .contact-info p {
             color: var(--text-gray);
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .contact-details {
@@ -419,13 +499,18 @@
         .contact-details li i {
             color: var(--primary-blue);
             font-size: 1.2rem;
+            background: rgba(0, 163, 255, 0.1);
+            padding: 12px;
+            border-radius: 10px;
         }
 
         .contact-form {
             background: var(--card-bg);
-            padding: 40px;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            padding: 45px;
+            border-radius: 18px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
         .form-group {
@@ -441,17 +526,19 @@
 
         .form-group input, .form-group textarea {
             width: 100%;
-            padding: 12px 15px;
-            background: var(--bg-color);
+            padding: 14px 16px;
+            background: rgba(13, 17, 23, 0.6);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
+            border-radius: 10px;
             color: var(--text-white);
             font-size: 1rem;
+            transition: var(--transition);
         }
 
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
             border-color: var(--primary-blue);
+            box-shadow: 0 0 10px rgba(0, 163, 255, 0.25);
         }
 
         .form-group textarea {
@@ -461,38 +548,47 @@
 
         .submit-btn {
             width: 100%;
-            background: var(--primary-blue);
+            background: linear-gradient(135deg, var(--primary-blue), #0284c7);
             color: white;
             border: none;
-            padding: 14px;
-            border-radius: 8px;
+            padding: 15px;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 163, 255, 0.3);
             transition: var(--transition);
         }
 
         .submit-btn:hover {
-            background: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 163, 255, 0.5);
         }
 
-        /* WHATSAPP FLOTANTE */
+        /* WHATSAPP FLOTANTE CON ANIMACIÓN DE PULSO SUAVE */
         .whatsapp-float {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background-color: #25d366;
+            background: linear-gradient(135deg, #25d366, #1ebe5d);
             color: white;
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-size: 34px;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
             z-index: 1000;
             transition: var(--transition);
             text-decoration: none;
+            animation: pulseWhatsapp 2s infinite;
+        }
+
+        @keyframes pulseWhatsapp {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
 
         .whatsapp-float:hover {
@@ -501,8 +597,8 @@
 
         /* FOOTER */
         footer {
-            background-color: #0b0f19;
-            padding: 30px 5%;
+            background-color: #080b0f;
+            padding: 35px 5%;
             text-align: center;
             color: var(--text-gray);
             border-top: 1px solid rgba(255,255,255,0.05);
@@ -582,33 +678,39 @@
         </div>
         <div class="demos-grid">
             <div class="demo-card">
-                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=500&q=80" alt="Demo Restaurante" class="demo-img">
+                <div class="demo-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=500&q=80" alt="Demo Restaurante" class="demo-img">
+                </div>
                 <div class="demo-info">
                     <h3>Carta Digital / Gastronomía</h3>
                     <p>Menú interactivo con categorías, fotos atractivas y opción de pedido directo a WhatsApp.</p>
-                    <a href="#" target="_blank" class="link-demo">Ver demo interactiva <i class="fa-solid fa-external-link-alt"></i></a>
+                    <a href="#" target="_blank" class="link-demo">Ver demo interactiva <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
             <div class="demo-card">
-                <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=500&q=80" alt="Demo Corporativa" class="demo-img">
+                <div class="demo-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=500&q=80" alt="Demo Corporativa" class="demo-img">
+                </div>
                 <div class="demo-info">
                     <h3>Landing Page de Servicios</h3>
                     <p>Diseño corporativo minimalista enfocado en la conversión rápida de clientes y captación de leads.</p>
-                    <a href="#" target="_blank" class="link-demo">Ver demo interactiva <i class="fa-solid fa-external-link-alt"></i></a>
+                    <a href="#" target="_blank" class="link-demo">Ver demo interactiva <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
             <div class="demo-card">
-                <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=500&q=80" alt="Demo E-commerce" class="demo-img">
+                <div class="demo-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=500&q=80" alt="Demo E-commerce" class="demo-img">
+                </div>
                 <div class="demo-info">
                     <h3>Catálogo de Productos</h3>
                     <p>Vitrina de productos optimizada para que tus clientes elijan y coticen vía chat en segundos.</p>
-                    <a href="#" target="_blank" class="link-demo">Ver demo interactiva <i class="fa-solid fa-external-link-alt"></i></a>
+                    <a href="#" target="_blank" class="link-demo">Ver demo interactiva <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECCIÓN DE PREGUNTAS FRECUENTES (FAQ DESPLEGABLE) -->
+    <!-- SECCIÓN DE PREGUNTAS FRECUENTES (FAQ ACORDEÓN) -->
     <section id="faq" class="faq">
         <div class="section-title">
             <h2>Preguntas Frecuentes</h2>
@@ -699,7 +801,7 @@
         <p>&copy; 2026 Tu Pyme Conectada. Todos los derechos reservados. Sitios web que conectan.</p>
     </footer>
 
-    <!-- JAVASCRIPT PARA EL ACORDEÓN DE FAQ Y VALIDACIÓN BÁSICA -->
+    <!-- JAVASCRIPT -->
     <script>
         // Acordeón de Preguntas Frecuentes
         const faqItems = document.querySelectorAll('.faq-item');
@@ -707,18 +809,16 @@
         faqItems.forEach(item => {
             const questionBtn = item.querySelector('.faq-question');
             questionBtn.addEventListener('click', () => {
-                // Cierra los demás
                 faqItems.forEach(otherItem => {
                     if (otherItem !== item) {
                         otherItem.classList.remove('active');
                     }
                 });
-                // Alterna el actual
                 item.classList.toggle('active');
             });
         });
 
-        // Simulación de envío de formulario directo a WhatsApp
+        // Envío de formulario directo a WhatsApp
         const form = document.getElementById('formContacto');
         form.addEventListener('submit', (e) => {
             e.preventDefault();
