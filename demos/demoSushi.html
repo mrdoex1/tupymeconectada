@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Sushimanía - Carta Digital</title>
+  
+  <!-- FontAwesome para íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    :root {
+  --primary-color: #e63946;
+  --primary-hover: #d62828;
+  --dark-color: #1a1a1a;
+  --bg-color: #f8f9fa;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --border-radius: 14px;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding-bottom: 90px; /* Espacio para la barra flotante inferior */
+}
+
+/* HEADER RESPONSIVO */
+.header {
+  background-image: url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1200&q=80');
+  background-size: cover;
+  background-position: center;
+  height: 150px;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .header {
+    height: 200px;
+  }
+}
+
+.header-overlay {
+  background: rgba(0, 0, 0, 0.7);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 0 15px;
+}
+
+.logo-icon {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 4px;
+}
+
+.logo-container h1 {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  font-weight: 800;
+}
+
+.logo-container p {
+  font-size: 0.85rem;
+  color: #ddd;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: -20px auto 0 auto;
+  padding: 0 15px;
+}
+
+.section-title {
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+  color: var(--dark-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* CHIPS DE FILTRO (STICKY & DESLIZABLE CORREGIDOS) */
+.chips-wrapper {
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-color);
+  z-index: 10;
+  padding: 12px 0;
+  margin: 0 -15px; /* Compensa el padding del .container para extenderse de borde a borde */
+}
+
+.category-chips {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 4px 15px; /* Le otorga margen interno a los extremos (izq y der) */
+  scroll-padding-left: 15px;
+  scroll-padding-right: 15px;
+}
+
+.category-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  color: var(--dark-color);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.chip.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+/* PRODUCT GRID RESPONSIVO */
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+@media (min-width: 550px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 850px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+
+.card.hidden {
+  display: none !important;
+}
+
+.card-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.card-content h3 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+  color: var(--dark-color);
+  font-weight: 700;
+}
+
+.description {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 12px;
+  line-height: 1.35;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.price {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--dark-color);
+}
+
+/* CONTROLES DE CANTIDAD EN LA TARJETA */
+.card-actions {
+  display: flex;
+  align-items: center;
+}
+
+.btn-add {
+  background-color: var(--dark-color);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.2s;
+}
+
+.btn-add:active {
+  background-color: var(--primary-color);
+}
+
+.qty-controls-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f3f5;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.btn-qty {
+  background: white;
+  border: 1px solid #ddd;
+  color: var(--dark-color);
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty-number {
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* BARRA FLOTANTE INFERIOR DE TOTAL Y VER PEDIDO */
+.floating-bar {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 30px);
+  max-width: 600px;
+  background-color: var(--dark-color);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 99;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.floating-bar:active {
+  transform: translateX(-50%) scale(0.98);
+}
+
+.floating-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.floating-badge {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.floating-total {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.floating-btn-text {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #25d366;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* MODAL DE RESUMEN Y CHECKOUT */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* En móvil sube desde abajo estilo Sheet */
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+@media (min-width: 600px) {
+  .modal-overlay {
+    align-items: center;
+    padding: 20px;
+  }
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 550px;
+  max-height: 90vh;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@media (min-width: 600px) {
+  .modal-card {
+    border-radius: 16px;
+    transform: translateY(20px);
+  }
+}
+
+.modal-overlay.active .modal-card {
+  transform: translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 12px;
+  margin-bottom: 15px;
+}
+
+.modal-header h2 {
+  font-size: 1.25rem;
+  color: var(--dark-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-close-modal {
+  background: #f1f3f5;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  color: #666;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-cart-items {
+  max-height: 220px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.modal-cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed #f0f0f0;
+}
+
+.modal-cart-item-info {
+  font-size: 0.9rem;
+}
+
+.modal-cart-item-title {
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.modal-cart-item-sub {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.summary-box {
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--dark-color);
+}
+
+.summary-row .total-price {
+  color: var(--primary-color);
+}
+
+/* FORMULARIO DENTRO DEL MODAL */
+.order-form .form-group {
+  margin-bottom: 12px;
+}
+
+.order-form label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.order-form input[type="text"],
+.order-form select,
+.order-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background-color: #fff;
+  -webkit-appearance: none;
+}
+
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.checkbox-label {
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary-color);
+}
+
+.btn-whatsapp-submit {
+  width: 100%;
+  background-color: #25d366;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  transition: background 0.2s;
+}
+
+.btn-whatsapp-submit:active {
+  background-color: #1eb854;
+}
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-overlay">
+      <div class="logo-container">
+        <i class="fa-solid fa-utensils logo-icon"></i>
+        <h1>SUSHIMANÍA</h1>
+        <p>Rolls Premium & Comida Japonesa</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="container">
+
+    <!-- BARRA FIX DE CHIPS -->
+    <div class="chips-wrapper">
+      <div class="category-chips">
+        <button class="chip active" onclick="filterCategory('all', this)">
+          <i class="fa-solid fa-border-all"></i> Todos
+        </button>
+        <button class="chip" onclick="filterCategory('promos', this)">
+          <i class="fa-solid fa-fire"></i> Promos
+        </button>
+        <button class="chip" onclick="filterCategory('rolls', this)">
+          <i class="fa-solid fa-sun"></i> Rolls
+        </button>
+        <button class="chip" onclick="filterCategory('hot-rolls', this)">
+          <i class="fa-solid fa-pepper-hot"></i> Hot Rolls
+        </button>
+        <button class="chip" onclick="filterCategory('entradas', this)">
+          <i class="fa-solid fa-bowl-food"></i> Entradas
+        </button>
+        <button class="chip" onclick="filterCategory('bebidas', this)">
+          <i class="fa-solid fa-bottle-water"></i> Bebidas
+        </button>
+      </div>
+    </div>
+
+    <!-- PARRILLA DE PRODUCTOS -->
+    <section class="products-grid">
+
+      <!-- PROMOS -->
+      <article class="card" data-category="promos" data-name="Promo Sushimanía (30 pzas)" data-price="16900">
+        <img src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&w=600&q=80" alt="Promo 30 pzas" class="card-img" />
+        <div class="card-content">
+          <h3>Promo Sushimanía (30 pzas)</h3>
+          <p class="description">10 Avocado + 10 Ebi Panko + 10 California. Ideal para 2 personas.</p>
+          <div class="card-footer">
+            <span class="price">$16.900</span>
+            <div class="card-actions" id="action-Promo Sushimanía (30 pzas)">
+              <button class="btn-add" onclick="addToCart('Promo Sushimanía (30 pzas)', 16900)">
+                <i class="fa-solid fa-cart-plus"></i> Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-category="promos" data-name="Promo Hot Lover (20 pzas)" data-price="12500">
+        <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=600&q=80" alt="Promo Hot 20 pzas" class="card-img" />
+        <div class="card-content">
+          <h3>Promo Hot Lover (20 pzas)</h3>
+          <p class="description">10 Hot Salmón + 10 Hot Pollo Teriyaki. 100% fritos y crujientes.</p>
+          <div class="card-footer">
+            <span class="price">$12.500</span>
+            <div class="card-actions" id="action-Promo Hot Lover (20 pzas)">
+              <button class="btn-add" onclick="addToCart('Promo Hot Lover (20 pzas)', 12500)">
+                <i class="fa-solid fa-cart-plus"></i> Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ROLLS TRADICIONALES -->
+      <article class="card" data-category="rolls" data-name="Avocado Roll (10 pzas)" data-price="6900">
+        <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=600&q=80" alt="Avocado Roll" class="card-img" />
+        <div class="card-content">
+          <h3>Avocado Roll (10 pzas)</h3>
+          <p class="description">Salmón, queso crema y palta. Envuelto en ciboulette o sésamo.</p>
+          <div class="card-footer">
+            <span class="price">$6.900</span>
+            <div class="card-actions" id="action-Avocado Roll (10 pzas)">
+              <button class="btn-add" onclick="addToCart('Avocado Roll (10 pzas)', 6900)">
+                <i class="fa-solid fa-cart-plus"></i> Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-category="rolls" data-name="Ebi Tempura Roll (10 pzas)" data-price="7500">
+        <img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=600&q=80" alt="Ebi Tempura Roll" class="card-img" />
+        <div class="card-content">
+          <h3>Ebi Tempura Roll (10 pzas)</h3>
+          <p class="description">Camarón apanado, queso crema y ciboulette envuelto en palta.</p>
+          <div class="card-footer">
+            <span class="price">$7.500</span>
+            <div class="card-actions" id="action-Ebi Tempura Roll (10 pzas)">
+              <button class="btn-add" onclick="addToCart('Ebi Tempura Roll (10 pzas)', 7500)">
+                <i class="fa-solid fa-cart-plus"></i> Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- HOT ROLLS -->
+      <article class="card" data-category="hot-rolls" data-name="Hot Roll Salmón (10 pzas)" data-price="7200">
+        <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80" alt="Hot Roll" class="card-img" />
+        <div class="card-content">
+          <h3>Hot Roll Salmón (10 pzas)</h3>
+          <p class="description">Frito en tempura panko. Salmón, queso crema y ciboulette.</p>
+          <div class="card-footer">
+            <span class="price">$7.200</span>
+            <div class="card-actions" id="action-Hot Roll Salmón (10 pzas)">
+              <button class="btn-add" onclick="addToCart('Hot Roll Salmón (10 pzas)', 7200)">
+                <i class="fa-solid fa-cart-plus"></i> Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-category="hot-rolls" data-name="Hot Tori Roll (10 pzas)" data-price="6800">
+        <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=600&q=80" alt="Hot Tori Roll" class="card-img" />
+        <div class="card-content">
+          <h3>Hot Tori Roll (10 pzas)</h3>
+          <p class="description">Pollo apanado, queso crema y pimentón salteado en panko.</p>
+          <div class="card-footer">
+            <span class="price">$6.800</span>
+            <div class="card-actions" id="action-Hot Tori Roll (10 pzas)">
+              <button class="btn-add" onclick="addToCart('Hot Tori Roll (10 pzas)', 6800)">
+                <i class="fa-solid fa-cart-plus"></i> Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ENTRADAS -->
+      <article class="card" data-category="entradas" data-name="Gyosas de Cerdo (5 pzas)" data-price="3900">
+        <img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=600&q=80" alt="Gyosas" class="card-img" />
+        <div class="card-content">
+          <h3>Gyosas de Cerdo (5 pzas)</h3>
+          <p class="description">Empanaditas japonesas al vapor selladas a la plancha.</p>
+          <div class="card-footer">
+            <span class="price">$3.900</span>
+            <div class="card-actions" id="action-Gyosas de Cerdo (5 pzas)">
+              <button class="btn-add" onclick="addToCart('Gyosas de Cerdo (5 pzas)', 3900)">
+                <i class="fa-solid fa-cart-plus"></i> Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-category="entradas" data-name="Ebi Furai (5 pzas)" data-price="4900">
+        <img src="https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=600&q=80" alt="Ebi Furai" class="card-img" />
+        <div class="card-content">
+          <h3>Ebi Furai (5 pzas)</h3>
+          <p class="description">Camarones ecuatorianos apanados en panko con salsa teriyaki.</p>
+          <div class="card-footer">
+            <span class="price">$4.900</span>
+            <div class="card-actions" id="action-Ebi Furai (5 pzas)">
+              <button class="btn-add" onclick="addToCart('Ebi Furai (5 pzas)', 4900)">
+                <i class="fa-solid fa-cart-plus"></i> Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- BEBIDAS -->
+      <article class="card" data-category="bebidas" data-name="Coca-Cola Original (1.5L)" data-price="2500">
+        <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80" alt="Coca-Cola Original" class="card-img" />
+        <div class="card-content">
+          <h3>Coca-Cola Original (1.5L)</h3>
+          <p class="description">Formato familiar en botella para compartir.</p>
+          <div class="card-footer">
+            <span class="price">$2.500</span>
+            <div class="card-actions" id="action-Coca-Cola Original (1.5L)">
+              <button class="btn-add" onclick="addToCart('Coca-Cola Original (1.5L)', 2500)">
+                <i class="fa-solid fa-cart-plus"></i> Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-category="bebidas" data-name="Bebida en Lata (350ml)" data-price="1500">
+        <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80" alt="Lata 350ml" class="card-img" />
+        <div class="card-content">
+          <h3>Bebida en Lata (350ml)</h3>
+          <p class="description">Opción individual: Coca-Cola, Sprite, Fanta o Zero.</p>
+          <div class="card-footer">
+            <span class="price">$1.500</span>
+            <div class="card-actions" id="action-Bebida en Lata (350ml)">
+              <button class="btn-add" onclick="addToCart('Bebida en Lata (350ml)', 1500)">
+                <i class="fa-solid fa-cart-plus"></i> Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+  </main>
+
+  <!-- BARRA FLOTANTE PERMANENTE -->
+  <div id="floating-bar" class="floating-bar" style="display: none;" onclick="openModal()">
+    <div class="floating-info">
+      <span class="floating-badge">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <span id="floating-count">0</span>
+      </span>
+      <span id="floating-total" class="floating-total">$0</span>
+    </div>
+    <div class="floating-btn-text">
+      <span>Ver Pedido</span>
+      <i class="fa-solid fa-chevron-right"></i>
+    </div>
+  </div>
+
+  <!-- MODAL DE PEDIDO Y FORMULARIO -->
+  <div id="order-modal" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-bag-shopping"></i> Resumen de Pedido</h2>
+        <button class="btn-close-modal" onclick="closeModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- ÍTEMS DEL CARRITO EN MODAL -->
+      <div id="modal-cart-items" class="modal-cart-items">
+        <!-- Generado dinámicamente -->
+      </div>
+
+      <!-- TOTAL EN MODAL -->
+      <div class="summary-box">
+        <div class="summary-row">
+          <span>Total a pagar:</span>
+          <span id="modal-total" class="total-price">$0</span>
+        </div>
+      </div>
+
+      <!-- FORMULARIO DE DATOS -->
+      <form id="order-form" class="order-form">
+        <div class="form-group">
+          <label for="tipo-entrega"><i class="fa-solid fa-motorcycle"></i> Tipo de Entrega:</label>
+          <select id="tipo-entrega" onchange="toggleDireccion()">
+            <option value="Delivery">Delivery a domicilio</option>
+            <option value="Retiro">Retiro en local</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="nombre"><i class="fa-solid fa-user"></i> Tu Nombre:</label>
+          <input type="text" id="nombre" placeholder="Ej: Juan Pérez" required />
+        </div>
+
+        <div class="form-group" id="group-direccion">
+          <label for="direccion"><i class="fa-solid fa-location-dot"></i> Dirección de Entrega:</label>
+          <input type="text" id="direccion" placeholder="Calle, número, depto / comuna" />
+        </div>
+
+        <!-- SALSAS Y PALITOS -->
+        <div class="form-group">
+          <label><i class="fa-solid fa-jar"></i> Salsas e Insumos Incluidos:</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="salsa-soya" checked /> Salsa Soya
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="salsa-teriyaki" checked /> Teriyaki
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="palitos" checked /> Palitos
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="comentarios"><i class="fa-solid fa-comment"></i> Notas o Indicaciones:</label>
+          <textarea id="comentarios" rows="2" placeholder="Ej: Sin cebollín, timbre averiado..."></textarea>
+        </div>
+
+        <button type="button" class="btn-whatsapp-submit" onclick="sendToWhatsApp()">
+          <i class="fa-brands fa-whatsapp"></i> Confirmar Pedido por WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const PHONE_NUMBER = "56959909150"; 
+    let cart = [];
+
+    // FILTRADO DE CATEGORÍAS (CHIPS)
+    function filterCategory(category, element) {
+      const chips = document.querySelectorAll('.chip');
+      chips.forEach(chip => chip.classList.remove('active'));
+      element.classList.add('active');
+
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        if (category === 'all' || cardCategory === category) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // AGREGAR AL CARRITO
+    function addToCart(name, price) {
+      const item = cart.find(i => i.name === name);
+      if (item) {
+        item.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+      updateState();
+    }
+
+    // DISMINUIR O QUITAR DEL CARRITO
+    function changeQty(name, delta) {
+      const item = cart.find(i => i.name === name);
+      if (!item) return;
+
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        cart = cart.filter(i => i.name !== name);
+      }
+      updateState();
+    }
+
+    // ACTUALIZAR ESTADO DE CADA TARJETA Y BARRA FLOTANTE
+    function updateState() {
+      // 1. Actualizar botones en las tarjetas de productos
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const name = card.getAttribute('data-name');
+        const price = parseInt(card.getAttribute('data-price'));
+        const actionContainer = document.getElementById(`action-${name}`);
+        const itemInCart = cart.find(i => i.name === name);
+
+        if (actionContainer) {
+          if (itemInCart && itemInCart.quantity > 0) {
+            actionContainer.innerHTML = `
+              <div class="qty-controls-card">
+                <button class="btn-qty" onclick="changeQty('${name}', -1)">-</button>
+                <span class="qty-number">${itemInCart.quantity}</span>
+                <button class="btn-qty" onclick="changeQty('${name}', 1)">+</button>
+              </div>
+            `;
+          } else {
+            actionContainer.innerHTML = `
+              <button class="btn-add" onclick="addToCart('${name}', ${price})">
+                <i class="fa-solid fa-cart-plus"></i> Agregar
+              </button>
+            `;
+          }
+        }
+      });
+
+      // 2. Calcular totales generales
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+      // 3. Actualizar la Barra Flotante Inferior
+      const floatingBar = document.getElementById('floating-bar');
+      const floatingCount = document.getElementById('floating-count');
+      const floatingTotal = document.getElementById('floating-total');
+
+      if (totalCount > 0) {
+        floatingBar.style.display = 'flex';
+        floatingCount.textContent = totalCount;
+        floatingTotal.textContent = `$${totalPrice.toLocaleString('es-CL')}`;
+      } else {
+        floatingBar.style.display = 'none';
+        closeModal(); // si borra todo estando el modal abierto
+      }
+
+      // 4. Actualizar vista de lista dentro del Modal
+      updateModalUI(totalPrice);
+    }
+
+    // ACTUALIZAR CONTENIDO DENTRO DEL MODAL
+    function updateModalUI(totalPrice) {
+      const modalCartItems = document.getElementById('modal-cart-items');
+      const modalTotal = document.getElementById('modal-total');
+
+      if (cart.length === 0) {
+        modalCartItems.innerHTML = '<p style="text-align:center; color:#888; padding:15px;">Tu pedido está vacío.</p>';
+        modalTotal.textContent = '$0';
+        return;
+      }
+
+      modalCartItems.innerHTML = '';
+      cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        const div = document.createElement('div');
+        div.className = 'modal-cart-item';
+        div.innerHTML = `
+          <div class="modal-cart-item-info">
+            <div class="modal-cart-item-title">${item.name}</div>
+            <div class="modal-cart-item-sub">$${item.price.toLocaleString('es-CL')} c/u</div>
+          </div>
+          <div class="qty-controls-card">
+            <button class="btn-qty" onclick="changeQty('${item.name}', -1)">-</button>
+            <span class="qty-number">${item.quantity}</span>
+            <button class="btn-qty" onclick="changeQty('${item.name}', 1)">+</button>
+          </div>
+        `;
+        modalCartItems.appendChild(div);
+      });
+
+      modalTotal.textContent = `$${totalPrice.toLocaleString('es-CL')}`;
+    }
+
+    // CONTROL DEL MODAL
+    function openModal() {
+      if (cart.length === 0) return;
+      document.getElementById('order-modal').classList.add('active');
+      document.body.style.overflow = 'hidden'; // Previene scroll del fondo
+    }
+
+    function closeModal() {
+      document.getElementById('order-modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOnOverlay(event) {
+      if (event.target.classList.contains('modal-overlay')) {
+        closeModal();
+      }
+    }
+
+    function toggleDireccion() {
+      const tipoEntrega = document.getElementById('tipo-entrega').value;
+      const groupDireccion = document.getElementById('group-direccion');
+      groupDireccion.style.display = (tipoEntrega === 'Retiro') ? 'none' : 'block';
+    }
+
+    // ENVÍO A WHATSAPP
+function sendToWhatsApp() {
+  if (cart.length === 0) {
+    alert("Agrega productos al carrito antes de continuar.");
+    return;
+  }
+
+  const nombre = document.getElementById('nombre').value.trim();
+  const tipoEntrega = document.getElementById('tipo-entrega').value;
+  const direccion = document.getElementById('direccion').value.trim();
+  const comentarios = document.getElementById('comentarios').value.trim();
+
+  if (!nombre) {
+    alert("Por favor ingresa tu nombre.");
+    return;
+  }
+
+  if (tipoEntrega === 'Delivery' && !direccion) {
+    alert("Por favor ingresa la dirección para la entrega.");
+    return;
+  }
+
+  const soya = document.getElementById('salsa-soya').checked ? "Sí" : "No";
+  const teriyaki = document.getElementById('salsa-teriyaki').checked ? "Sí" : "No";
+  const palitos = document.getElementById('palitos').checked ? "Sí" : "No";
+
+  let total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+
+  // Construcción limpia usando \n explícitos para evitar conflictos con los emojis
+  let message = `🍱 *NUEVO PEDIDO - SUSHIMANÍA*\n\n`;
+  message += `👤 *Cliente:* ${nombre}\n`;
+  message += `🛵 *Tipo de Entrega:* ${tipoEntrega}\n`;
+
+  if (tipoEntrega === 'Delivery') {
+    message += `📍 *Dirección:* ${direccion}\n`;
+  }
+
+  message += `\n🛒 *DETALLE DEL PEDIDO:*\n`;
+
+  cart.forEach(item => {
+    message += `• ${item.name} x${item.quantity} -$${(item.price * item.quantity).toLocaleString('es-CL')}\n`;
+  });
+
+  message += `\n🥢 *SALSAS E INSUMOS:*\n`;
+  message += `• Salsa Soya: ${soya}\n`;
+  message += `• Salsa Teriyaki: ${teriyaki}\n`;
+  message += `• Palitos: ${palitos}\n`;
+
+  if (comentarios) {
+    message += `\n📝 *Notas:* ${comentarios}\n`;
+  }
+
+  message += `\n💰 *TOTAL A PAGAR:* $${total.toLocaleString('es-CL')}`;
+
+  // Se codifica toda la cadena de texto adecuadamente
+  const encodedMessage = encodeURIComponent(message);
+  
+  // Usamos api.whatsapp.com para mejor compatibilidad multiplataforma
+  window.open(`https://api.whatsapp.com/send?phone=${PHONE_NUMBER}&text=${encodedMessage}`, '_blank');
+}
+  </script>
+</body>
+</html>
