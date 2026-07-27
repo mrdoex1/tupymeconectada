@@ -53,14 +53,27 @@
         }
 
         .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        /* CONTROL ESTRICTO DE TAMAÑO PARA LA IMAGEN DEL HEADER */
+        .logo-img {
+            height: 100px; /* Controla la altura exacta para que no se vea gigante */
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
             font-weight: 800;
             font-size: 1.25rem;
             color: var(--text-main);
-            text-decoration: none;
             letter-spacing: -0.5px;
         }
 
-        .logo-container span {
+        .logo-text span {
             color: var(--primary);
         }
 
@@ -115,7 +128,7 @@
             box-shadow: 0 0 20px var(--primary-glow);
         }
 
-        /* HERO ALTERNATIVO (TIPO EDITORIAL / CENTRADO LIMPIO) */
+        /* HERO EDITORIAL & DIRECTO */
         .hero {
             position: relative;
             padding: 180px 6% 100px 6%;
@@ -200,7 +213,7 @@
             color: var(--primary);
         }
 
-        /* BARRA DE CONFIANZA / ATRIBUTOS REALES (SIN INVENTAR CLIENTES) */
+        /* BARRA DE CONFIANZA */
         .trust-bar {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -569,9 +582,12 @@
 </head>
 <body>
 
-    <!-- HEADER MINIMALISTA -->
+    <!-- HEADER MINIMALISTA CON IMAGEN AJUSTADA -->
     <header>
-        <a href="#" class="logo-container">Tu Pyme<span>Conectada</span></a>
+        <a href="#" class="logo-container">
+            <!-- Reemplaza 'logo.png' por la ruta o URL de tu imagen -->
+            <img src="recursos/imagenes/logoTPC.png" alt="Logo Tu Pyme Conectada" class="logo-img">
+        </a>
         <ul class="nav-links">
             <li><a href="#servicios">Servicios</a></li>
             <li><a href="#demos">Demos</a></li>
@@ -595,7 +611,7 @@
             <a href="#demos" class="btn-outline">Ver ejemplos</a>
         </div>
 
-        <!-- BARRA DE ATRIBUTOS REALES (Sin clientes falsos) -->
+        <!-- BARRA DE ATRIBUTOS REALES -->
         <div class="trust-bar">
             <div class="trust-item">
                 <h4><i class="fa-solid fa-bolt"></i> Velocidad</h4>
