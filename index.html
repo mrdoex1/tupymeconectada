@@ -450,8 +450,14 @@
         /* TARJETAS CON EFECTO LUMINOSO DINÁMICO */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 25px;
+        }
+
+        @media(min-width: 1025px) {
+            .services-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
 
         .service-card {
@@ -918,7 +924,7 @@
                 <div class="service-card">
                     <div>
                         <i class="fa-solid fa-laptop-code"></i>
-                        <h3>Landing Pages de Venta</h3>
+                        <h3>Tu propia Web</h3>
                         <p>Páginas de alto impacto ideales para captar clientes rápidamente y mostrar los beneficios de tu servicio o producto.</p>
                     </div>
                 </div>
@@ -931,9 +937,16 @@
                 </div>
                 <div class="service-card">
                     <div>
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <h3>Tienda Online (Carrito)</h3>
+                        <p>Plataformas de e-commerce ágiles con selección de productos y medios de pago integrados.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div>
                         <i class="fa-brands fa-whatsapp"></i>
-                        <h3>Integración de Chat</h3>
-                        <p>Botones flotantes y flujos listos para que los interesados te escriban directo al WhatsApp de tu negocio sin fricción.</p>
+                        <h3>Integración botón de WhatsApp</h3>
+                        <p>Boton flotante y flujos listos para que los interesados te escriban directo al WhatsApp de tu negocio sin fricción.</p>
                     </div>
                 </div>
             </div>
