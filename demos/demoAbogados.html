@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexVeritas | Firma Jurídica & Consultoría Estratégica</title>
+    <!-- Google Fonts: Cinzel (Autoridad y prestigio) y Montserrat (Claridad contemporánea) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #192231;      /* Azul marino profundo y solemne */
+            --secondary: #C5A059;    /* Dorado clásico refinado */
+            --accent-gradient: linear-gradient(135deg, #192231 0%, #2A3B52 100%);
+            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+            --bg-main: #0B111A;      /* Fondo oscuro elegante y moderno */
+            --card-bg: #131B26;      /* Superficie de tarjeta sobria */
+            --text-light: #F3F4F6;   /* Texto claro principal */
+            --text-muted: #9CA3AF;   /* Texto secundario gris suave */
+            --radius-smooth: 24px;   /* Secciones y tarjetas con bordes redondeados atractivos */
+            --radius-pill: 9999px;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            padding-top: 110px;
+        }
+
+        h1, h2, h3, h4, .logo {
+            font-family: 'Cinzel', serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- MENÚ NAVEGABLE FLOTANTE (ISLA REDONDEADA) --- */
+        .floating-nav-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            z-index: 1000;
+        }
+
+        .floating-navbar {
+            background: rgba(25, 34, 49, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 15px 35px;
+            border-radius: var(--radius-pill);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: 1px;
+        }
+
+        .logo i {
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .btn-nav {
+            background: var(--gold-gradient);
+            color: #111827 !important;
+            padding: 10px 24px !important;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.3);
+        }
+
+        .btn-nav:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(197, 160, 89, 0.5);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        /* --- HERO SECTION CON DEGRADADOS Y CONTENEDOR REDONDEADO --- */
+        .hero {
+            position: relative;
+            background: linear-gradient(rgba(11, 17, 26, 0.75), rgba(11, 17, 26, 0.9)), url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            color: var(--text-light);
+            padding: 130px 8% 110px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 75vh;
+            margin: 0 20px;
+            border-radius: var(--radius-smooth);
+            border: 1px solid rgba(197, 160, 89, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-badge {
+            background: rgba(197, 160, 89, 0.15);
+            color: var(--secondary);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            padding: 8px 22px;
+            border-radius: var(--radius-pill);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+            max-width: 900px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 span {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            margin-bottom: 40px;
+            color: var(--text-muted);
+            max-width: 700px;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-custom {
+            padding: 14px 32px;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-gold {
+            background: var(--gold-gradient);
+            color: #111827;
+            border: none;
+            box-shadow: 0 8px 25px rgba(197, 160, 89, 0.4);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(197, 160, 89, 0.6);
+        }
+
+        .btn-outline-glass {
+            background: rgba(25, 34, 49, 0.5);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline-glass:hover {
+            background: rgba(25, 34, 49, 0.9);
+            border-color: var(--secondary);
+        }
+
+        /* --- SECCIONES GENERALES CON CONTENEDORES REDONDEADOS --- */
+        section {
+            padding: 80px 5%;
+        }
+
+        .section-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #131B26, #0F1722);
+            border-radius: var(--radius-smooth);
+            padding: 70px 50px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title h2 {
+            font-size: 2.6rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            font-weight: 300;
+        }
+
+        /* --- ESPECIALIDADES (TARJETAS DE PRÁCTICA REDONDEADAS Y ATRACTIVAS) --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: rgba(19, 27, 38, 0.7);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gold-gradient);
+            transform: scaleX(0);
+            transition: var(--transition);
+            transform-origin: left;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(197, 160, 89, 0.3);
+            background: rgba(25, 34, 49, 0.9);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .icon-box {
+            width: 65px;
+            height: 65px;
+            background: rgba(197, 160, 89, 0.1);
+            color: var(--secondary);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .service-link {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .service-link:hover {
+            color: var(--text-light);
+            gap: 12px;
+        }
+
+        /* --- SECCIÓN ACERCA DE LA FIRMA (DISEÑO DOS COLUMNAS REDONDEADO) --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.6rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        .about-image-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            height: 420px;
+        }
+
+        .about-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(105%) saturate(90%);
+            transition: var(--transition);
+        }
+
+        .about-image-wrapper:hover img {
+            transform: scale(1.03);
+        }
+
+        /* --- UBICACIÓN Y MAPA --- */
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .location-info h3 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--text-light);
+        }
+
+        .location-details li {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            align-items: flex-start;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .location-details i {
+            color: var(--secondary);
+            font-size: 1.3rem;
+            background: rgba(197, 160, 89, 0.1);
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 380px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: invert(90%) hue-rotate(180deg) contrast(110%);
+        }
+
+        /* --- FOOTER REDONDEADO --- */
+        footer {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            background: linear-gradient(145deg, #131B26, #090E17);
+            border-radius: var(--radius-smooth);
+            padding: 60px 50px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col h4 {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-col p, .footer-col li a {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .footer-col li a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icons a:hover {
+            background: var(--secondary);
+            color: #111827;
+            border-color: var(--secondary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        /* --- BOTÓN FLOTANTE WHATSAPP (ESTILO PASTILLA REDONDEADA) --- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #FFFFFF;
+            padding: 14px 26px;
+            border-radius: var(--radius-pill);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-float i {
+            font-size: 1.4rem;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 75px;
+                left: 0;
+                width: 100%;
+                background: rgba(19, 27, 38, 0.98);
+                backdrop-filter: blur(20px);
+                padding: 30px;
+                border-radius: 24px;
+                border: 1px solid rgba(197, 160, 89, 0.2);
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+
+            .hero {
+                margin: 0 10px;
+                padding: 100px 5% 80px;
+            }
+
+            .section-wrapper {
+                padding: 40px 20px;
+            }
+
+            .about-grid, .location-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                margin: 0 10px 30px;
+                padding: 40px 25px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENÚ NAVEGABLE FLOTANTE -->
+    <div class="floating-nav-container">
+        <nav class="floating-navbar">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-scale-balanced"></i> LexVeritas
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#especialidades">Especialidades</a></li>
+                <li><a href="#firma">La Firma</a></li>
+                <li><a href="#ubicacion">Ubicación</a></li>
+                <li><a href="#contacto" class="btn-nav">Agendar Consulta</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- HERO SECTION CON DEGRADADOS -->
+    <section class="hero">
+        <div class="hero-badge">
+            <i class="fa-solid fa-shield-halved"></i> Excelencia y Probidad Jurídica
+        </div>
+        <h1>Defensa Estratégica con <span>Rigor y Prestigio</span></h1>
+        <p>Asesoría jurídica de alto nivel y representación judicial especializada para proteger su patrimonio, su familia y sus proyectos empresariales con absoluta discreción.</p>
+        <div class="hero-buttons">
+            <a href="#contacto" class="btn-custom btn-gold"><i class="fa-solid fa-calendar-check"></i> Agendar Consulta</a>
+            <a href="#especialidades" class="btn-custom btn-outline-glass">Áreas de Práctica</a>
+        </div>
+    </section>
+
+    <!-- ÁREAS DE PRÁCTICA -->
+    <section id="especialidades">
+        <div class="section-wrapper">
+            <div class="section-title">
+                <h2>Áreas de Práctica</h2>
+                <p>Especialistas altamente calificados en las distintas ramas del derecho para una defensa integral y robusta.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-house-chimney-user"></i>
+                    </div>
+                    <h3>Derecho de Familia</h3>
+                    <p>Mediación, divorcios de mutuo acuerdo o contenciosos, pensiones alimenticias, régimen de visitas y protección patrimonial con un enfoque humano y confidencial.</p>
+                    <a href="#contacto" class="service-link">Consultar caso <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-gavel"></i>
+                    </div>
+                    <h3>Derecho Penal</h3>
+                    <p>Defensa y querellas en juicios orales, delitos económicos, fraudes corporativos, responsabilidad penal y asistencia jurídica especializada 24/7.</p>
+                    <a href="#contacto" class="service-link">Consultar caso <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-building-shield"></i>
+                    </div>
+                    <h3>Derecho Corporativo</h3>
+                    <p>Constitución de sociedades, fusiones y adquisiciones, cumplimiento normativo (compliance), contratos comerciales y resolución de disputas mercantiles.</p>
+                    <a href="#contacto" class="service-link">Consultar caso <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE LA FIRMA -->
+    <section id="firma">
+        <div class="section-wrapper">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>Compromiso, Integridad y Trayectoria</h2>
+                    <p>En LexVeritas entendemos que cada conflicto legal requiere una estrategia procesal personalizada y precisa. Nuestro equipo está compuesto por abogados litigantes y consultores con destacada trayectoria en tribunales.</p>
+                    <p>Nos distingue la comunicación transparente, el análisis doctrinal riguroso y la defensa implacable de los derechos e intereses de nuestros representados.</p>
+                    <a href="#contacto" class="btn-custom btn-gold" style="margin-top: 15px;">Conozca a nuestros socios</a>
+                </div>
+                <div class="about-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80" alt="Bufete de abogados profesionales">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UBICACIÓN Y CONTACTO -->
+    <section id="ubicacion">
+        <div class="section-wrapper">
+            <div class="section-title" style="margin-bottom: 40px;">
+                <h2>Nuestras Oficinas</h2>
+                <p>Ubicados en el sector financiero de la capital para atenderle con total comodidad y discreción.</p>
+            </div>
+            <div class="location-grid">
+                <div class="location-info">
+                    <h3>Casa Matriz Santiago</h3>
+                    <ul class="location-details">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <strong>Dirección:</strong><br>
+                                Av. Vitacura 2939, Of. 902, Las Condes, Santiago.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-clock"></i>
+                            <div>
+                                <strong>Horarios de Atención:</strong><br>
+                                Lunes a Jueves: 09:00 - 18:30 hrs<br>
+                                Viernes: 09:00 - 16:30 hrs (Previa cita)
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                <strong>Contacto Directo:</strong><br>
+                                contacto@lexveritas.cl
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.345!2d-70.598!3d-33.411!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDI0JzM5LjYiUyA3MMKwMzUnNTIuOCJX!5e0!3m2!1ses!2scl!4v1620000000000!5m2!1ses!2scl" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <div class="footer-content">
+            <div class="footer-col" style="flex: 1.5;">
+                <div class="logo" style="margin-bottom: 15px;">
+                    <i class="fa-solid fa-scale-balanced"></i> LexVeritas
+                </div>
+                <p>Firma de abogados líder en asesoría corporativa, penal y familiar. Soluciones jurídicas eficaces con altos estándares de ética y profesionalismo.</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Áreas de Práctica</h4>
+                <ul>
+                    <li><a href="#especialidades">Derecho de Familia</a></li>
+                    <li><a href="#especialidades">Derecho Penal</a></li>
+                    <li><a href="#especialidades">Derecho Corporativo</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces Legales</h4>
+                <ul>
+                    <li><a href="#firma">Nuestra Firma</a></li>
+                    <li><a href="#ubicacion">Ubicación y Mapa</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 LexVeritas Abogados. Todos los derechos reservados.</p>
+            <p>Diseño corporativo de alta gama</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
+    <a href="https://wa.me/56912345678" target="_blank" class="whatsapp-float" aria-label="Escríbenos por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i> Chat Legal Inmediato
+    </a>
+
+    <!-- SCRIPT DE INTERACTIVIDAD -->
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
