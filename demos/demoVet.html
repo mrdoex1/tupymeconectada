@@ -1,0 +1,652 @@
+v
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VetCare | Clínica Veterinaria Integral</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #1E3A5F;      /* Azul petróleo / Marino suave */
+            --secondary: #52796F;    /* Verde salvia / Bienestar */
+            --accent: #E07A5F;       /* Coral cálido / Acción */
+            --bg-light: #F8F9FA;     /* Blanco roto / Fondo */
+            --text-dark: #2B2D42;    /* Texto principal */
+            --white: #FFFFFF;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- BARRA SUPERIOR (TOP BAR) --- */
+        .top-bar {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 8px 5%;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar-info, .top-bar-social {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .top-bar i {
+            color: var(--accent);
+            margin-right: 6px;
+        }
+
+        /* --- HEADER / NAVBAR --- */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .btn-nav {
+            background-color: var(--secondary);
+            color: var(--white) !important;
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .btn-nav:hover {
+            background-color: #3e5c53;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            background: linear-gradient(rgba(30, 58, 95, 0.7), rgba(30, 58, 95, 0.7)), url('https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+            color: var(--white);
+            padding: 100px 5%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #c9684d;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+
+        /* --- BLOQUE DE URGENCIAS --- */
+        .emergency-banner {
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .emergency-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 0 auto;
+        }
+
+        .emergency-content i {
+            font-size: 2rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .emergency-number {
+            background: var(--white);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* --- SECCIÓN GENERAL & SERVICIOS --- */
+        section {
+            padding: 80px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #6c757d;
+            font-size: 1.05rem;
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: var(--transition);
+            border-top: 4px solid var(--secondary);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        /* --- SECCIÓN CONFIANZA / STAFF --- */
+        .trust-section {
+            background-color: var(--white);
+        }
+
+        .trust-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .trust-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .trust-card h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .trust-card p {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        /* --- SECCIÓN UBICACIÓN Y HORARIOS --- */
+        .location-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .location-info h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .location-details {
+            margin-bottom: 20px;
+        }
+
+        .location-details li {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+
+        .location-details i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 350px;
+            border-radius: 10px;
+            background: #ddd;
+            overflow: hidden;
+            border: 2px solid #eaeaea;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 50px 5% 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* --- BOTÓN FLOTANTE WHATSAPP --- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: var(--white);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            .top-bar {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .location-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <span><i class="fa-solid fa-clock"></i> Lun - Sáb: 09:00 - 20:00 hrs</span>
+            <span><i class="fa-solid fa-location-dot"></i> Av. Providencia 1234, Santiago</span>
+        </div>
+        <div class="top-bar-social">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-paw"></i> VetCare
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#ubicacion">Ubicación</a></li>
+                <li><a href="#contacto" class="btn-nav">Agendar Cita</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Cuidado veterinario integral y cercano para los reyes de tu hogar</h1>
+            <p>Medicina preventiva, diagnósticos avanzados y profesionales apasionados por el bienestar animal en un ambiente cálido y seguro.</p>
+            <div class="hero-buttons">
+                <a href="#contacto" class="btn btn-primary"><i class="fa-solid fa-calendar-check"></i> Agendar Cita</a>
+                <a href="#servicios" class="btn btn-outline">Ver Servicios</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE DE URGENCIAS -->
+    <div class="emergency-banner">
+        <div class="emergency-content">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <div>
+                <strong>¿Emergencia Veterinaria?</strong>
+                <p>Atención inmediata para casos críticos en horario continuado.</p>
+            </div>
+        </div>
+        <a href="tel:+56912345678" class="emergency-number"><i class="fa-solid fa-phone"></i> +56 9 1234 5678</a>
+    </div>
+
+    <!-- SERVICIOS PRINCIPALES -->
+    <section id="servicios">
+        <div class="section-title">
+            <h2>Nuestros Servicios</h2>
+            <p>Soluciones médicas integrales enfocadas en la salud y felicidad de tu mascota.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fa-solid fa-stethoscope"></i>
+                <h3>Medicina General y Preventiva</h3>
+                <p>Consultas clínicas, planes de vacunación completos, desparasitación interna/externa y chequeos preventivos anuales.</p>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-syringe"></i>
+                <h3>Especialidades Clínicas</h3>
+                <p>Atención especializada en dermatología, cardiología, etología y medicina felina con profesionales certificados.</p>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-microscope"></i>
+                <h3>Diagnóstico por Imagen y Lab</h3>
+                <p>Laboratorio clínico propio, ecotomografía y rayos X digitales para diagnósticos rápidos y precisos en el mismo lugar.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CONFIANZA / STAFF -->
+    <section id="nosotros" class="trust-section">
+        <div class="section-title">
+            <h2>Comprometidos con su Bienestar</h2>
+            <p>Conoce nuestras instalaciones y al equipo médico que cuida de ellos.</p>
+        </div>
+        <div class="trust-grid">
+            <div class="trust-card">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" alt="Instalaciones">
+                <h4>Instalaciones Modernas</h4>
+                <p>Espacios limpios y separados para perros y gatos para reducir el estrés.</p>
+            </div>
+            <div class="trust-card">
+                <img src="https://img.magnific.com/fotos-premium/retrato-joven-sonriente-contra-fondo-blanco_1258-323535.jpg?semt=ais_hybrid&w=740&q=80" alt="Equipo Médico">
+                <h4>Dra. Valentina Soto</h4>
+                <p>Directora Médica y especialista en pequeños animales con más de 10 años de experiencia.</p>
+            </div>
+            <div class="trust-card">
+                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&q=80" alt="Atención personalizada">
+                <h4>Tecnología de Punta</h4>
+                <p>Equipos de última generación para asegurar diagnósticos certeros y seguros.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- UBICACIÓN Y HORARIOS -->
+    <section id="ubicacion">
+        <div class="section-title">
+            <h2>Encuéntranos</h2>
+            <p>Visítanos en nuestra clínica o ponte en contacto con nosotros.</p>
+        </div>
+        <div class="location-section">
+            <div class="location-info">
+                <h3>Clínica Veterinaria VetCare</h3>
+                <ul class="location-details">
+                    <li>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <strong>Dirección:</strong><br>
+                            Av. Providencia 1234, Santiago, Chile. (Estacionamiento disponible para clientes).
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-clock"></i>
+                        <div>
+                            <strong>Horarios de Atención:</strong><br>
+                            Lunes a Viernes: 09:00 - 20:00 hrs<br>
+                            Sábados: 10:00 - 15:00 hrs<br>
+                            Urgencias 24/7 (según disponibilidad telefónica).
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <div>
+                            <strong>Correo Electrónico:</strong><br>
+                            contacto@vetcaremock.cl
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="map-container">
+                <!-- Mapa embebido de ejemplo de Google Maps -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.4589139824636!2d-70.6152!3d-33.4268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDI1JzM2LjUiUyA3DCszNic1NC43Ilc!5e0!3m2!1ses!2scl!4v1620000000000!5m2!1ses!2scl" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <div class="footer-content">
+            <div class="logo" style="color: white;">
+                <i class="fa-solid fa-paw"></i> VetCare
+            </div>
+            <p>Sitio web informativo diseñado para el cuidado y la tranquilidad de las mascotas y sus familias.</p>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 VetCare. Todos los derechos reservados. Desarrollado con enfoque UX/UI.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
+    <a href="https://wa.me/56912345678" target="_blank" class="whatsapp-float" aria-label="Escríbenos por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPT MÍNIMO -->
+    <script>
+        // Toggle del menú móvil
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer click en un enlace (en móvil)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
