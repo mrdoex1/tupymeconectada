@@ -1,1130 +1,1347 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Tu Pyme Conectada" />
+    <meta
+      property="og:description"
+      content="Creación de sitios web modernos y funcionales para pymes"
+    />
+    <meta
+      property="og:image"
+      content="https://tupymeconectada.cl/recursos/imagenes/bannerFacebook.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tupymeconectada.cl" />
     <title>Tu Pyme Conectada | Sitios Web que Conectan</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <!-- FontAwesome para iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/x-icon" href="recursos/imagenes/favicon.png">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" type="image/x-icon" href="recursos/imagenes/favicon.png" />
     <style>
-        :root {
-            --bg-color: #090d16;
-            --surface-color: #111827;
-            --surface-glass: rgba(17, 24, 39, 0.65);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --border-glow: rgba(0, 163, 255, 0.35);
-            --primary: #00A3FF;
-            --primary-glow: rgba(0, 163, 255, 0.3);
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+      :root {
+        --bg-color: #090d16;
+        --surface-color: #111827;
+        --surface-glass: rgba(17, 24, 39, 0.65);
+        --border-color: rgba(255, 255, 255, 0.08);
+        --border-glow: rgba(0, 163, 255, 0.35);
+        --primary: #00a3ff;
+        --primary-glow: rgba(0, 163, 255, 0.3);
+        --text-main: #f3f4f6;
+        --text-muted: #9ca3af;
+        --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        scroll-behavior: smooth;
+      }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.7;
-            overflow-x: hidden;
-            position: relative;
-        }
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        line-height: 1.7;
+        overflow-x: hidden;
+        position: relative;
+      }
 
-        /* ANIMACIONES AMBIENTALES Y ORBES DE LUZ FLOTANTES */
-        .ambient-glow-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
+      /* ANIMACIONES AMBIENTALES Y ORBES DE LUZ FLOTANTES */
+      .ambient-glow-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
 
-        .ambient-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(140px);
-            opacity: 0.12;
-            animation: floatOrb 18s ease-in-out infinite alternate;
-        }
+      .ambient-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(140px);
+        opacity: 0.12;
+        animation: floatOrb 18s ease-in-out infinite alternate;
+      }
 
-        .orb-1 {
-            width: 500px;
-            height: 500px;
-            background: var(--primary);
-            top: -10%;
-            left: -10%;
-        }
+      .orb-1 {
+        width: 500px;
+        height: 500px;
+        background: var(--primary);
+        top: -10%;
+        left: -10%;
+      }
 
-        .orb-2 {
-            width: 600px;
-            height: 600px;
-            background: #0055ff;
-            bottom: -20%;
-            right: -10%;
-            animation-delay: -6s;
-        }
+      .orb-2 {
+        width: 600px;
+        height: 600px;
+        background: #0055ff;
+        bottom: -20%;
+        right: -10%;
+        animation-delay: -6s;
+      }
 
-        .orb-3 {
-            width: 400px;
-            height: 400px;
-            background: #38bdf8;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: -12s;
-            opacity: 0.06;
-        }
+      .orb-3 {
+        width: 400px;
+        height: 400px;
+        background: #38bdf8;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation-delay: -12s;
+        opacity: 0.06;
+      }
 
-        @keyframes floatOrb {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(50px, 60px) scale(1.1); }
-            100% { transform: translate(-40px, 30px) scale(0.95); }
+      @keyframes floatOrb {
+        0% {
+          transform: translate(0, 0) scale(1);
         }
-
-        /* HEADER FLOTANTE TIPO CÁPSULA LUMÍNICA */
-        header {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 1200px;
-            background: rgba(9, 13, 22, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 30px;
-            z-index: 1000;
-            border: 1px solid var(--border-color);
-            border-radius: 100px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        50% {
+          transform: translate(50px, 60px) scale(1.1);
         }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
+        100% {
+          transform: translate(-40px, 30px) scale(0.95);
         }
+      }
 
-        .logo-img {
-            height: 32px;
-            width: auto;
-            object-fit: contain;
+      /* HEADER FLOTANTE TIPO CÁPSULA LUMÍNICA */
+      header {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 1200px;
+        background: rgba(9, 13, 22, 0.75);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 30px;
+        z-index: 1000;
+        border: 1px solid var(--border-color);
+        border-radius: 100px;
+        box-shadow:
+          0 20px 40px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+
+      .logo-img {
+        height: 32px;
+        width: auto;
+        object-fit: contain;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 32px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-muted);
+        font-weight: 500;
+        font-size: 0.85rem;
+        transition: var(--transition);
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+        text-shadow: 0 0 15px var(--primary-glow);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .social-nav-icon {
+        color: var(--text-muted);
+        font-size: 1rem;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .social-nav-icon:hover {
+        color: var(--primary);
+      }
+
+      .cta-header {
+        background: var(--primary);
+        color: #000;
+        padding: 8px 22px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.8rem;
+        transition: var(--transition);
+        box-shadow: 0 0 25px var(--primary-glow);
+      }
+
+      .cta-header:hover {
+        background: #38bdf8;
+        box-shadow: 0 0 35px var(--primary);
+        transform: translateY(-1px);
+      }
+
+      /* REGLA GENERAL DE SECCIONES AL 100% DE ANCHO Y DEMARCACIÓN CLARA */
+      .full-section {
+        width: 100%;
+        position: relative;
+        z-index: 1;
+        padding: 130px 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .section-inner {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 5%;
+      }
+
+      /* HERO SECTION (ANCHO 100% CON FONDO BASE OSCURO PROFUNDO) */
+      .hero {
+        width: 100%;
+        padding: 200px 0 120px 0;
+        position: relative;
+        z-index: 1;
+        background: linear-gradient(180deg, #090d16 0%, #0d1322 100%);
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .hero-inner {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 5%;
+      }
+
+      .hero-layout {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 60px;
+        align-items: center;
+      }
+
+      .hero-badge-ambient {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(0, 163, 255, 0.08);
+        border: 1px solid var(--border-glow);
+        padding: 6px 18px;
+        border-radius: 50px;
+        color: var(--primary);
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 25px;
+        box-shadow: inset 0 0 15px rgba(0, 163, 255, 0.1);
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        background-color: var(--primary);
+        border-radius: 50%;
+        box-shadow: 0 0 12px var(--primary);
+        animation: pulse-dot 2s infinite;
+      }
+
+      @keyframes pulse-dot {
+        0% {
+          transform: scale(0.95);
+          opacity: 0.8;
         }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 32px;
+        50% {
+          transform: scale(1.25);
+          opacity: 1;
+          box-shadow: 0 0 20px var(--primary);
         }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: var(--transition);
+        100% {
+          transform: scale(0.95);
+          opacity: 0.8;
         }
+      }
 
-        .nav-links a:hover {
-            color: var(--primary);
-            text-shadow: 0 0 15px var(--primary-glow);
-        }
+      .hero h1 {
+        font-size: clamp(2.6rem, 4.8vw, 4.5rem);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 25px;
+        letter-spacing: -0.03em;
+      }
 
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+      .hero h1 span {
+        background: linear-gradient(135deg, #fff 20%, var(--primary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 40px rgba(0, 163, 255, 0.2);
+      }
 
-        .social-nav-icon {
-            color: var(--text-muted);
-            font-size: 1rem;
-            text-decoration: none;
-            transition: var(--transition);
-        }
+      .hero p {
+        font-size: clamp(1rem, 1.2vw, 1.15rem);
+        color: var(--text-muted);
+        margin-bottom: 40px;
+        line-height: 1.7;
+        font-weight: 400;
+      }
 
-        .social-nav-icon:hover {
-            color: var(--primary);
-        }
+      .hero-buttons {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
 
-        .cta-header {
-            background: var(--primary);
-            color: #000;
-            padding: 8px 22px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.8rem;
-            transition: var(--transition);
-            box-shadow: 0 0 25px var(--primary-glow);
-        }
+      .btn-main,
+      .btn-outline {
+        padding: 15px 30px;
+        border-radius: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        transition: var(--transition);
+        font-size: 0.9rem;
+      }
 
-        .cta-header:hover {
-            background: #38bdf8;
-            box-shadow: 0 0 35px var(--primary);
-            transform: translateY(-1px);
-        }
+      .btn-main {
+        background: var(--primary);
+        color: #000;
+        box-shadow: 0 10px 30px var(--primary-glow);
+      }
 
-        /* REGLA GENERAL DE SECCIONES AL 100% DE ANCHO Y DEMARCACIÓN CLARA */
-        .full-section {
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            padding: 130px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
+      .btn-main:hover {
+        background: #38bdf8;
+        box-shadow: 0 15px 40px rgba(0, 163, 255, 0.5);
+        transform: translateY(-2px);
+      }
 
-        .section-inner {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 5%;
-        }
+      .btn-outline {
+        background: var(--surface-glass);
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(15px);
+        color: var(--text-main);
+      }
 
-        /* HERO SECTION (ANCHO 100% CON FONDO BASE OSCURO PROFUNDO) */
-        .hero {
-            width: 100%;
-            padding: 200px 0 120px 0;
-            position: relative;
-            z-index: 1;
-            background: linear-gradient(180deg, #090d16 0%, #0d1322 100%);
-            border-bottom: 1px solid var(--border-color);
-        }
+      .btn-outline:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        background: rgba(17, 24, 39, 0.8);
+        box-shadow: 0 10px 30px rgba(0, 163, 255, 0.15);
+        transform: translateY(-2px);
+      }
 
-        .hero-inner {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 5%;
-        }
+      /* TARJETA HERO REFINADA */
+      .hero-benefits-card {
+        background: var(--surface-glass);
+        backdrop-filter: blur(25px);
+        border: 1px solid var(--border-color);
+        border-radius: 24px;
+        padding: 35px;
+        box-shadow:
+          0 30px 60px rgba(0, 0, 0, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+        transition: var(--transition);
+      }
 
-        .hero-layout {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 60px;
-            align-items: center;
-        }
+      .hero-benefits-card:hover {
+        border-color: var(--border-glow);
+        box-shadow:
+          0 35px 70px rgba(0, 0, 0, 0.6),
+          0 0 30px rgba(0, 163, 255, 0.15);
+      }
 
-        .hero-badge-ambient {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(0, 163, 255, 0.08);
-            border: 1px solid var(--border-glow);
-            padding: 6px 18px;
-            border-radius: 50px;
-            color: var(--primary);
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 25px;
-            box-shadow: inset 0 0 15px rgba(0, 163, 255, 0.1);
-        }
+      .hero-benefits-card h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--primary);
-            border-radius: 50%;
-            box-shadow: 0 0 12px var(--primary);
-            animation: pulse-dot 2s infinite;
-        }
+      .hero-benefits-card h3 i {
+        color: var(--primary);
+      }
 
-        @keyframes pulse-dot {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 20px var(--primary); }
-            100% { transform: scale(0.95); opacity: 0.8; }
-        }
+      .benefit-list {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
 
-        .hero h1 {
-            font-size: clamp(2.6rem, 4.8vw, 4.5rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 25px;
-            letter-spacing: -0.03em;
-        }
+      .benefit-item {
+        background: rgba(9, 13, 22, 0.6);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        transition: var(--transition);
+      }
 
-        .hero h1 span {
-            background: linear-gradient(135deg, #fff 20%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 40px rgba(0, 163, 255, 0.2);
-        }
+      .benefit-item:hover {
+        border-color: rgba(0, 163, 255, 0.3);
+        background: rgba(9, 13, 22, 0.85);
+        transform: translateX(4px);
+      }
 
-        .hero p {
-            font-size: clamp(1rem, 1.2vw, 1.15rem);
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            line-height: 1.7;
-            font-weight: 400;
-        }
+      .benefit-item i {
+        font-size: 1.1rem;
+        color: var(--primary);
+        background: rgba(0, 163, 255, 0.1);
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--border-glow);
+        flex-shrink: 0;
+      }
 
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
+      .benefit-info h4 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
 
-        .btn-main, .btn-outline {
-            padding: 15px 30px;
-            border-radius: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
+      .benefit-info p {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin: 0;
+      }
 
-        .btn-main {
-            background: var(--primary);
-            color: #000;
-            box-shadow: 0 10px 30px var(--primary-glow);
-        }
+      /* SECCIONES CON TONOS DIFERENCIADOS (CLAROS/OSCUROS) PARA MÁXIMA DEMARCACIÓN */
+      #servicios {
+        background: linear-gradient(180deg, #0d1322 0%, #060911 100%);
+        box-shadow: inset 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
 
-        .btn-main:hover {
-            background: #38bdf8;
-            box-shadow: 0 15px 40px rgba(0, 163, 255, 0.5);
-            transform: translateY(-2px);
-        }
+      #demos {
+        background: linear-gradient(180deg, #060911 0%, #111a2e 100%);
+        box-shadow: inset 0 15px 30px rgba(0, 0, 0, 0.4);
+      }
 
-        .btn-outline {
-            background: var(--surface-glass);
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(15px);
-            color: var(--text-main);
-        }
+      #faq {
+        background: linear-gradient(180deg, #111a2e 0%, #090d16 100%);
+        box-shadow: inset 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
 
-        .btn-outline:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            background: rgba(17, 24, 39, 0.8);
-            box-shadow: 0 10px 30px rgba(0, 163, 255, 0.15);
-            transform: translateY(-2px);
-        }
+      #contacto {
+        background: linear-gradient(180deg, #090d16 0%, #04060a 100%);
+        box-shadow: inset 0 15px 30px rgba(0, 0, 0, 0.5);
+      }
 
-        /* TARJETA HERO REFINADA */
-        .hero-benefits-card {
-            background: var(--surface-glass);
-            backdrop-filter: blur(25px);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 35px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition);
-        }
+      .section-header {
+        margin-bottom: 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
 
-        .hero-benefits-card:hover {
-            border-color: var(--border-glow);
-            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 163, 255, 0.15);
-        }
+      .section-title-group h2 {
+        font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-top: 8px;
+      }
 
-        .hero-benefits-card h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+      .section-tag {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+      }
 
-        .hero-benefits-card h3 i {
-            color: var(--primary);
-        }
+      .section-header p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        max-width: 360px;
+        text-align: right;
+      }
 
-        .benefit-list {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
+      /* TARJETAS CON EFECTO LUMINOSO DINÁMICO */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+      }
 
-        .benefit-item {
-            background: rgba(9, 13, 22, 0.6);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: var(--transition);
-        }
-
-        .benefit-item:hover {
-            border-color: rgba(0, 163, 255, 0.3);
-            background: rgba(9, 13, 22, 0.85);
-            transform: translateX(4px);
-        }
-
-        .benefit-item i {
-            font-size: 1.1rem;
-            color: var(--primary);
-            background: rgba(0, 163, 255, 0.1);
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--border-glow);
-            flex-shrink: 0;
-        }
-
-        .benefit-info h4 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .benefit-info p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-        /* SECCIONES CON TONOS DIFERENCIADOS (CLAROS/OSCUROS) PARA MÁXIMA DEMARCACIÓN */
-        #servicios {
-            background: linear-gradient(180deg, #0d1322 0%, #060911 100%);
-            box-shadow: inset 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        #demos {
-            background: linear-gradient(180deg, #060911 0%, #111a2e 100%);
-            box-shadow: inset 0 15px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        #faq {
-            background: linear-gradient(180deg, #111a2e 0%, #090d16 100%);
-            box-shadow: inset 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        #contacto {
-            background: linear-gradient(180deg, #090d16 0%, #04060a 100%);
-            box-shadow: inset 0 15px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .section-header {
-            margin-bottom: 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .section-title-group h2 {
-            font-size: clamp(2.2rem, 3.8vw, 3.2rem);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-top: 8px;
-        }
-
-        .section-tag {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-        }
-
-        .section-header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            max-width: 360px;
-            text-align: right;
-        }
-
-        /* TARJETAS CON EFECTO LUMINOSO DINÁMICO */
+      @media (min-width: 1025px) {
         .services-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
+          grid-template-columns: repeat(4, 1fr);
         }
+      }
 
-        @media(min-width: 1025px) {
-            .services-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
+      .service-card {
+        background: var(--surface-glass);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--border-color);
+        border-radius: 22px;
+        padding: 45px 35px;
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .service-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at 50% 0%,
+          rgba(0, 163, 255, 0.1),
+          transparent 70%
+        );
+        opacity: 0;
+        transition: var(--transition);
+        pointer-events: none;
+      }
+
+      .service-card:hover {
+        border-color: var(--border-glow);
+        transform: translateY(-6px);
+        box-shadow:
+          0 25px 50px rgba(0, 0, 0, 0.5),
+          0 0 25px rgba(0, 163, 255, 0.15);
+      }
+
+      .service-card:hover::after {
+        opacity: 1;
+      }
+
+      .service-card i {
+        font-size: 2rem;
+        color: var(--primary);
+        margin-bottom: 25px;
+        background: rgba(0, 163, 255, 0.1);
+        width: 65px;
+        height: 65px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--border-glow);
+        box-shadow: 0 0 20px rgba(0, 163, 255, 0.15);
+      }
+
+      .service-card h3 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .service-card p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+
+      /* DEMOS: TARJETAS CON BORDE DE LUZ */
+      .demos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+      }
+
+      .demo-card {
+        background: var(--surface-glass);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--border-color);
+        border-radius: 22px;
+        overflow: hidden;
+        transition: var(--transition);
+      }
+
+      .demo-card:hover {
+        border-color: var(--border-glow);
+        transform: translateY(-6px);
+        box-shadow:
+          0 30px 60px rgba(0, 0, 0, 0.6),
+          0 0 30px rgba(0, 163, 255, 0.15);
+      }
+
+      .demo-img-box {
+        height: 230px;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .demo-img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+        filter: brightness(0.9);
+      }
+
+      .demo-card:hover .demo-img-box img {
+        transform: scale(1.06);
+        filter: brightness(1.05);
+      }
+
+      .demo-content {
+        padding: 35px;
+      }
+
+      .demo-content h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .demo-content p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 25px;
+        line-height: 1.7;
+      }
+
+      .demo-link {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: var(--transition);
+      }
+
+      .demo-link:hover {
+        gap: 15px;
+        text-shadow: 0 0 15px var(--primary-glow);
+      }
+
+      /* FAQ ACORDEÓN CON LUZ AMBIENTAL */
+      .faq-container {
+        max-width: 950px;
+        margin: 0 auto;
+      }
+
+      .faq-item {
+        background: var(--surface-glass);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        margin-bottom: 15px;
+        overflow: hidden;
+        transition: var(--transition);
+      }
+
+      .faq-item.active {
+        border-color: var(--border-glow);
+        box-shadow:
+          0 15px 35px rgba(0, 0, 0, 0.4),
+          0 0 20px rgba(0, 163, 255, 0.1);
+      }
+
+      .faq-q {
+        width: 100%;
+        background: none;
+        border: none;
+        padding: 26px 35px;
+        text-align: left;
+        color: var(--text-main);
+        font-size: 1.1rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .faq-q i {
+        color: var(--primary);
+        transition: transform 0.4s ease;
+      }
+
+      .faq-item.active .faq-q i {
+        transform: rotate(180deg);
+      }
+
+      .faq-a {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 35px;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.7;
+        transition:
+          max-height 0.4s ease,
+          padding 0.4s ease;
+      }
+
+      .faq-item.active .faq-a {
+        max-height: 220px;
+        padding-bottom: 26px;
+      }
+
+      /* CONTACTO LAYOUT LUMINOSO */
+      .contact-layout {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 60px;
+        align-items: start;
+      }
+
+      .contact-info h2 {
+        font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .contact-info p {
+        color: var(--text-muted);
+        margin-bottom: 40px;
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+
+      .contact-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .contact-list li {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        color: var(--text-muted);
+        font-size: 1rem;
+      }
+
+      .contact-list li i {
+        color: var(--primary);
+        font-size: 1rem;
+        background: rgba(0, 163, 255, 0.1);
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--border-glow);
+        box-shadow: 0 0 15px rgba(0, 163, 255, 0.1);
+      }
+
+      .contact-form {
+        background: var(--surface-glass);
+        backdrop-filter: blur(25px);
+        border: 1px solid var(--border-color);
+        border-radius: 26px;
+        padding: 45px;
+        box-shadow:
+          0 30px 60px rgba(0, 0, 0, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+
+      .form-group {
+        margin-bottom: 22px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-bottom: 10px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        background: rgba(9, 13, 22, 0.7);
+        border: 1px solid var(--border-color);
+        padding: 16px 20px;
+        border-radius: 14px;
+        color: var(--text-main);
+        font-size: 0.95rem;
+        transition: var(--transition);
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 20px var(--primary-glow);
+        background: rgba(9, 13, 22, 0.95);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        height: 120px;
+      }
+
+      .form-btn {
+        width: 100%;
+        background: var(--primary);
+        color: #000;
+        border: none;
+        padding: 16px;
+        border-radius: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        box-shadow: 0 10px 30px var(--primary-glow);
+      }
+
+      .form-btn:hover {
+        background: #38bdf8;
+        box-shadow: 0 15px 40px rgba(0, 163, 255, 0.5);
+        transform: translateY(-2px);
+      }
+
+      /* WHATSAPP FLOTANTE CON PULSO LUMÍNICO */
+      .whatsapp-float {
+        position: fixed;
+        bottom: 35px;
+        right: 35px;
+        background: #25d366;
+        color: #fff;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        box-shadow: 0 10px 35px rgba(37, 211, 102, 0.5);
+        z-index: 1000;
+        text-decoration: none;
+        transition: var(--transition);
+        animation: pulseWhatsapp 3s infinite;
+      }
+
+      @keyframes pulseWhatsapp {
+        0% {
+          box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
         }
-
-        .service-card {
-            background: var(--surface-glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: 22px;
-            padding: 45px 35px;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
+        70% {
+          box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
         }
-
-        .service-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 0%, rgba(0, 163, 255, 0.1), transparent 70%);
-            opacity: 0;
-            transition: var(--transition);
-            pointer-events: none;
+        100% {
+          box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
         }
+      }
 
-        .service-card:hover {
-            border-color: var(--border-glow);
-            transform: translateY(-6px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 163, 255, 0.15);
+      .whatsapp-float:hover {
+        transform: scale(1.1) rotate(6deg);
+      }
+
+      /* FOOTER */
+      footer {
+        border-top: 1px solid var(--border-color);
+        padding: 45px 5%;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        background: #04060a;
+        position: relative;
+        z-index: 1;
+      }
+
+      @media (max-width: 1024px) {
+        .hero-layout {
+          grid-template-columns: 1fr;
+          gap: 50px;
         }
-
-        .service-card:hover::after {
-            opacity: 1;
+        .services-grid {
+          grid-template-columns: 1fr;
         }
-
-        .service-card i {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 25px;
-            background: rgba(0, 163, 255, 0.1);
-            width: 65px;
-            height: 65px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--border-glow);
-            box-shadow: 0 0 20px rgba(0, 163, 255, 0.15);
-        }
-
-        .service-card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .service-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.7;
-        }
-
-        /* DEMOS: TARJETAS CON BORDE DE LUZ */
-        .demos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .demo-card {
-            background: var(--surface-glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: 22px;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .demo-card:hover {
-            border-color: var(--border-glow);
-            transform: translateY(-6px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 163, 255, 0.15);
-        }
-
-        .demo-img-box {
-            height: 230px;
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .demo-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-            filter: brightness(0.9);
-        }
-
-        .demo-card:hover .demo-img-box img {
-            transform: scale(1.06);
-            filter: brightness(1.05);
-        }
-
-        .demo-content {
-            padding: 35px;
-        }
-
-        .demo-content h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .demo-content p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 25px;
-            line-height: 1.7;
-        }
-
-        .demo-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-        }
-
-        .demo-link:hover {
-            gap: 15px;
-            text-shadow: 0 0 15px var(--primary-glow);
-        }
-
-        /* FAQ ACORDEÓN CON LUZ AMBIENTAL */
-        .faq-container {
-            max-width: 950px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: var(--surface-glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            margin-bottom: 15px;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .faq-item.active {
-            border-color: var(--border-glow);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 163, 255, 0.1);
-        }
-
-        .faq-q {
-            width: 100%;
-            background: none;
-            border: none;
-            padding: 26px 35px;
-            text-align: left;
-            color: var(--text-main);
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-q i {
-            color: var(--primary);
-            transition: transform 0.4s ease;
-        }
-
-        .faq-item.active .faq-q i {
-            transform: rotate(180deg);
-        }
-
-        .faq-a {
-            max-height: 0;
-            overflow: hidden;
-            padding: 0 35px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            transition: max-height 0.4s ease, padding 0.4s ease;
-        }
-
-        .faq-item.active .faq-a {
-            max-height: 220px;
-            padding-bottom: 26px;
-        }
-
-        /* CONTACTO LAYOUT LUMINOSO */
         .contact-layout {
-            display: grid;
-            grid-template-columns: 1fr 1.1fr;
-            gap: 60px;
-            align-items: start;
+          grid-template-columns: 1fr;
+          gap: 50px;
         }
-
-        .contact-info h2 {
-            font-size: clamp(2.2rem, 3.8vw, 3.2rem);
-            font-weight: 700;
-            margin-bottom: 20px;
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 15px;
         }
-
-        .contact-info p {
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            font-size: 1.05rem;
-            line-height: 1.7;
+        .section-header p {
+          text-align: left;
         }
-
-        .contact-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
+        header {
+          width: 95%;
+          padding: 12px 20px;
         }
+      }
 
-        .contact-list li {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            color: var(--text-muted);
-            font-size: 1rem;
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
         }
-
-        .contact-list li i {
-            color: var(--primary);
-            font-size: 1rem;
-            background: rgba(0, 163, 255, 0.1);
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--border-glow);
-            box-shadow: 0 0 15px rgba(0, 163, 255, 0.1);
+        .hero {
+          padding-top: 160px;
         }
-
         .contact-form {
-            background: var(--surface-glass);
-            backdrop-filter: blur(25px);
-            border: 1px solid var(--border-color);
-            border-radius: 26px;
-            padding: 45px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          padding: 30px 20px;
         }
-
-        .form-group {
-            margin-bottom: 22px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            font-weight: 500;
-            letter-spacing: 0.05em;
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            background: rgba(9, 13, 22, 0.7);
-            border: 1px solid var(--border-color);
-            padding: 16px 20px;
-            border-radius: 14px;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            transition: var(--transition);
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 20px var(--primary-glow);
-            background: rgba(9, 13, 22, 0.95);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            height: 120px;
-        }
-
-        .form-btn {
-            width: 100%;
-            background: var(--primary);
-            color: #000;
-            border: none;
-            padding: 16px;
-            border-radius: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.9rem;
-            box-shadow: 0 10px 30px var(--primary-glow);
-        }
-
-        .form-btn:hover {
-            background: #38bdf8;
-            box-shadow: 0 15px 40px rgba(0, 163, 255, 0.5);
-            transform: translateY(-2px);
-        }
-
-        /* WHATSAPP FLOTANTE CON PULSO LUMÍNICO */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 35px;
-            right: 35px;
-            background: #25d366;
-            color: #fff;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            box-shadow: 0 10px 35px rgba(37, 211, 102, 0.5);
-            z-index: 1000;
-            text-decoration: none;
-            transition: var(--transition);
-            animation: pulseWhatsapp 3s infinite;
-        }
-
-        @keyframes pulseWhatsapp {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-            70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1) rotate(6deg);
-        }
-
-        /* FOOTER */
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: 45px 5%;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            background: #04060a;
-            position: relative;
-            z-index: 1;
-        }
-
-        @media(max-width: 1024px) {
-            .hero-layout { grid-template-columns: 1fr; gap: 50px; }
-            .services-grid { grid-template-columns: 1fr; }
-            .contact-layout { grid-template-columns: 1fr; gap: 50px; }
-            .section-header { flex-direction: column; align-items: flex-start; gap: 15px; }
-            .section-header p { text-align: left; }
-            header { width: 95%; padding: 12px 20px; }
-        }
-
-        @media(max-width: 768px) {
-            .nav-links { display: none; }
-            .hero { padding-top: 160px; }
-            .contact-form { padding: 30px 20px; }
-        }
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <!-- CONTENEDOR DE ORBES DE LUZ AMBIENTAL Y FLUIDA -->
     <div class="ambient-glow-container">
-        <div class="ambient-orb orb-1"></div>
-        <div class="ambient-orb orb-2"></div>
-        <div class="ambient-orb orb-3"></div>
+      <div class="ambient-orb orb-1"></div>
+      <div class="ambient-orb orb-2"></div>
+      <div class="ambient-orb orb-3"></div>
     </div>
 
     <!-- HEADER FLOTANTE TIPO CÁPSULA -->
     <header>
-        <a href="#" class="logo-container">
-            <img src="recursos/imagenes/logoTPC.png" alt="Logo Tu Pyme Conectada" class="logo-img">
-        </a>
-        <ul class="nav-links">
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#demos">Demos</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-        <div class="nav-actions">
-            <a href="https://www.instagram.com/tupymeconectada/" target="_blank" class="social-nav-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://wa.me/56959909150?text=Hola,%20quiero%20cotizar%20un%20sitio%20web" class="cta-header" target="_blank">Cotizar</a>
-        </div>
+      <a href="#" class="logo-container">
+        <img
+          src="recursos/imagenes/logoTPC.png"
+          alt="Logo Tu Pyme Conectada"
+          class="logo-img"
+        />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#demos">Demos</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a
+          href="https://www.instagram.com/tupymeconectada/"
+          target="_blank"
+          class="social-nav-icon"
+          title="Instagram"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+        <a
+          href="https://wa.me/56959909150?text=Hola,%20quiero%20cotizar%20un%20sitio%20web"
+          class="cta-header"
+          target="_blank"
+          >Cotizar</a
+        >
+      </div>
     </header>
 
     <!-- HERO SECTION -->
     <section class="hero">
-        <div class="hero-inner">
-            <div class="hero-layout">
-                <div>
-                    <div class="hero-badge-ambient">
-                        <div class="status-dot"></div>
-                        <span>Soluciones Digitales 2026</span>
-                    </div>
-                    <h1>Sitios web limpios, rápidos y enfocados en <span>vender más</span></h1>
-                    <p>Ayudamos a tu negocio a dar el salto digital con plataformas modernas, optimizadas para celulares y listas para conectar directamente con tus clientes por WhatsApp.</p>
-                    
-                    <div class="hero-buttons">
-                        <a href="#contacto" class="btn-main">Hablemos de tu proyecto <i class="fa-solid fa-arrow-right"></i></a>
-                        <a href="#demos" class="btn-outline">Ver ejemplos</a>
-                    </div>
-                </div>
-
-                <!-- TARJETA HERO DE BENEFICIOS -->
-                <div class="hero-benefits-card">
-                    <h3><i class="fa-solid fa-rocket"></i> Por qué elegirnos</h3>
-                    <div class="benefit-list">
-                        <div class="benefit-item">
-                            <i class="fa-solid fa-bolt"></i>
-                            <div class="benefit-info">
-                                <h4>Entrega Rápida</h4>
-                                <p>Tu sitio operativo en pocos días sin demoras.</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <i class="fa-solid fa-mobile-screen"></i>
-                            <div class="benefit-info">
-                                <h4>Diseño Responsivo</h4>
-                                <p>Se ve perfecto en cualquier smartphone.</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <i class="fa-brands fa-whatsapp"></i>
-                            <div class="benefit-info">
-                                <h4>Ventas Directas</h4>
-                                <p>Tus clientes te escriben al instante por chat.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <div class="hero-inner">
+        <div class="hero-layout">
+          <div>
+            <div class="hero-badge-ambient">
+              <div class="status-dot"></div>
+              <span>Soluciones Digitales 2026</span>
             </div>
+            <h1>
+              Sitios web limpios, rápidos y enfocados en <span>vender más</span>
+            </h1>
+            <p>
+              Ayudamos a tu negocio a dar el salto digital con plataformas
+              modernas, optimizadas para celulares y listas para conectar
+              directamente con tus clientes por WhatsApp.
+            </p>
+
+            <div class="hero-buttons">
+              <a href="#contacto" class="btn-main"
+                >Hablemos de tu proyecto <i class="fa-solid fa-arrow-right"></i
+              ></a>
+              <a href="#demos" class="btn-outline">Ver ejemplos</a>
+            </div>
+          </div>
+
+          <!-- TARJETA HERO DE BENEFICIOS -->
+          <div class="hero-benefits-card">
+            <h3><i class="fa-solid fa-rocket"></i> Por qué elegirnos</h3>
+            <div class="benefit-list">
+              <div class="benefit-item">
+                <i class="fa-solid fa-bolt"></i>
+                <div class="benefit-info">
+                  <h4>Entrega Rápida</h4>
+                  <p>Tu sitio operativo en pocos días sin demoras.</p>
+                </div>
+              </div>
+              <div class="benefit-item">
+                <i class="fa-solid fa-mobile-screen"></i>
+                <div class="benefit-info">
+                  <h4>Diseño Responsivo</h4>
+                  <p>Se ve perfecto en cualquier smartphone.</p>
+                </div>
+              </div>
+              <div class="benefit-item">
+                <i class="fa-brands fa-whatsapp"></i>
+                <div class="benefit-info">
+                  <h4>Ventas Directas</h4>
+                  <p>Tus clientes te escriben al instante por chat.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- SECCIÓN DE SERVICIOS -->
     <section id="servicios" class="full-section">
-        <div class="section-inner">
-            <div class="section-header">
-                <div class="section-title-group">
-                    <span class="section-tag">01 // Soluciones</span>
-                    <h2>Nuestras Soluciones</h2>
-                </div>
-                <div>
-                    <p>Estructuras claras pensadas para el comercio local y servicios</p>
-                </div>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div>
-                        <i class="fa-solid fa-laptop-code"></i>
-                        <h3>Tu propia Web</h3>
-                        <p>Páginas de alto impacto ideales para captar clientes rápidamente y mostrar los beneficios de tu servicio o producto.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div>
-                        <i class="fa-solid fa-utensils"></i>
-                        <h3>Cartas y Menús Digitales</h3>
-                        <p>Olvídate de los PDFs pesados. Menús interactivos, livianos y fáciles de actualizar desde cualquier lugar en segundos.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div>
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <h3>Tienda Online (Carrito)</h3>
-                        <p>Plataformas de e-commerce ágiles con selección de productos y medios de pago integrados.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div>
-                        <i class="fa-brands fa-whatsapp"></i>
-                        <h3>Integración botón de WhatsApp</h3>
-                        <p>Boton flotante y flujos listos para que los interesados te escriban directo al WhatsApp de tu negocio sin fricción.</p>
-                    </div>
-                </div>
-            </div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-title-group">
+            <span class="section-tag">01 // Soluciones</span>
+            <h2>Nuestras Soluciones</h2>
+          </div>
+          <div>
+            <p>
+              Estructuras claras pensadas para el comercio local y servicios
+            </p>
+          </div>
         </div>
+        <div class="services-grid">
+          <div class="service-card">
+            <div>
+              <i class="fa-solid fa-laptop-code"></i>
+              <h3>Tu propia Web</h3>
+              <p>
+                Páginas de alto impacto ideales para captar clientes rápidamente
+                y mostrar los beneficios de tu servicio o producto.
+              </p>
+            </div>
+          </div>
+          <div class="service-card">
+            <div>
+              <i class="fa-solid fa-utensils"></i>
+              <h3>Cartas y Menús Digitales</h3>
+              <p>
+                Olvídate de los PDFs pesados. Menús interactivos, livianos y
+                fáciles de actualizar desde cualquier lugar en segundos.
+              </p>
+            </div>
+          </div>
+          <div class="service-card">
+            <div>
+              <i class="fa-solid fa-cart-shopping"></i>
+              <h3>Tienda Online (Carrito)</h3>
+              <p>
+                Plataformas de e-commerce ágiles con selección de productos y
+                medios de pago integrados.
+              </p>
+            </div>
+          </div>
+          <div class="service-card">
+            <div>
+              <i class="fa-brands fa-whatsapp"></i>
+              <h3>Integración botón de WhatsApp</h3>
+              <p>
+                Boton flotante y flujos listos para que los interesados te
+                escriban directo al WhatsApp de tu negocio sin fricción.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- SECCIÓN DE DEMOS -->
     <section id="demos" class="full-section">
-        <div class="section-inner">
-            <div class="section-header">
-                <div class="section-title-group">
-                    <span class="section-tag">02 // Demostraciones</span>
-                    <h2>Demos Funcionales</h2>
-                </div>
-                <div>
-                    <p>Explora formatos limpios y adaptables a lo que buscas</p>
-                </div>
-            </div>
-            <div class="demos-grid">
-                <div class="demo-card">
-                    <div class="demo-img-box">
-                        <img src="recursos/imagenes/juridicaDemo.png" alt="Demo Jurídico">
-                    </div>
-                    <div class="demo-content">
-                        <h3>Demo Jurídico</h3>
-                        <p>Sitio de ejemplo de firma de abogados especializada en derecho de familia, penal y corporativo</p>
-                        <a href="demos/demoAbogados.html" target="_blank" class="demo-link">Ver estructura <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="demo-card">
-                    <div class="demo-img-box">
-                        <img src="recursos/imagenes/demoVet.png" alt="Demo Veterinaria">
-                    </div>
-                    <div class="demo-content">
-                        <h3>Demo Veterinaria</h3>
-                        <p>Sitio de ejemplo de una veterinaria, con información de contacto, ubicación y datos relevantes sobre el el local</p>
-                        <a href="demos/demoVet.html" target="_blank" class="demo-link">Ver estructura <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="demo-card">
-                    <div class="demo-img-box">
-                        <img src="recursos/imagenes/sushiDemo.jpg" alt="Demo Sushi">
-                    </div>
-                    <div class="demo-content">
-                        <h3>Demo Sushi con carrito y pedido por Whatsapp</h3>
-                        <p>Estructura ágil para mostrar platillos, precios y categorías con pedidos directos. Agrega carrito para enviar pedido directamente a tu Whatsapp.</p>
-                        <a href="demos/demoSushi.html" target="_blank" class="demo-link">Ver estructura <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="demo-card">
-                    <div class="demo-img-box">
-                        <img src="recursos/imagenes/hamburguesasDemo.png" alt="Demo Hamburguesería">
-                    </div>
-                    <div class="demo-content">
-                        <h3>Demo Hamburguesería con carrito y pedido por Whatsapp</h3>
-                        <p>Estructura ágil para mostrar platillos, precios y categorías con pedidos directos. Agrega carrito para enviar pedido directamente a tu Whatsapp.</p>
-                        <a href="demos/demoComidaRapida.html" target="_blank" class="demo-link">Ver estructura <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="demo-card">
-                    <div class="demo-img-box">
-                        <img src="recursos/imagenes/climatizacionDemo.png" alt="Demo Empresa Climatización">
-                    </div>
-                    <div class="demo-content">
-                        <h3>Demo Empresa Climatización</h3>
-                        <p>Exhibición limpia orientada a que el cliente entienda los servicios ofrecidos, que se conozcan las empresas que confiaron en ellos y que se pueda tener un contacto rápido para contrataciones.</p>
-                        <a href="https://mrdoex1.github.io/efiser/" target="_blank" class="demo-link">Ver estructura <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-title-group">
+            <span class="section-tag">02 // Demostraciones</span>
+            <h2>Demos Funcionales</h2>
+          </div>
+          <div>
+            <p>Explora formatos limpios y adaptables a lo que buscas</p>
+          </div>
         </div>
+        <div class="demos-grid">
+          <div class="demo-card">
+            <div class="demo-img-box">
+              <img
+                src="recursos/imagenes/juridicaDemo.png"
+                alt="Demo Jurídico"
+              />
+            </div>
+            <div class="demo-content">
+              <h3>Demo Jurídico</h3>
+              <p>
+                Sitio de ejemplo de firma de abogados especializada en derecho
+                de familia, penal y corporativo
+              </p>
+              <a
+                href="demos/demoAbogados.html"
+                target="_blank"
+                class="demo-link"
+                >Ver estructura <i class="fa-solid fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+          <div class="demo-card">
+            <div class="demo-img-box">
+              <img src="recursos/imagenes/demoVet.png" alt="Demo Veterinaria" />
+            </div>
+            <div class="demo-content">
+              <h3>Demo Veterinaria</h3>
+              <p>
+                Sitio de ejemplo de una veterinaria, con información de
+                contacto, ubicación y datos relevantes sobre el el local
+              </p>
+              <a href="demos/demoVet.html" target="_blank" class="demo-link"
+                >Ver estructura <i class="fa-solid fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+          <div class="demo-card">
+            <div class="demo-img-box">
+              <img src="recursos/imagenes/sushiDemo.jpg" alt="Demo Sushi" />
+            </div>
+            <div class="demo-content">
+              <h3>Demo Sushi con carrito y pedido por Whatsapp</h3>
+              <p>
+                Estructura ágil para mostrar platillos, precios y categorías con
+                pedidos directos. Agrega carrito para enviar pedido directamente
+                a tu Whatsapp.
+              </p>
+              <a href="demos/demoSushi.html" target="_blank" class="demo-link"
+                >Ver estructura <i class="fa-solid fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+          <div class="demo-card">
+            <div class="demo-img-box">
+              <img
+                src="recursos/imagenes/hamburguesasDemo.png"
+                alt="Demo Hamburguesería"
+              />
+            </div>
+            <div class="demo-content">
+              <h3>Demo Hamburguesería con carrito y pedido por Whatsapp</h3>
+              <p>
+                Estructura ágil para mostrar platillos, precios y categorías con
+                pedidos directos. Agrega carrito para enviar pedido directamente
+                a tu Whatsapp.
+              </p>
+              <a
+                href="demos/demoComidaRapida.html"
+                target="_blank"
+                class="demo-link"
+                >Ver estructura <i class="fa-solid fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+          <div class="demo-card">
+            <div class="demo-img-box">
+              <img
+                src="recursos/imagenes/climatizacionDemo.png"
+                alt="Demo Empresa Climatización"
+              />
+            </div>
+            <div class="demo-content">
+              <h3>Demo Empresa Climatización</h3>
+              <p>
+                Exhibición limpia orientada a que el cliente entienda los
+                servicios ofrecidos, que se conozcan las empresas que confiaron
+                en ellos y que se pueda tener un contacto rápido para
+                contrataciones.
+              </p>
+              <a
+                href="https://mrdoex1.github.io/efiser/"
+                target="_blank"
+                class="demo-link"
+                >Ver estructura <i class="fa-solid fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- PREGUNTAS FRECUENTES -->
     <section id="faq" class="full-section">
-        <div class="section-inner">
-            <div class="section-header">
-                <div class="section-title-group">
-                    <span class="section-tag">03 // Soporte</span>
-                    <h2>Preguntas Frecuentes</h2>
-                </div>
-                <div>
-                    <p>Todo lo que necesitas saber antes de empezar</p>
-                </div>
-            </div>
-            <div class="faq-container">
-                <div class="faq-item">
-                    <button class="faq-q">¿Cuánto tardamos en entregar el sitio web? <i class="fa-solid fa-chevron-down"></i></button>
-                    <div class="faq-a">
-                        <p>Los proyectos básicos o cartas digitales se desarrollan de forma ágil, quedando listos y operativos en un plazo aproximado de 48 a 72 horas una vez reunida la información.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-q">¿Puedo actualizar los contenidos por mi cuenta? <i class="fa-solid fa-chevron-down"></i></button>
-                    <div class="faq-a">
-                        <p>Sí, entregamos estructuras optimizadas y te enseñamos herramientas sencillas para que puedas modificar precios o textos sin depender de nadie.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-q">¿Cómo se gestionan las cotizaciones? <i class="fa-solid fa-chevron-down"></i></button>
-                    <div class="faq-a">
-                        <p>Cada botón e interacción está conectado directamente a tu número de WhatsApp comercial, asegurando una comunicación inmediata con tus clientes.</p>
-                    </div>
-                </div>
-            </div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-title-group">
+            <span class="section-tag">03 // Soporte</span>
+            <h2>Preguntas Frecuentes</h2>
+          </div>
+          <div>
+            <p>Todo lo que necesitas saber antes de empezar</p>
+          </div>
         </div>
+        <div class="faq-container">
+          <div class="faq-item">
+            <button class="faq-q">
+              ¿Cuánto tardamos en entregar el sitio web?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-a">
+              <p>
+                Los proyectos básicos o cartas digitales se desarrollan de forma
+                ágil, quedando listos y operativos en un plazo aproximado de 48
+                a 72 horas una vez reunida la información.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">
+              ¿Puedo actualizar los contenidos por mi cuenta?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-a">
+              <p>
+                Sí, entregamos estructuras optimizadas y te enseñamos
+                herramientas sencillas para que puedas modificar precios o
+                textos sin depender de nadie.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">
+              ¿Cómo se gestionan las cotizaciones?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-a">
+              <p>
+                Cada botón e interacción está conectado directamente a tu número
+                de WhatsApp comercial, asegurando una comunicación inmediata con
+                tus clientes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- SECCIÓN DE CONTACTO -->
     <section id="contacto" class="full-section">
-        <div class="section-inner">
-            <div class="section-header" style="margin-bottom: 50px;">
-                <div class="section-title-group">
-                    <span class="section-tag">04 // Conexión</span>
-                    <h2>Comencemos</h2>
-                </div>
-            </div>
-            <div class="contact-layout">
-                <div class="contact-info">
-                    <p>Escríbenos directamente o déjanos tus datos en el formulario para conversar sobre tu próximo sitio web.</p>
-                    <ul class="contact-list">
-                        <li><i class="fa-solid fa-phone"></i> +56 9 5990 9150</li>
-                        <li><i class="fa-brands fa-instagram"></i> @tupymeconectada</li>
-                        <li><i class="fa-solid fa-location-dot"></i> Santiago, Chile</li>
-                    </ul>
-                </div>
-                <div class="contact-form">
-                    <form id="formContacto">
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" id="nombre" required placeholder="Roberto Farías">
-                        </div>
-                        <div class="form-group">
-                            <label for="telefono">WhatsApp / Teléfono</label>
-                            <input type="tel" id="telefono" required placeholder="+56 9 ...">
-                        </div>
-                        <div class="form-group">
-                            <label for="mensaje">Mensaje</label>
-                            <textarea id="mensaje" required placeholder="Cuéntanos qué tipo de negocio tienes..."></textarea>
-                        </div>
-                        <button type="submit" class="form-btn">Enviar Mensaje</button>
-                    </form>
-                </div>
-            </div>
+      <div class="section-inner">
+        <div class="section-header" style="margin-bottom: 50px">
+          <div class="section-title-group">
+            <span class="section-tag">04 // Conexión</span>
+            <h2>Comencemos</h2>
+          </div>
         </div>
+        <div class="contact-layout">
+          <div class="contact-info">
+            <p>
+              Escríbenos directamente o déjanos tus datos en el formulario para
+              conversar sobre tu próximo sitio web.
+            </p>
+            <ul class="contact-list">
+              <li><i class="fa-solid fa-phone"></i> +56 9 5990 9150</li>
+              <li><i class="fa-brands fa-instagram"></i> @tupymeconectada</li>
+              <li><i class="fa-solid fa-location-dot"></i> Santiago, Chile</li>
+            </ul>
+          </div>
+          <div class="contact-form">
+            <form id="formContacto">
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input
+                  type="text"
+                  id="nombre"
+                  required
+                  placeholder="Roberto Farías"
+                />
+              </div>
+              <div class="form-group">
+                <label for="telefono">WhatsApp / Teléfono</label>
+                <input
+                  type="tel"
+                  id="telefono"
+                  required
+                  placeholder="+56 9 ..."
+                />
+              </div>
+              <div class="form-group">
+                <label for="mensaje">Mensaje</label>
+                <textarea
+                  id="mensaje"
+                  required
+                  placeholder="Cuéntanos qué tipo de negocio tienes..."
+                ></textarea>
+              </div>
+              <button type="submit" class="form-btn">Enviar Mensaje</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- BOTÓN WHATSAPP FLOTANTE -->
-    <a href="https://wa.me/56959909150?text=Hola,%20quiero%20cotizar%20un%20sitio%20web" class="whatsapp-float" target="_blank">
-        <i class="fa-brands fa-whatsapp"></i>
+    <a
+      href="https://wa.me/56959909150?text=Hola,%20quiero%20cotizar%20un%20sitio%20web"
+      class="whatsapp-float"
+      target="_blank"
+    >
+      <i class="fa-brands fa-whatsapp"></i>
     </a>
 
     <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 Tu Pyme Conectada. Todos los derechos reservados.</p>
+      <p>&copy; 2026 Tu Pyme Conectada. Todos los derechos reservados.</p>
     </footer>
 
     <script>
-        // Acordeón FAQ
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.querySelector('.faq-q').addEventListener('click', () => {
-                document.querySelectorAll('.faq-item').forEach(other => {
-                    if (other !== item) other.classList.remove('active');
-                });
-                item.classList.toggle('active');
-            });
+      // Acordeón FAQ
+      document.querySelectorAll(".faq-item").forEach((item) => {
+        item.querySelector(".faq-q").addEventListener("click", () => {
+          document.querySelectorAll(".faq-item").forEach((other) => {
+            if (other !== item) other.classList.remove("active");
+          });
+          item.classList.toggle("active");
         });
+      });
 
-        // Formulario a WhatsApp con número real
-        document.getElementById('formContacto').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const nombre = document.getElementById('nombre').value;
-            const telefono = document.getElementById('telefono').value;
-            const mensaje = document.getElementById('mensaje').value;
+      // Formulario a WhatsApp con número real
+      document
+        .getElementById("formContacto")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          const nombre = document.getElementById("nombre").value;
+          const telefono = document.getElementById("telefono").value;
+          const mensaje = document.getElementById("mensaje").value;
 
-            const texto = `Hola, mi nombre es ${nombre}. Mi contacto es ${telefono}. Mensaje: ${mensaje}`;
-            window.open(`https://wa.me/56959909150?text=${encodeURIComponent(texto)}`, '_blank');
+          const texto = `Hola, mi nombre es ${nombre}. Mi contacto es ${telefono}. Mensaje: ${mensaje}`;
+          window.open(
+            `https://wa.me/56959909150?text=${encodeURIComponent(texto)}`,
+            "_blank",
+          );
         });
     </script>
-</body>
+  </body>
 </html>
