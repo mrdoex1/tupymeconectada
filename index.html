@@ -1790,7 +1790,7 @@
         });
       });
 
-      // Formulario a WhatsApp
+      // Formulario a WhatsApps
       document
         .getElementById("formContacto")
         .addEventListener("submit", (e) => {
@@ -1799,11 +1799,18 @@
           const servicio = document.getElementById("servicio").value;
           const mensaje = document.getElementById("mensaje").value.trim();
 
-          const texto = `Hola, mi nombre es ${nombre}. Me interesa el servicio de: ${servicio}. Mensaje: ${mensaje}`;
-          window.open(
-            `https://wa.me/56959909150?text=${encodeURIComponent(texto)}`,
-            "_blank",
-          );
+          // Texto plano con saltos de línea reales
+          const texto = 
+            `*¡Nueva consulta desde el sitio web!*\n\n` +
+            `*Mi Nombre es:* ${nombre}\n` +
+            `*Servicio de interés:* ${servicio}\n` +
+            `*Mensaje:* ${mensaje}`;
+
+          // Codificación segura compatible con navegadores de escritorio y móviles
+          const telefono = "56959909150";
+          const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(texto)}`;
+
+          window.open(url, "_blank");
         });
     </script>
   </body>
