@@ -615,6 +615,7 @@
         padding-bottom: 25px;
         scrollbar-width: thin;
         scrollbar-color: var(--primary) var(--surface-color);
+        align-items: stretch; /* Fuerza a que todos los elementos hijos (tarjetas) tengan la misma altura */
       }
 
       .demos-grid::-webkit-scrollbar {
@@ -646,8 +647,10 @@
         transition: var(--transition);
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        height: 100%; /* Asegura que todas midan lo mismo en el contenedor */
       }
+
+      
 
       .demo-card:hover {
         border-color: var(--border-glow);
@@ -678,7 +681,11 @@
       }
 
       .demo-content {
-        padding: 35px;
+        padding: 25px 35px 35px 35px; /* Reducimos ligeramente el padding superior a 25px */
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1; /* Hace que el contenido ocupe todo el alto disponible de la tarjeta */
+        justify-content: space-between; /* Empuja el enlace de "Ver estructura" siempre al fondo de forma uniforme */
       }
 
       .demo-content h3 {
@@ -1421,7 +1428,7 @@
                 />
               </div>
               <div class="demo-content">
-                <h3>Demo Sushi con carrito</h3>
+                <h3>Demo Sushi</h3>
                 <p>
                   Estructura ágil para mostrar platillos, precios y categorías con
                   pedidos directos hacia tu WhatsApp.
@@ -1444,7 +1451,7 @@
                 />
               </div>
               <div class="demo-content">
-                <h3>Demo Hamburguesería con carrito</h3>
+                <h3>Demo Hamburguesas</h3>
                 <p>
                   Estructura ágil para mostrar platillos, precios y categorías con
                   pedidos directos hacia tu WhatsApp.
@@ -1467,7 +1474,7 @@
                 />
               </div>
               <div class="demo-content">
-                <h3>Demo Empresa Climatización</h3>
+                <h3>Demo Empresa</h3>
                 <p>
                   Exhibición limpia orientada a que el cliente entienda los
                   servicios ofrecidos y un contacto rápido.
