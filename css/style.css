@@ -226,12 +226,76 @@
         z-index: 1;
         background: linear-gradient(180deg, #090d16 0%, #0d1322 100%);
         border-bottom: 1px solid var(--border-color);
+        overflow: hidden;
       }
+
+      /* PARTÍCULAS ASCENDENTES (FONDO DEL HERO) */
+      .hero-particles {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .hero-particles .particle {
+        position: absolute;
+        bottom: -12px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          #7dd3fc 0%,
+          rgba(0, 163, 255, 0.85) 100%
+        );
+        box-shadow: 0 0 10px rgba(0, 163, 255, 0.55);
+        opacity: 0;
+        animation: particleRise linear infinite;
+      }
+
+      @keyframes particleRise {
+        0% {
+          transform: translateY(0) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.75;
+        }
+        80% {
+          opacity: 0.45;
+        }
+        100% {
+          transform: translateY(-820px) translateX(28px);
+          opacity: 0;
+        }
+      }
+
+      .hero-particles .particle:nth-child(1) { left: 4%;  width: 3px;  height: 3px;  animation-duration: 8s;  animation-delay: 0s; }
+      .hero-particles .particle:nth-child(2) { left: 9%;  width: 2px;  height: 2px;  animation-duration: 11s; animation-delay: 2.5s; }
+      .hero-particles .particle:nth-child(3) { left: 15%; width: 4px;  height: 4px;  animation-duration: 9s;  animation-delay: 1s; }
+      .hero-particles .particle:nth-child(4) { left: 21%; width: 2px;  height: 2px;  animation-duration: 12s; animation-delay: 5s; }
+      .hero-particles .particle:nth-child(5) { left: 27%; width: 3px;  height: 3px;  animation-duration: 8s;  animation-delay: 3s; }
+      .hero-particles .particle:nth-child(6) { left: 33%; width: 2px;  height: 2px;  animation-duration: 10s; animation-delay: 0.5s; }
+      .hero-particles .particle:nth-child(7) { left: 39%; width: 4px;  height: 4px;  animation-duration: 9s;  animation-delay: 6s; }
+      .hero-particles .particle:nth-child(8) { left: 45%; width: 2px;  height: 2px;  animation-duration: 11s; animation-delay: 4s; }
+      .hero-particles .particle:nth-child(9) { left: 51%; width: 3px;  height: 3px;  animation-duration: 8s;  animation-delay: 2s; }
+      .hero-particles .particle:nth-child(10) { left: 57%; width: 2px; height: 2px; animation-duration: 12s; animation-delay: 7s; }
+      .hero-particles .particle:nth-child(11) { left: 63%; width: 4px; height: 4px; animation-duration: 9s;  animation-delay: 0s; }
+      .hero-particles .particle:nth-child(12) { left: 69%; width: 2px; height: 2px; animation-duration: 10s; animation-delay: 5.5s; }
+      .hero-particles .particle:nth-child(13) { left: 75%; width: 3px; height: 3px; animation-duration: 8s;  animation-delay: 3.5s; }
+      .hero-particles .particle:nth-child(14) { left: 81%; width: 2px; height: 2px; animation-duration: 11s; animation-delay: 1.5s; }
+      .hero-particles .particle:nth-child(15) { left: 86%; width: 4px; height: 4px; animation-duration: 9s;  animation-delay: 6.5s; }
+      .hero-particles .particle:nth-child(16) { left: 92%; width: 2px; height: 2px; animation-duration: 12s; animation-delay: 2s; }
+      .hero-particles .particle:nth-child(17) { left: 97%; width: 3px; height: 3px; animation-duration: 8s;  animation-delay: 4.5s; }
+      .hero-particles .particle:nth-child(18) { left: 12%; width: 2px; height: 2px; animation-duration: 10s; animation-delay: 8s; }
+      .hero-particles .particle:nth-child(19) { left: 47%; width: 2px; height: 2px; animation-duration: 9s;  animation-delay: 9s; }
+      .hero-particles .particle:nth-child(20) { left: 68%; width: 3px; height: 3px; animation-duration: 11s; animation-delay: 0s; }
 
       .hero-inner {
         max-width: 1300px;
         margin: 0 auto;
         padding: 0 5%;
+        position: relative;
+        z-index: 2;
       }
 
       .hero-layout {
@@ -1710,5 +1774,18 @@
 
         .faq-grid {
           grid-template-columns: 1fr;
+        }
+      }
+
+      /* ACCESIBILIDAD: reduce o desactiva animaciones si el usuario lo prefiere */
+      @media (prefers-reduced-motion: reduce) {
+        .hero::before,
+        .hero::after,
+        .hero-particles .particle,
+        .ambient-orb,
+        .status-dot,
+        .whatsapp-float {
+          animation: none;
+          opacity: 0;
         }
       }
