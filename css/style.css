@@ -1088,7 +1088,7 @@
       }
 
       .acc-item.open .acc-content {
-        max-height: 600px;
+        max-height: 2000px;
       }
 
       .acc-content p,

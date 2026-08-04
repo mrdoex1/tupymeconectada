@@ -145,7 +145,12 @@ const initApp = () => {
   const activeFaqTab = document.querySelector('.faq-tabs .tab-btn.active');
   if (activeFaqTab) applyFaqFilter(activeFaqTab.getAttribute('data-filter'));
 
-  // Acordeón modal: abre uno y cierra los demás del mismo modal
+  // Acordeón modal: abre uno y cierra los demás del mismo modal.
+  // La altura del contenido se mide con JS para que nada se corte en móvil.
+  const setAccordionHeight = (content) => {
+    content.style.maxHeight = content.scrollHeight + 'px';
+  };
+
   document.querySelectorAll('.modal-acc .acc-header').forEach((header) => {
     header.addEventListener('click', () => {
       const item = header.closest('.acc-item');
@@ -155,20 +160,39 @@ const initApp = () => {
       accContainer.querySelectorAll('.acc-item').forEach((other) => {
         other.classList.remove('open');
         other.querySelector('.acc-header').setAttribute('aria-expanded', 'false');
+        const otherContent = other.querySelector('.acc-content');
+        if (otherContent) otherContent.style.maxHeight = null;
       });
 
       if (!isOpen) {
         item.classList.add('open');
         header.setAttribute('aria-expanded', 'true');
+        const content = item.querySelector('.acc-content');
+        if (content) setAccordionHeight(content);
       }
     });
   });
+
+  // Ajusta la altura de los acordeones abiertos por defecto
+  document.querySelectorAll('.acc-item.open .acc-content').forEach((content) => {
+    setAccordionHeight(content);
+  });
+
+  // Recalcula la altura al cambiar el tamaño de la pantalla (rotación móvil, etc.)
+  const updateOpenAccordionHeights = () => {
+    document.querySelectorAll('.acc-item.open .acc-content').forEach((content) => {
+      setAccordionHeight(content);
+    });
+  };
+  window.addEventListener('resize', updateOpenAccordionHeights);
 
   // Función para cerrar todos los acordeones de un modal
   const resetAccordions = (modalEl) => {
     modalEl.querySelectorAll('.acc-item').forEach((item) => {
       item.classList.remove('open');
       item.querySelector('.acc-header').setAttribute('aria-expanded', 'false');
+      const content = item.querySelector('.acc-content');
+      if (content) content.style.maxHeight = null;
     });
   };
 
