@@ -563,7 +563,7 @@
         backdrop-filter: blur(20px);
         border: 1px solid var(--border-color);
         border-radius: 22px;
-        padding: 45px 35px;
+        padding: 30px 25px;
         transition: var(--transition);
         display: flex;
         flex-direction: column;
@@ -642,7 +642,7 @@
         backdrop-filter: blur(25px);
         border: 1px solid var(--border-color);
         border-radius: 22px;
-        padding: 28px 26px;
+        padding: 22px 20px;
         display: flex;
         flex-direction: column;
         position: relative;
@@ -672,6 +672,46 @@
           0 0 30px rgba(0, 163, 255, 0.12);
       }
 
+      /* CARDS "OPORTUNIDAD" (ámbar/dorado) */
+      .opportunity-tag {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        color: #231603;
+        font-size: 0.6rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 4px 10px;
+        border-radius: 50px;
+        box-shadow: 0 6px 18px rgba(245, 158, 11, 0.5);
+      }
+
+      .pricing-card.opportunity {
+        border-color: rgba(245, 158, 11, 0.5);
+        box-shadow:
+          0 20px 40px rgba(0, 0, 0, 0.4),
+          0 0 30px rgba(245, 158, 11, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      .pricing-card.opportunity::before {
+        background: linear-gradient(90deg, #d97706, #fbbf24, #d97706);
+        box-shadow: 0 0 18px rgba(245, 158, 11, 0.65);
+      }
+
+      .pricing-card.opportunity:hover {
+        border-color: #fbbf24;
+        box-shadow:
+          0 30px 60px rgba(0, 0, 0, 0.5),
+          0 0 35px rgba(245, 158, 11, 0.3);
+      }
+
       .pricing-badge {
         display: inline-flex;
         align-items: center;
@@ -685,22 +725,22 @@
         letter-spacing: 0.12em;
         padding: 5px 12px;
         border-radius: 50px;
-        margin-bottom: 14px;
+        margin-bottom: 10px;
         box-shadow: inset 0 0 12px rgba(0, 163, 255, 0.1);
       }
 
       .pricing-title {
-        font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+        font-size: clamp(1.15rem, 2vw, 1.35rem);
         font-weight: 800;
         letter-spacing: -0.02em;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
       }
 
       .pricing-subtitle {
         color: var(--text-muted);
-        font-size: 0.82rem;
-        line-height: 1.6;
-        margin-bottom: 18px;
+        font-size: 0.78rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
         max-width: 420px;
       }
 
@@ -708,12 +748,12 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        margin-bottom: 16px;
+        margin-bottom: 10px;
         flex-wrap: wrap;
       }
 
       .price-value {
-        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-size: clamp(1.4rem, 2.6vw, 1.7rem);
         font-weight: 800;
         color: var(--primary);
         letter-spacing: -0.02em;
@@ -737,14 +777,31 @@
         border-radius: 50px;
       }
 
+      .pricing-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 6px 12px;
+        margin-bottom: 12px;
+      }
+
+      .pricing-meta .pricing-price {
+        margin-bottom: 0;
+      }
+
+      .pricing-meta .pricing-delivery {
+        margin: 0;
+      }
+
       .pricing-delivery {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         gap: 6px;
         color: var(--text-muted);
-        font-size: 0.78rem;
-        margin: -4px 0 14px;
+        font-size: 0.72rem;
+        margin: 0 0 12px;
       }
 
       .pricing-delivery i {
@@ -773,19 +830,19 @@
 
       .pricing-features {
         list-style: none;
-        margin: 0 0 16px;
+        margin: 0 0 12px;
         padding: 0;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 5px;
       }
 
       .pricing-features li {
         display: flex;
         align-items: flex-start;
-        gap: 10px;
-        font-size: 0.85rem;
-        line-height: 1.5;
+        gap: 8px;
+        font-size: 0.76rem;
+        line-height: 1.35;
         color: var(--text-main);
       }
 
@@ -804,11 +861,11 @@
         background: rgba(9, 13, 22, 0.6);
         border: 1px solid var(--border-color);
         border-radius: 10px;
-        padding: 10px 14px;
-        font-size: 0.78rem;
+        padding: 8px 12px;
+        font-size: 0.72rem;
         color: var(--text-muted);
-        line-height: 1.5;
-        margin-bottom: 16px;
+        line-height: 1.4;
+        margin-bottom: 12px;
       }
 
       .pricing-note i {
@@ -821,9 +878,9 @@
         background: transparent;
         border: 1px solid var(--border-color);
         color: var(--text-main);
-        font-size: 0.82rem;
+        font-size: 0.78rem;
         font-weight: 600;
-        padding: 10px;
+        padding: 8px;
         border-radius: 12px;
         cursor: pointer;
         transition: var(--transition);
@@ -831,7 +888,7 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
       }
 
       .pricing-more:hover {
@@ -852,8 +909,8 @@
         color: #fff;
         text-decoration: none;
         font-weight: 700;
-        font-size: 0.85rem;
-        padding: 14px 20px;
+        font-size: 0.8rem;
+        padding: 11px 16px;
         border-radius: 12px;
         transition: var(--transition);
         box-shadow: 0 12px 35px rgba(37, 211, 102, 0.4);
@@ -863,6 +920,117 @@
         background: #2ee06f;
         transform: translateY(-2px);
         box-shadow: 0 18px 45px rgba(37, 211, 102, 0.55);
+      }
+
+      /* CARRUSEL DE SERVICIOS (DESKTOP) */
+      .servicios-carousel {
+        position: relative;
+      }
+
+      .servicios-fade,
+      .servicios-nav-btn {
+        display: none;
+      }
+
+      @media (min-width: 769px) {
+        .pricing-wrap {
+          display: flex;
+          gap: 24px;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          scroll-behavior: smooth;
+          width: 100%;
+          max-width: 100%;
+          margin: 0;
+          /* Espacio vertical para que el hover de las cards (translateY -4px)
+             no recorte el borde azul superior dentro del contenedor con overflow. */
+          padding: 10px 0;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+
+        .pricing-wrap::-webkit-scrollbar {
+          display: none;
+        }
+
+        .pricing-wrap .pricing-card {
+          flex: 0 0 auto;
+          width: 360px;
+          max-width: 360px;
+          scroll-snap-align: start;
+        }
+
+        .servicios-fade {
+          display: block;
+          position: absolute;
+          top: 10px;
+          bottom: 10px;
+          width: 90px;
+          pointer-events: none;
+          z-index: 3;
+          transition: opacity 0.35s ease;
+        }
+
+        .servicios-fade.left {
+          left: 0;
+          background: linear-gradient(90deg, #0d1322 0%, rgba(13, 19, 34, 0) 100%);
+          opacity: 0;
+        }
+
+        .servicios-fade.right {
+          right: 0;
+          background: linear-gradient(270deg, #0d1322 0%, rgba(13, 19, 34, 0) 100%);
+        }
+
+        .servicios-fade.left.visible {
+          opacity: 1;
+        }
+
+        .servicios-fade.right.hidden {
+          opacity: 0;
+        }
+
+        .servicios-nav-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 46px;
+          height: 46px;
+          border-radius: 50%;
+          background: rgba(13, 19, 34, 0.85);
+          border: 1px solid var(--border-color);
+          color: var(--primary);
+          font-size: 1rem;
+          cursor: pointer;
+          z-index: 4;
+          backdrop-filter: blur(10px);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45);
+          transition: var(--transition);
+        }
+
+        .servicios-nav-btn:hover {
+          background: rgba(0, 163, 255, 0.15);
+          border-color: var(--primary);
+          box-shadow: 0 0 20px var(--primary-glow);
+          transform: translateY(-50%) scale(1.08);
+        }
+
+        .servicios-nav-btn.prev {
+          left: 8px;
+        }
+
+        .servicios-nav-btn.next {
+          right: 8px;
+        }
+
+        .servicios-nav-btn.disabled {
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(-50%) scale(0.95);
+        }
       }
 
       /* MODAL PRICING */
@@ -1385,7 +1553,8 @@
 
       .faq-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+        grid-template-columns: minmax(0, 820px);
+        justify-content: center;
         gap: 15px;
         align-items: start;
       }
@@ -1774,6 +1943,17 @@
 
         .faq-grid {
           grid-template-columns: 1fr;
+        }
+
+        /* En mobile/touch el hover queda "pegado" al presionar la card y la
+           levanta (translateY -4px), recortando el borde superior azul/ámbar
+           contra el elemento de arriba. Se elimina el desplazamiento vertical
+           y se conserva solo el resaltado de borde/glow. */
+        .pricing-card:hover,
+        .pricing-card.opportunity:hover,
+        .pricing-card:active,
+        .pricing-card:focus {
+          transform: none;
         }
       }
 

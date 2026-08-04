@@ -12,55 +12,61 @@
             </p>
           </div>
         </div>
-        <div class="pricing-wrap">
-          <div class="pricing-card">
+        <div class="servicios-carousel">
+          <div class="servicios-fade left" id="serviciosFadeLeft" aria-hidden="true"></div>
+          <div class="servicios-fade right" id="serviciosFadeRight" aria-hidden="true"></div>
+          <button class="servicios-nav-btn prev" id="prevServicio" aria-label="Servicio anterior">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="servicios-nav-btn next" id="nextServicio" aria-label="Servicio siguiente">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+          <div class="pricing-wrap" id="pricingWrap">
+          <div class="pricing-card opportunity">
+            <span class="opportunity-tag"><i class="fa-solid fa-star"></i> Oportunidad</span>
             <div class="pricing-badge">
-              <i class="fa-solid fa-bolt"></i> Oferta Express
+              <i class="fa-solid fa-bolt"></i> Landing Express
             </div>
-            <h3 class="pricing-title">Landing Page Express</h3>
+            <h3 class="pricing-title">Landing Page de Servicios</h3>
             <p class="pricing-subtitle">
-              Una web profesional lista para dar a conocer tu negocio, generar
-              confianza y conectar con tus clientes.
+              Una página web profesional y directa al grano para mostrar tus
+              servicios, generar confianza y conseguir clientes por WhatsApp.
             </p>
 
-            <div class="pricing-price">
-              <span class="price-value">$80.000 <span class="price-currency">CLP</span></span>
-              <span class="price-badge">Pago único</span>
+            <div class="pricing-meta">
+              <div class="pricing-price">
+                <span class="price-value">$80.000 <span class="price-currency">CLP</span></span>
+                <span class="price-badge">Pago único</span>
+              </div>
+              <p class="pricing-delivery">
+                <i class="fa-solid fa-stopwatch"></i>
+                <span>Entrega: 48 a 72 horas</span>
+              </p>
             </div>
-
-            <p class="pricing-delivery">
-              <i class="fa-solid fa-stopwatch"></i>
-              <span>Lista en 48 a 72 horas</span>
-              <button class="delivery-detail-btn" id="deliveryDetailBtn">
-                * ver condiciones en el detalle
-              </button>
-            </p>
 
             <ul class="pricing-features">
               <li>
                 <i class="fa-solid fa-circle-check"></i>
                 <span
-                  ><strong>Estructura inicial de 6 secciones</strong> (Ej:
-                  Header, Hero, Por qué elegirnos, Servicios, FAQ, Contacto y
-                  Footer).</span
-                >
-              </li>
-              <li>
-                <i class="fa-solid fa-circle-check"></i>
-                <span><strong>Botón flotante de WhatsApp</strong> integrado</span>
-              </li>
-              <li>
-                <i class="fa-solid fa-circle-check"></i>
-                <span
-                  ><strong>Panel administrador privado</strong> para cambiar tus
-                  textos y fotos cuando quieras</span
+                  ><strong>Estructura experta de 6 secciones:</strong> Diseñada
+                  estratégicamente para explicar qué haces, tus beneficios y tu
+                  trayectoria.</span
                 >
               </li>
               <li>
                 <i class="fa-solid fa-circle-check"></i>
                 <span
-                  ><strong>Alojamiento web</strong> con costo
-                  <strong>$0 mensual</strong></span
+                  ><strong>Botón flotante de WhatsApp:</strong> Contacto inmediato
+                  y sin fricciones para que tus clientes te escriban al
+                  instante.</span
+                >
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check"></i>
+                <span
+                  ><strong>Pura confianza:</strong> Espacio para testimonios,
+                  preguntas frecuentes y presentación personal que valida tu
+                  profesionalismo.</span
                 >
               </li>
             </ul>
@@ -68,8 +74,8 @@
             <p class="pricing-note">
               <i class="fa-solid fa-circle-info"></i>
               <span
-                >Tú compras tu dominio .cl en NIC Chile y nosotros lo dejamos
-                conectado gratis.</span
+                >El dominio .cl lo compras tú en NIC Chile (queda a tu nombre) y
+                nosotros lo configuramos gratis.</span
               >
             </p>
 
@@ -79,74 +85,65 @@
 
             <a
               class="pricing-cta"
-              href="https://wa.me/56959909150?text=Hola,%20me%20interesa%20la%20Landing%20Page%20Express%20de%20$80.000%20CLP.%20Quiero%20empezar"
+              href="https://wa.me/56959909150?text=Hola,%20me%20interesa%20la%20Landing%20Page%20de%20Servicios%20de%20$80.000%20CLP.%20Quiero%20empezar"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="fa-solid fa-rocket"></i> ¡Quiero mi Landing Page!
+              <i class="fa-brands fa-whatsapp"></i> Hablemos
             </a>
           </div>
 
-          <div class="pricing-card">
+          <div class="pricing-card opportunity">
+            <span class="opportunity-tag"><i class="fa-solid fa-star"></i> Oportunidad</span>
             <div class="pricing-badge">
-              <i class="fa-solid fa-building"></i> Sitio Completo
+              <i class="fa-solid fa-store"></i> Catálogo + WhatsApp
             </div>
-            <h3 class="pricing-title">Sitio Web Corporativo</h3>
+            <h3 class="pricing-title">Catálogo con Pedido a WhatsApp</h3>
             <p class="pricing-subtitle">
-              Multitágina — una web completa y robusta de varias páginas para
-              posicionar tu empresa, mostrar toda tu oferta y proyectar la máxima
-              autoridad.
+              El sistema perfecto para recibir pedidos de delivery o retiro en
+              tienda de forma ordenada y sin comisiones por venta.
             </p>
 
-            <div class="pricing-price">
-              <span class="price-value">$150.000 <span class="price-currency">CLP</span></span>
-              <span class="price-badge">Pago único</span>
+            <div class="pricing-meta">
+              <div class="pricing-price">
+                <span class="price-value">$70.000 <span class="price-currency">CLP</span></span>
+                <span class="price-badge">Pago único</span>
+              </div>
+              <p class="pricing-delivery">
+                <i class="fa-solid fa-stopwatch"></i>
+                <span>Entrega: 4 a 6 días hábiles</span>
+              </p>
             </div>
-
-            <p class="pricing-delivery">
-              <i class="fa-solid fa-stopwatch"></i>
-              <span>Plazo de entrega: 5 a 7 días hábiles</span>
-              <button class="delivery-detail-btn" id="deliveryDetailBtnCorp">
-                * ver condiciones en el detalle
-              </button>
-            </p>
 
             <ul class="pricing-features">
               <li>
                 <i class="fa-solid fa-circle-check"></i>
                 <span
-                  ><strong>Estructura profesional de 4 a 6 páginas
-                  independientes</strong> (Ej: Inicio, Quiénes Somos, Servicios
-                  Detallados, Casos de Éxito / Blog, y Contacto).</span
+                  ><strong>Carrito de compras integrado:</strong> El cliente arma
+                  su pedido completo con productos y variantes de forma muy
+                  fácil.</span
                 >
               </li>
               <li>
                 <i class="fa-solid fa-circle-check"></i>
                 <span
-                  ><strong>Menú de navegación avanzado</strong> y migas de pan
-                  (breadcrumbs) en todo el sitio.</span
+                  ><strong>Pedido directo a tu WhatsApp:</strong> Recibe el detalle
+                  exacto del pedido listo para coordinar el despacho o el
+                  retiro.</span
                 >
               </li>
               <li>
                 <i class="fa-solid fa-circle-check"></i>
                 <span
-                  ><strong>Formularios de contacto avanzados</strong> conectados a
-                  tu correo o WhatsApp por sección.</span
+                  ><strong>Adiós a las comisiones:</strong> El 100% de la venta es
+                  para ti, sin pagar porcentajes a apps de reparto externas.</span
                 >
               </li>
               <li>
                 <i class="fa-solid fa-circle-check"></i>
                 <span
-                  ><strong>Panel administrador privado</strong> para gestionar
-                  textos, imágenes y secciones de todo el sitio cuando
-                  quieras.</span
-                >
-              </li>
-              <li>
-                <i class="fa-solid fa-circle-check"></i>
-                <span
-                  ><strong>Alojamiento web con costo $0 mensual</strong> (la
-                  misma infraestructura rápida).</span
+                  ><strong>Panel de control seguro:</strong> Actualiza precios,
+                  productos y stock tú mismo con el diseño protegido.</span
                 >
               </li>
             </ul>
@@ -154,8 +151,78 @@
             <p class="pricing-note">
               <i class="fa-solid fa-circle-info"></i>
               <span
-                >Tú compras tu dominio .cl en NIC Chile y nosotros lo dejamos
-                conectado gratis.</span
+                >No necesitas dominio profesional: tu catálogo funciona con un
+                subdominio web gratuito.</span
+              >
+            </p>
+
+            <button class="pricing-more" id="openModalCatalogBtn">
+              <i class="fa-solid fa-circle-plus"></i> Ver más información
+            </button>
+
+            <a
+              class="pricing-cta"
+              href="https://wa.me/56959909150?text=Hola,%20me%20interesa%20el%20Catálogo%20con%20Pedido%20a%20WhatsApp%20de%20$70.000%20CLP.%20Quiero%20empezar"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fa-brands fa-whatsapp"></i> Hablemos
+            </a>
+          </div>
+
+          <div class="pricing-card">
+            <div class="pricing-badge">
+              <i class="fa-solid fa-building"></i> Sitio Corporativo
+            </div>
+            <h3 class="pricing-title">Sitio Web Corporativo</h3>
+            <p class="pricing-subtitle">
+              Una web completa y robusta de varias páginas para posicionar tu
+              empresa, mostrar toda tu oferta y proyectar la máxima autoridad.
+            </p>
+
+            <div class="pricing-meta">
+              <div class="pricing-price">
+                <span class="price-value">$150.000 <span class="price-currency">CLP</span></span>
+                <span class="price-badge">Pago único</span>
+              </div>
+              <p class="pricing-delivery">
+                <i class="fa-solid fa-stopwatch"></i>
+                <span>Entrega: 5 a 7 días hábiles</span>
+              </p>
+            </div>
+
+            <ul class="pricing-features">
+              <li>
+                <i class="fa-solid fa-circle-check"></i>
+                <span
+                  ><strong>Estructura profesional de 4 a 6 páginas:</strong>
+                  Secciones independientes (Inicio, Quiénes Somos, Servicios,
+                  Contacto, etc.) ordenadas estratégicamente.</span
+                >
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check"></i>
+                <span
+                  ><strong>Enfoque en captar clientes:</strong> Botones de contacto
+                  rápido, formularios y acceso directo a WhatsApp para que te
+                  escriban al instante.</span
+                >
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check"></i>
+                <span
+                  ><strong>Velocidad y seguridad superior:</strong> Páginas
+                  ultrarrápidas, diseño impecable y totalmente blindadas contra
+                  caídas y hackeos.</span
+                >
+              </li>
+            </ul>
+
+            <p class="pricing-note">
+              <i class="fa-solid fa-circle-info"></i>
+              <span
+                >El dominio .cl lo compras tú en NIC Chile y nosotros lo
+                configuramos gratis.</span
               >
             </p>
 
@@ -169,75 +236,51 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="fa-solid fa-building"></i> ¡Quiero mi Sitio Corporativo!
+              <i class="fa-brands fa-whatsapp"></i> Hablemos
             </a>
           </div>
 
           <div class="pricing-card">
             <div class="pricing-badge">
-              <i class="fa-solid fa-store"></i> Vitrina Digital
+              <i class="fa-solid fa-store"></i> Tienda Online
             </div>
-            <h3 class="pricing-title">Catálogo y Menú Express</h3>
+            <h3 class="pricing-title">Tienda Online Profesional</h3>
             <p class="pricing-subtitle">
-              La vitrina digital perfecta para mostrar tus productos o platos de
-              forma ordenada, atractiva y sin comisiones por venta.
+              Tu e-commerce rápido, seguro y listo para vender 24/7 con pagos
+              automáticos.
             </p>
 
-            <div class="pricing-price">
-              <span class="price-value">$80.000 <span class="price-currency">CLP</span></span>
-              <span class="price-badge">Pago único</span>
+            <div class="pricing-meta">
+              <div class="pricing-price">
+                <span class="price-value">$350.000 <span class="price-currency">CLP</span></span>
+                <span class="price-badge">Pago único</span>
+              </div>
+              <p class="pricing-delivery">
+                <i class="fa-solid fa-stopwatch"></i>
+                <span>Entrega: 6 a 8 días hábiles</span>
+              </p>
             </div>
-
-            <p class="pricing-delivery">
-              <i class="fa-solid fa-stopwatch"></i>
-              <span>Plazo de entrega: 4 a 6 días hábiles</span>
-              <button class="delivery-detail-btn" id="deliveryDetailBtnCatalog">
-                * ver condiciones en el detalle
-              </button>
-            </p>
 
             <ul class="pricing-features">
               <li>
                 <i class="fa-solid fa-circle-check"></i>
                 <span
-                  ><strong>Vitrina web autoadministrable</strong> con buscador
-                  integrado y hasta 4 categorías base.</span
+                  ><strong>Tienda ultrarrápida y blindada:</strong> Cero caídas y
+                  diseño impecable, muy superior a los lentos WordPress.</span
                 >
               </li>
               <li>
                 <i class="fa-solid fa-circle-check"></i>
                 <span
-                  ><strong>Carga inicial de 20 productos</strong> o platos
-                  incluida.</span
+                  ><strong>Pagos automáticos integrados:</strong> Tarjetas, débito
+                  y transferencias directo a tu cuenta.</span
                 >
               </li>
               <li>
                 <i class="fa-solid fa-circle-check"></i>
                 <span
-                  ><strong>Adaptado a restaurantes</strong> (Retiro/Delivery/QR)
-                  <strong>o tiendas</strong> (tallas, colores).</span
-                >
-              </li>
-              <li>
-                <i class="fa-solid fa-circle-check"></i>
-                <span
-                  ><strong>Carrito de compras integrado:</strong> el cliente suma
-                  sus productos y envía el pedido completo directo a tu
-                  WhatsApp.</span
-                >
-              </li>
-              <li>
-                <i class="fa-solid fa-circle-check"></i>
-                <span
-                  ><strong>Panel administrador privado:</strong> agrega, cambia o
-                  pausa productos cuando quieras.</span
-                >
-              </li>
-              <li>
-                <i class="fa-solid fa-circle-check"></i>
-                <span
-                  ><strong>Alojamiento web con costo $0 mensual</strong>
-                  (infraestructura de ultra alta velocidad).</span
+                  ><strong>Panel de control seguro:</strong> Actualiza precios,
+                  fotos y stock tú mismo, con el diseño protegido.</span
                 >
               </li>
             </ul>
@@ -245,23 +288,24 @@
             <p class="pricing-note">
               <i class="fa-solid fa-circle-info"></i>
               <span
-                >Dominio a tu medida: subdominio gratuito o tu propio dominio .cl
-                en NIC Chile conectado sin costo.</span
+                >El dominio .cl lo compras tú en NIC Chile y nosotros lo
+                configuramos gratis.</span
               >
             </p>
 
-            <button class="pricing-more" id="openModalCatalogBtn">
+            <button class="pricing-more" id="openModalEcomBtn">
               <i class="fa-solid fa-circle-plus"></i> Ver más información
             </button>
 
             <a
               class="pricing-cta"
-              href="https://wa.me/56959909150?text=Hola,%20me%20interesa%20el%20Catálogo%20y%20Menú%20Express%20de%20$80.000%20CLP.%20Quiero%20empezar"
+              href="https://wa.me/56959909150?text=Hola,%20me%20interesa%20la%20Tienda%20Online%20Profesional%20de%20$350.000%20CLP.%20Quiero%20empezar"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="fa-solid fa-cart-shopping"></i> ¡Quiero mi Catálogo/Menú Digital!
+              <i class="fa-brands fa-whatsapp"></i> Hablemos
             </a>
+          </div>
           </div>
         </div>
       </div>

@@ -96,6 +96,51 @@ const initApp = () => {
     });
   }
 
+  // Carrusel de servicios (desktop): degradados laterales + botones adelante/atrás
+  const pricingWrap = document.getElementById('pricingWrap');
+  const prevServicioBtn = document.getElementById('prevServicio');
+  const nextServicioBtn = document.getElementById('nextServicio');
+  const fadeServLeft = document.getElementById('serviciosFadeLeft');
+  const fadeServRight = document.getElementById('serviciosFadeRight');
+
+  if (pricingWrap && prevServicioBtn && nextServicioBtn) {
+    const updateServiciosCarousel = () => {
+      const maxScroll = pricingWrap.scrollWidth - pricingWrap.clientWidth;
+      const atStart = pricingWrap.scrollLeft <= 0;
+      const atEnd = pricingWrap.scrollLeft >= maxScroll - 1;
+      const hasOverflow = maxScroll > 0;
+
+      prevServicioBtn.classList.toggle('disabled', !hasOverflow || atStart);
+      nextServicioBtn.classList.toggle('disabled', !hasOverflow || atEnd);
+
+      if (fadeServLeft) {
+        fadeServLeft.classList.toggle('visible', hasOverflow && !atStart);
+      }
+      if (fadeServRight) {
+        fadeServRight.classList.toggle('hidden', !hasOverflow || atEnd);
+      }
+    };
+
+    const scrollServicios = (direction) => {
+      const card = pricingWrap.querySelector('.pricing-card');
+      const step = card ? card.offsetWidth + 24 : 400;
+      pricingWrap.scrollBy({ left: direction * step, behavior: 'smooth' });
+    };
+
+    nextServicioBtn.addEventListener('click', () => scrollServicios(1));
+    prevServicioBtn.addEventListener('click', () => scrollServicios(-1));
+
+    pricingWrap.addEventListener('scroll', updateServiciosCarousel, { passive: true });
+
+    let serviciosResizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(serviciosResizeTimer);
+      serviciosResizeTimer = setTimeout(updateServiciosCarousel, 150);
+    });
+
+    updateServiciosCarousel();
+  }
+
   // Acordeón FAQ Accesible y Estable: al abrir uno, los demás (incluido el vecino en desktop) quedan cerrados
   const closeAllFaqItems = () => {
     document.querySelectorAll('.faq-item').forEach((other) => {
@@ -286,11 +331,42 @@ const initApp = () => {
     deliveryDetailBtnCatalog.addEventListener('click', openModalCatalog);
   }
 
+  // Modal Tienda Online Profesional
+  const pricingModalEcom = document.getElementById('pricingModalEcom');
+  const openModalEcomBtn = document.getElementById('openModalEcomBtn');
+  const closeModalEcomBtn = document.getElementById('closeModalEcomBtn');
+
+  const openModalEcom = () => {
+    pricingModalEcom.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModalEcom = () => {
+    resetAccordions(pricingModalEcom);
+    pricingModalEcom.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  if (pricingModalEcom && openModalEcomBtn && closeModalEcomBtn) {
+    openModalEcomBtn.addEventListener('click', openModalEcom);
+    closeModalEcomBtn.addEventListener('click', closeModalEcom);
+
+    pricingModalEcom.addEventListener('click', (e) => {
+      if (e.target === pricingModalEcom) closeModalEcom();
+    });
+  }
+
+  const deliveryDetailBtnEcom = document.getElementById('deliveryDetailBtnEcom');
+  if (deliveryDetailBtnEcom) {
+    deliveryDetailBtnEcom.addEventListener('click', openModalEcom);
+  }
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (pricingModal && pricingModal.classList.contains('active')) closeModal();
       if (pricingModalCorp && pricingModalCorp.classList.contains('active')) closeModalCorp();
       if (pricingModalCatalog && pricingModalCatalog.classList.contains('active')) closeModalCatalog();
+      if (pricingModalEcom && pricingModalEcom.classList.contains('active')) closeModalEcom();
     }
   });
 
