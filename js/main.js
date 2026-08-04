@@ -218,10 +218,12 @@ const initApp = () => {
     });
   });
 
-  // Ajusta la altura de los acordeones abiertos por defecto
-  document.querySelectorAll('.acc-item.open .acc-content').forEach((content) => {
-    setAccordionHeight(content);
-  });
+  // Ajusta la altura de los acordeones abiertos por defecto.
+  // Se llama cuando el modal ya está visible (display:block), porque si se mide
+  // con el modal oculto scrollHeight devuelve 0 y el texto queda cortado.
+  const syncOpenAccordions = (modalEl) => {
+    modalEl.querySelectorAll('.acc-item.open .acc-content').forEach(setAccordionHeight);
+  };
 
   // Recalcula la altura al cambiar el tamaño de la pantalla (rotación móvil, etc.)
   const updateOpenAccordionHeights = () => {
@@ -249,6 +251,7 @@ const initApp = () => {
   const openModal = () => {
     pricingModal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    syncOpenAccordions(pricingModal);
   };
 
   const closeModal = () => {
@@ -279,6 +282,7 @@ const initApp = () => {
   const openModalCorp = () => {
     pricingModalCorp.classList.add('active');
     document.body.style.overflow = 'hidden';
+    syncOpenAccordions(pricingModalCorp);
   };
 
   const closeModalCorp = () => {
@@ -309,6 +313,7 @@ const initApp = () => {
   const openModalCatalog = () => {
     pricingModalCatalog.classList.add('active');
     document.body.style.overflow = 'hidden';
+    syncOpenAccordions(pricingModalCatalog);
   };
 
   const closeModalCatalog = () => {
@@ -339,6 +344,7 @@ const initApp = () => {
   const openModalEcom = () => {
     pricingModalEcom.classList.add('active');
     document.body.style.overflow = 'hidden';
+    syncOpenAccordions(pricingModalEcom);
   };
 
   const closeModalEcom = () => {
