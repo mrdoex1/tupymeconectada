@@ -9,6 +9,7 @@
         --text-main: #f3f4f6;
         --text-muted: #9ca3af;
         --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        --section-padding: 96px;
       }
 
       * {
@@ -208,7 +209,7 @@
         width: 100%;
         position: relative;
         z-index: 1;
-        padding: 130px 0;
+        padding: var(--section-padding) 0;
         border-bottom: 1px solid var(--border-color);
       }
 
@@ -1843,6 +1844,9 @@
 
       /* ADAPTATIVIDAD Y MEDIA QUERIES */
       @media (max-width: 1024px) {
+        :root {
+          --section-padding: 80px;
+        }
         .hero-layout {
           grid-template-columns: 1fr;
           gap: 50px;
@@ -1872,6 +1876,9 @@
       }
 
       @media (max-width: 768px) {
+        :root {
+          --section-padding: 64px;
+        }
         header {
           width: calc(100vw - 32px) !important;
           max-width: 450px !important;
