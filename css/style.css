@@ -778,6 +778,21 @@
         border-radius: 50px;
       }
 
+      .pricing-old {
+        margin: 0 0 10px;
+        text-align: left;
+        color: var(--text-muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
+      }
+
+      .pricing-old s {
+        color: var(--text-main);
+        font-weight: 700;
+        text-decoration-thickness: 2px;
+        text-decoration-color: var(--danger, #f87171);
+      }
+
       .pricing-meta {
         display: flex;
         align-items: center;
