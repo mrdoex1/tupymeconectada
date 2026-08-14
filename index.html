@@ -37,12 +37,145 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <!-- Header y Hero inline para evitar el "pestañazo" al cargar (el resto se importa desde /partials) -->
+    <header>
+      <a href="/" class="logo-container" aria-label="Inicio">
+        <img
+          src="recursos/imagenes/logoTPC.png"
+          alt="Logo Tu Pyme Conectada"
+          class="logo-img"
+        />
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li class="mobile-social-item">
+          <a href="https://www.instagram.com/tupymeconectada/" target="_blank" rel="noopener noreferrer" class="nav-social-link">
+            <i class="fa-brands fa-instagram"></i> Sígueme en Instagram
+          </a>
+        </li>
+        <li class="mobile-social-item">
+          <a href="https://www.linkedin.com/in/bastianmellag/" target="_blank" rel="noopener noreferrer" class="nav-social-link">
+            <i class="fa-brands fa-linkedin"></i> Conoce mi trayectoria en LinkedIn
+          </a>
+        </li>
+      </ul>
+
+      <div class="nav-actions">
+        <a
+          href="https://www.instagram.com/tupymeconectada/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-nav-icon"
+          title="Instagram"
+          aria-label="Ir a Instagram"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+        <a
+          href="https://www.linkedin.com/in/bastianmellag/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-nav-icon"
+          title="LinkedIn"
+          aria-label="Ir a LinkedIn"
+          ><i class="fa-brands fa-linkedin"></i
+        ></a>
+        <a
+          href="https://wa.me/56959909150?text=Hola,%20quiero%20cotizar%20un%20sitio%20web"
+          class="cta-header"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Cotizar</a
+        >
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú de navegación">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <!-- Partículas de fondo ascendentes -->
+      <div class="hero-particles" aria-hidden="true">
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+      </div>
+      <div class="hero-inner">
+        <div class="hero-layout">
+          <div>
+            <h1>
+              Sitios web limpios, rápidos y enfocados en <span>vender más</span>
+            </h1>
+            <p>
+              Ayudo a tu negocio a dar el salto digital con plataformas
+              modernas, optimizadas para celulares y listas para conectar
+              directamente con tus clientes por WhatsApp.
+            </p>
+
+            <div class="hero-buttons">
+              <a href="#contacto" class="btn-main"
+                >Hablemos de tu proyecto <i class="fa-solid fa-arrow-right"></i
+              ></a>
+              <!-- <a href="#demos" class="btn-outline">Ver ejemplos</a> -->
+            </div>
+          </div>
+
+          <!-- TARJETA HERO DE BENEFICIOS -->
+          <div class="hero-benefits-card">
+            <h3><i class="fa-solid fa-rocket"></i> Por qué elegirme</h3>
+            <div class="benefit-list">
+              <div class="benefit-item">
+                <i class="fa-solid fa-bolt"></i>
+                <div class="benefit-info">
+                  <h4>Entrega Express</h4>
+                  <p>Según el servicio, podrás contar con tu Sitio Web en un período corto de tiempo.</p>
+                </div>
+              </div>
+              <div class="benefit-item">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <div class="benefit-info">
+                  <h4>Autogestión Simple</h4>
+                  <p>Te capacito para que puedas realizar cambios básicos en tu sitio sin necesidad de asistencia técnica.</p>
+                </div>
+              </div>
+              <div class="benefit-item">
+                <i class="fa-solid fa-headset"></i>
+                <div class="benefit-info">
+                  <h4>Soporte Post-Entrega</h4>
+                  <p>Hasta 2 revisiones de correcciones dentro de los primeros 30 días posteriores a la entrega.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Secciones importadas desde /partials -->
     <div data-include="partials/ambient.html"></div>
-    <div data-include="partials/header.html"></div>
-    <div data-include="partials/hero.html"></div>
     <div data-include="partials/servicios.html"></div>
     <div data-include="partials/demos.html"></div>
+    <div data-include="partials/sobre-mi.html"></div>
     <div data-include="partials/faq.html"></div>
     <div data-include="partials/contacto.html"></div>
     <div data-include="partials/modales.html"></div>
