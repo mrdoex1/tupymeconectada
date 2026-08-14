@@ -60,11 +60,10 @@
             max-width: 440px;
             padding: 35px 24px;
             text-align: center;
-            background: linear-gradient(145deg, rgba(16, 23, 38, 0.85), rgba(9, 13, 22, 0.95));
-            border: 1px solid rgba(0, 163, 255, 0.2);
+            background: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 163, 255, 0.08);
-            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
             margin: 20px;
             animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -74,12 +73,19 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Foto de perfil circular con anillo brillante */
+        /* Logo del sitio y foto de perfil lado a lado */
+        .profile-images {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 15px;
+        }
+
         .profile-img-container {
             position: relative;
-            width: 110px;
-            height: 110px;
-            margin: 0 auto 15px auto;
+            width: 96px;
+            height: 96px;
         }
 
         .profile-img {
@@ -87,8 +93,7 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #00a3ff;
-            box-shadow: 0 0 20px rgba(0, 163, 255, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.15);
         }
 
         /* Nombre e Insignia Verificada */
@@ -133,7 +138,6 @@
             height: 7px;
             background-color: #00a3ff;
             border-radius: 50%;
-            box-shadow: 0 0 8px #00a3ff;
             animation: pulse 2s infinite;
         }
 
@@ -192,13 +196,13 @@
             gap: 12px;
             width: 100%;
             padding: 15px 20px;
-            background: rgba(0, 163, 255, 0.04);
+            background: transparent;
             color: #ffffff;
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
             border-radius: 14px;
-            border: 1px solid rgba(0, 163, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
@@ -207,7 +211,6 @@
             background-color: #00a3ff;
             color: #090d16;
             border-color: #00a3ff;
-            box-shadow: 0 0 25px rgba(0, 163, 255, 0.6);
             transform: translateY(-3px);
         }
 
@@ -235,8 +238,8 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: rgba(0, 163, 255, 0.05);
-            border: 1px solid rgba(0, 163, 255, 0.2);
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -249,7 +252,6 @@
             background-color: #00a3ff;
             color: #090d16;
             border-color: #00a3ff;
-            box-shadow: 0 0 15px rgba(0, 163, 255, 0.5);
             transform: translateY(-2px);
         }
 
@@ -270,9 +272,14 @@
     </div>
 
     <div class="container">
-        <!-- Foto de perfil circular -->
-        <div class="profile-img-container">
-            <img src="https://scontent.cdninstagram.com/v/t51.82787-19/759663914_18075327674349446_1289301239437741397_n.jpg?_nc_cat=110&ccb=7-5&_nc_sid=bf7eb4&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4zMjAuQzMifQ%3D%3D&_nc_ohc=0ITKDJ0F7vIQ7kNvwFVsGFM&_nc_oc=AdrPWmuBMErc2roiEq7QEnc0TIGLMtUmOibrfiS87vhPbGLf_WFSAoKPe_DUoezuqLvylGcpR_TAnuoA_vvQkMoh&_nc_zt=24&_nc_ht=scontent.cdninstagram.com&_nc_gid=hLN86cAlpGXvsdh1yjemew&_nc_ss=7b6a8&oh=00_AQFezDZxnEuRuQVfOqobxfK1qDwwXuLJ30J8ro0fSrDEWQ&oe=6A785B89" alt="Foto de perfil" class="profile-img">
+        <!-- Logo del sitio y foto de perfil lado a lado -->
+        <div class="profile-images">
+            <div class="profile-img-container">
+                <img src="recursos/imagenes/logoInsta.jpg" alt="Logo Tu Pyme Conectada" class="profile-img">
+            </div>
+            <div class="profile-img-container">
+                <img src="recursos/imagenes/yo.jpg" alt="Bastián, fundador de Tu Pyme Conectada" class="profile-img">
+            </div>
         </div>
         
         <!-- Nombre con insignia de verificación -->
@@ -288,7 +295,9 @@
         
         <!-- Breve descripción -->
         <p class="profile-bio">
-            Creamos sitios web modernos, funcionales y optimizados para pymes.
+            Soy Bastián, especialista en calidad con más de 10 años en desarrollo de software.
+            Tu Pyme Conectada nació para ayudar a pymes como la tuya a tener una imagen digital
+            profesional, con atención cercana desde la primera conversación hasta después de la entrega.
         </p>
 
         <!-- Contador de Visitas -->
