@@ -1,4 +1,5 @@
 ---
+import '../styles/global.css';
 const title = '404 | Tu Pyme Conectada';
 ---
 <!DOCTYPE html>
@@ -7,25 +8,17 @@ const title = '404 | Tu Pyme Conectada';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <link rel="icon" type="image/png" href="/recursos/imagenes/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
       rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Plus Jakarta Sans", sans-serif;
-      }
-
       body {
-        background: linear-gradient(180deg, #090d16 0%, #0d1322 100%);
-        color: #f3f4f6;
+        background: linear-gradient(180deg, #ffffff 0%, #eef4fb 100%);
+        color: var(--text-light);
         min-height: 100vh;
         display: flex;
         align-items: center;
@@ -34,10 +27,10 @@ const title = '404 | Tu Pyme Conectada';
       }
 
       .error-card {
-        background: #111827;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: var(--card-light);
+        border: 1px solid var(--border-light);
         border-radius: 24px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        box-shadow: var(--shadow-light);
         max-width: 480px;
         width: 100%;
         padding: 45px 32px;
@@ -53,11 +46,12 @@ const title = '404 | Tu Pyme Conectada';
       }
 
       .error-code {
+        font-family: "Bricolage Grotesque", sans-serif;
         font-size: 4.5rem;
         font-weight: 800;
         letter-spacing: -0.03em;
         line-height: 1;
-        background: linear-gradient(135deg, #fff 20%, #00a3ff 100%);
+        background: linear-gradient(135deg, var(--text-light) 20%, var(--primary) 100%);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -66,13 +60,15 @@ const title = '404 | Tu Pyme Conectada';
       }
 
       .error-title {
+        font-family: "Bricolage Grotesque", sans-serif;
         font-size: 1.4rem;
         font-weight: 700;
+        color: var(--text-light);
         margin-bottom: 12px;
       }
 
       .error-text {
-        color: #9ca3af;
+        color: var(--text-light-muted);
         font-size: 0.95rem;
         line-height: 1.7;
         margin-bottom: 30px;
@@ -94,16 +90,20 @@ const title = '404 | Tu Pyme Conectada';
         font-weight: 600;
         font-size: 0.9rem;
         text-decoration: none;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: var(--transition);
+      }
+
+      .btn i {
+        font-size: 1.1rem;
       }
 
       .btn-home {
-        background: #00a3ff;
+        background: var(--primary);
         color: #000;
       }
 
       .btn-home:hover {
-        background: #38bdf8;
+        background: var(--primary-light);
         transform: translateY(-2px);
       }
 
@@ -121,7 +121,7 @@ const title = '404 | Tu Pyme Conectada';
   <body>
     <div class="error-card">
       <img
-        src="/recursos/imagenes/logoTPC.png"
+        src="/recursos/imagenes/logoTPC-dark.png"
         alt="Logo Tu Pyme Conectada"
         class="logo-img"
       />
@@ -133,7 +133,7 @@ const title = '404 | Tu Pyme Conectada';
       </p>
       <div class="error-buttons">
         <a href="/" class="btn btn-home">
-          <i class="fa-solid fa-house"></i> Volver al inicio
+          <i class="ti ti-home"></i> Volver al inicio
         </a>
         <a
           href="https://wa.me/56959909150?text=Hola,%20me%20perdí%20en%20tu%20sitio%20web"
@@ -141,7 +141,7 @@ const title = '404 | Tu Pyme Conectada';
           rel="noopener noreferrer"
           class="btn btn-whatsapp"
         >
-          <i class="fa-brands fa-whatsapp"></i> Escríbeme por WhatsApp
+          <i class="ti ti-brand-whatsapp"></i> Escríbeme por WhatsApp
         </a>
       </div>
     </div>

@@ -1365,13 +1365,177 @@
       /* ===== FOOTER OSCURO ===== */
       footer {
         border-top: 1px solid var(--border-dark);
-        padding: 45px 5%;
-        text-align: center;
+        background: #0a1220;
         color: var(--text-dark-muted);
         font-size: 0.85rem;
-        background: #0a1220;
         position: relative;
         z-index: 1;
+      }
+
+      .footer-inner {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 40px 5% 28px;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 40px;
+        align-items: center;
+        text-align: left;
+        margin-bottom: 42px;
+      }
+
+      .footer-logo {
+        height: 34px;
+        width: auto;
+        object-fit: contain;
+        margin-bottom: 16px;
+      }
+
+      .footer-tagline {
+        color: var(--text-dark-muted);
+        font-size: 0.85rem;
+        line-height: 1.7;
+        max-width: 260px;
+        margin-bottom: 20px;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 10px;
+      }
+
+      .footer-social a {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: var(--surface-dark);
+        border: 1px solid var(--border-dark);
+        color: var(--text-dark-muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .footer-social a:hover {
+        color: var(--primary);
+        border-color: var(--border-glow);
+        transform: translateY(-2px);
+      }
+
+      .footer-heading {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 18px;
+      }
+
+      .footer-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .footer-links a,
+      .footer-links span {
+        color: var(--text-dark-muted);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover {
+        color: var(--primary);
+        transform: translateX(3px);
+      }
+
+      .footer-links i {
+        font-size: 0.95rem;
+        color: var(--primary);
+      }
+
+      /* ===== MÉTODOS DE PAGO ===== */
+      .footer-payments-col {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 14px;
+        justify-self: end;
+      }
+
+      .footer-payments-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--text-dark-muted);
+      }
+
+      .footer-payments-badges {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+      }
+
+      .payment-logo {
+        height: 80px;
+        width: auto;
+        filter: brightness(0) invert(1);
+      }
+
+      .payment-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--surface-dark);
+        border: 1px solid var(--border-dark);
+        border-radius: 10px;
+        padding: 7px 14px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-dark);
+      }
+
+      .payment-badge i {
+        color: var(--primary);
+        font-size: 1rem;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        font-size: 0.78rem;
+      }
+
+      @media (max-width: 1024px) {
+        .footer-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .footer-grid {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        .footer-payments-col {
+          align-items: flex-start;
+          justify-self: stretch;
+        }
+        .footer-payments-badges {
+          align-items: flex-start;
+        }
       }
 
       /* BARRA DE PROPUESTA (solo visible en esta página) */
