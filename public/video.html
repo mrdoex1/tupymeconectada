@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plantilla Reel 9:16 - Marco Transparente para Video</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #ffffff;
+      --bg-gradient-end: #edf4fc;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --border-color: rgba(15, 23, 42, 0.08);
+      --blue-primary: #00a3ff;
+      --blue-light: #38bdf8;
+      --blue-glow: rgba(0, 163, 255, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: #0b0f19;
+      color: #ffffff;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .gallery-title {
+      font-size: 28px;
+      font-weight: 800;
+      text-align: center;
+      color: #f8fafc;
+    }
+
+    .gallery-title span {
+      color: var(--blue-light);
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* LIENZO REEL (1080 x 1920) ESCALADO PARA PREVISUALIZACIÓN */
+    .reel-canvas {
+      width: 1080px;
+      height: 1920px;
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+      border-radius: 24px;
+      transform: scale(0.35);
+      transform-origin: top center;
+      margin-bottom: -1200px;
+    }
+
+    /* FONDO DE MARCA */
+    .bg-base {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-gradient-end) 100%);
+      z-index: 1;
+    }
+
+    .blue-glow-spot {
+      position: absolute;
+      top: 100px;
+      right: -50px;
+      width: 700px;
+      height: 700px;
+      background: var(--blue-glow);
+      filter: blur(160px);
+      border-radius: 50%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .diagonal-shape-top {
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 750px;
+      height: 450px;
+      background: var(--text-primary);
+      transform: rotate(-10deg);
+      border-radius: 40px;
+      z-index: 2;
+    }
+
+    /* ESTRUCTURA GENERAL INTERNA */
+    .content-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* HEADER SUPERIOR COMPACTO */
+    .header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 90px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      padding: 10px 24px 10px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .logo-placeholder {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .brand-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .badge-tag {
+      background: var(--blue-primary);
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 8px 20px rgba(0, 163, 255, 0.3);
+    }
+
+    /* CONTENEDOR DEL VIDEO VACÍO / TRANSPARENTE (85% DEL ESPACIO VERTICAL) */
+    .video-container-frame {
+      width: 100%;
+      height: 1630px; /* ~85% de 1920px */
+      background: transparent;
+      border-radius: 36px;
+      position: relative;
+      overflow: hidden;
+      border: 4px solid #ffffff;
+      box-shadow: 0 25px 50px rgba(15, 23, 42, 0.25);
+    }
+
+    /* OVERLAY / TARJETA SUPERPUESTA PARA EL TÍTULO */
+    .reel-overlay-card {
+      position: absolute;
+      bottom: 40px;
+      left: 30px;
+      right: 30px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-left: 8px solid var(--blue-primary);
+      border-radius: 24px;
+      padding: 30px 36px;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .overlay-title {
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+
+    .overlay-title span {
+      color: var(--blue-light);
+    }
+
+    .overlay-subtitle {
+      font-size: 20px;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    /* FOOTER INFERIOR COMPACTO */
+    .footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .social-handle {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .action-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--text-primary);
+      color: #ffffff;
+      padding: 12px 26px;
+      border-radius: 100px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .action-pill span {
+      color: var(--blue-light);
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="gallery-title">Plantilla Reel 9:16 • <span>Espacio Transparente (85%)</span></h1>
+
+  <div class="wrapper">
+    <div class="reel-canvas">
+      <div class="bg-base"></div>
+      <div class="diagonal-shape-top"></div>
+      <div class="blue-glow-spot"></div>
+
+      <div class="content-wrapper">
+        
+        <!-- HEADER -->
+        <header class="header">
+          <div class="logo-area">
+            <div class="logo-placeholder">LOGO</div>
+            <span class="brand-name">Tu Marca</span>
+          </div>
+          <div class="badge-tag">REEL EXPRESS</div>
+        </header>
+
+        <!-- CONTENEDOR DEL VIDEO (VACÍO Y TRANSPARENTE) -->
+        <main class="video-container-frame">
+          
+          <!-- TARJETA SUPERPUESTA SOBRE EL VIDEO -->
+          <div class="reel-overlay-card">
+            <h2 class="overlay-title">3 Claves para <span>Aumentar Conversiones</span></h2>
+            <p class="overlay-subtitle">Aplica esto en tu próxima Landing Page 🚀</p>
+          </div>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+          <span class="social-handle">@tunombredeusuario</span>
+          <div class="action-pill">
+            <span>Síguenos</span> para más tips
+          </div>
+        </footer>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

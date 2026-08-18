@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plantilla Instagram Dinámica 1080x1080</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #ffffff;
+      --bg-surface: #f5f7fb;
+      --bg-gradient-end: #eef4fb;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --border-color: rgba(15, 23, 42, 0.08);
+      --blue-primary: #00a3ff;
+      --blue-light: #38bdf8;
+      --blue-glow: rgba(0, 163, 255, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #0f172a;
+      padding: 20px;
+    }
+
+    /* Lienzo exacto para post de Instagram (1080x1080) */
+    .post-canvas {
+      width: 1080px;
+      height: 1080px;
+      background: #ffffff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    /* CAPAS Y FORMAS DIAGONALES EN EL FONDO */
+    .bg-gradient-base {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-gradient-end) 100%);
+      z-index: 1;
+    }
+
+    /* Bloque diagonal superior */
+    .diagonal-shape-top {
+      position: absolute;
+      top: -120px;
+      right: -100px;
+      width: 650px;
+      height: 650px;
+      background: linear-gradient(135deg, rgba(0, 163, 255, 0.08) 0%, rgba(56, 189, 248, 0.02) 100%);
+      transform: rotate(25deg);
+      border-radius: 60px;
+      border: 1px solid rgba(0, 163, 255, 0.15);
+      z-index: 2;
+    }
+
+    /* Franja diagonal con acento azul */
+    .diagonal-stripe {
+      position: absolute;
+      top: 150px;
+      right: -180px;
+      width: 700px;
+      height: 80px;
+      background: linear-gradient(90deg, var(--blue-primary), var(--blue-light));
+      transform: rotate(-35deg);
+      border-radius: 40px;
+      opacity: 0.15;
+      z-index: 2;
+    }
+
+    /* Esquina inferior en tono oscuro */
+    .diagonal-accent-bottom {
+      position: absolute;
+      bottom: -150px;
+      left: -150px;
+      width: 550px;
+      height: 550px;
+      background: var(--text-primary);
+      transform: rotate(15deg);
+      border-radius: 70px;
+      z-index: 2;
+    }
+
+    /* Resplandor fluorescente */
+    .blue-glow-spot {
+      position: absolute;
+      top: 200px;
+      right: 100px;
+      width: 400px;
+      height: 400px;
+      background: var(--blue-glow);
+      filter: blur(120px);
+      border-radius: 50%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .content-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      padding: 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* ENCABEZADO */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 12px 24px 12px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+    }
+
+    .logo-placeholder {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 15px;
+      box-shadow: 0 6px 16px rgba(0, 163, 255, 0.3);
+    }
+
+    .brand-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .badge {
+      background: var(--text-primary);
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
+    }
+
+    /* CUERPO PRINCIPAL */
+    .main-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin: auto 0;
+    }
+
+    /* MARCO DIAGONAL DE IMAGEN */
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 520px;
+    }
+
+    .image-border-decor {
+      position: absolute;
+      inset: -8px;
+      background: linear-gradient(135deg, var(--blue-primary), transparent, var(--blue-light));
+      clip-path: polygon(0 0, 100% 5%, 95% 100%, 0 92%);
+      border-radius: 30px;
+      opacity: 0.8;
+    }
+
+    .image-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-surface);
+      clip-path: polygon(0 0, 100% 5%, 95% 100%, 0 92%);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color);
+    }
+
+    .image-placeholder-content {
+      text-align: center;
+      padding: 30px;
+      color: var(--text-secondary);
+    }
+
+    .image-placeholder-content svg {
+      width: 64px;
+      height: 64px;
+      stroke: var(--blue-primary);
+      margin-bottom: 12px;
+    }
+
+    .image-placeholder-content p {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .user-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none; /* Cambiar a block al cargar imagen */
+    }
+
+    /* SECCIÓN DE TEXTO */
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .tag-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--blue-primary);
+      font-weight: 800;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .tag-line::before {
+      content: '';
+      width: 24px;
+      height: 3px;
+      background: var(--blue-primary);
+      border-radius: 2px;
+    }
+
+    .main-title {
+      font-size: 42px;
+      font-weight: 900;
+      color: var(--text-primary);
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+    }
+
+    .main-title span {
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .description {
+      font-size: 20px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* PIE DE PÁGINA */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 2px dashed rgba(15, 23, 42, 0.08);
+    }
+
+    .social-handle {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, var(--blue-primary), #0082cc);
+      color: #ffffff;
+      padding: 14px 28px;
+      border-radius: 16px;
+      font-size: 17px;
+      font-weight: 700;
+      box-shadow: 0 10px 20px rgba(0, 163, 255, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="post-canvas">
+    <!-- Formas y capas diagonales de fondo -->
+    <div class="bg-gradient-base"></div>
+    <div class="diagonal-shape-top"></div>
+    <div class="diagonal-stripe"></div>
+    <div class="diagonal-accent-bottom"></div>
+    <div class="blue-glow-spot"></div>
+
+    <!-- Contenido Frontal -->
+    <div class="content-wrapper">
+      
+      <!-- ENCABEZADO -->
+      <header class="header">
+        <div class="">
+          <div class=""></div>
+          <span class="brand-name"></span>
+        </div>
+        <div class="badge">Destacado</div>
+      </header>
+
+      <!-- CUERPO PRINCIPAL -->
+      <main class="main-body">
+        
+        <!-- MARCO DE IMAGEN DIAGONAL -->
+        <div class="image-container">
+          <div class="image-border-decor"></div>
+          <div class="image-frame">
+            <div class="image-placeholder-content">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+              </svg>
+              <p>Tu Imagen Aquí<br><small style="font-size:14px; opacity:0.8;">(Corte Asimétrico)</small></p>
+            </div>
+            <!-- Para incluir foto real: <img src="foto.jpg" class="user-image" style="display:block;"> -->
+          </div>
+        </div>
+
+        <!-- TEXTO -->
+        <div class="text-container">
+          <span class="tag-line">Innovación & Estilo</span>
+          <h1 class="main-title">
+            Lorem Ipsum <span>Dolor Sit</span> Amet
+          </h1>
+          <p class="description">
+            Consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.
+          </p>
+        </div>
+
+      </main>
+
+      <!-- PIE DE PÁGINA -->
+      <footer class="footer">
+        <span class="social-handle">@tunombredeusuario</span>
+        <div class="cta-button">Más Información ➔</div>
+      </footer>
+
+    </div>
+  </div>
+
+</body>
+</html>
