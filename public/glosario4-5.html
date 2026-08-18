@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plantilla Instagram Informativa Texto - 1080x1080</title>
+  <title>Plantilla Instagram Feed 4:5 - SEO Local</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -13,8 +13,8 @@
       --bg-surface: #f5f7fb;
       --bg-gradient-end: #eef4fb;
       --text-primary: #0f172a;
-      --text-secondary: #475569;
-      --border-color: rgba(15, 23, 42, 0.08);
+      --text-secondary: #334155;
+      --border-color: rgba(15, 23, 42, 0.1);
       --blue-primary: #00a3ff;
       --blue-light: #38bdf8;
       --blue-glow: rgba(0, 163, 255, 0.35);
@@ -36,10 +36,10 @@
       padding: 20px;
     }
 
-    /* Canvas para post de Instagram (1080x1080) */
+    /* Canvas para Feed de Instagram (1080x1350) - Relación 4:5 */
     .post-canvas {
       width: 1080px;
-      height: 1080px;
+      height: 1350px;
       background: #ffffff;
       position: relative;
       overflow: hidden;
@@ -54,11 +54,10 @@
       z-index: 1;
     }
 
-    /* Gran bloque diagonal en la esquina superior derecha */
     .diagonal-shape-top {
       position: absolute;
-      top: -160px;
-      right: -120px;
+      top: -120px;
+      right: -100px;
       width: 750px;
       height: 750px;
       background: linear-gradient(135deg, rgba(0, 163, 255, 0.08) 0%, rgba(56, 189, 248, 0.02) 100%);
@@ -68,12 +67,11 @@
       z-index: 2;
     }
 
-    /* Franja diagonal central con acento */
     .diagonal-stripe {
       position: absolute;
-      top: 400px;
+      top: 550px;
       right: -200px;
-      width: 800px;
+      width: 900px;
       height: 100px;
       background: linear-gradient(90deg, var(--blue-primary), var(--blue-light));
       transform: rotate(-25deg);
@@ -82,11 +80,10 @@
       z-index: 2;
     }
 
-    /* Esquina inferior oscura */
     .diagonal-accent-bottom {
       position: absolute;
-      bottom: -200px;
-      left: -200px;
+      bottom: -150px;
+      left: -150px;
       width: 600px;
       height: 600px;
       background: var(--text-primary);
@@ -95,11 +92,10 @@
       z-index: 2;
     }
 
-    /* Resplandor fluorescente suave */
     .blue-glow-spot {
       position: absolute;
-      top: 300px;
-      left: 100px;
+      top: 400px;
+      left: 80px;
       width: 500px;
       height: 500px;
       background: var(--blue-glow);
@@ -109,13 +105,13 @@
       pointer-events: none;
     }
 
-    /* CONTENEDOR PRINCIPAL DE CONTENIDO */
+    /* CONTENEDOR PRINCIPAL */
     .content-wrapper {
       position: relative;
       z-index: 10;
       width: 100%;
       height: 100%;
-      padding: 70px;
+      padding: 70px 70px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -128,45 +124,26 @@
       align-items: center;
     }
 
-    .logo-area {
+    /* LOGO ADAPTABLE */
+    .logo-container {
       display: flex;
       align-items: center;
-      gap: 16px;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(12px);
-      padding: 12px 24px 12px 14px;
-      border-radius: 20px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+      height: 60px;
+      max-width: 350px;
     }
 
-    .logo-placeholder {
-      width: 52px;
-      height: 52px;
-      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      font-weight: 800;
-      font-size: 15px;
-      box-shadow: 0 6px 16px rgba(0, 163, 255, 0.3);
-    }
-
-    .brand-name {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--text-primary);
-      letter-spacing: -0.5px;
+    .logo-container img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
     }
 
     .badge-info {
       background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
       color: #ffffff;
-      padding: 12px 24px;
+      padding: 14px 28px;
       border-radius: 100px;
-      font-size: 15px;
+      font-size: 18px;
       font-weight: 800;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -177,7 +154,7 @@
     .main-body {
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 30px;
       margin: auto 0;
     }
 
@@ -189,7 +166,7 @@
     }
 
     .category-tag {
-      font-size: 17px;
+      font-size: 20px;
       font-weight: 800;
       color: var(--blue-primary);
       text-transform: uppercase;
@@ -212,28 +189,28 @@
 
     /* DEFINICIÓN / INTRODUCCIÓN GENERAL */
     .intro-card {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(16px);
       border: 1px solid var(--border-color);
       border-left: 6px solid var(--blue-primary);
-      border-radius: 20px;
-      padding: 28px 32px;
-      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.04);
+      border-radius: 18px;
+      padding: 26px 32px;
+      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.05);
     }
 
     .intro-card p {
-      font-size: 23px;
+      font-size: 24px;
       color: var(--text-secondary);
-      line-height: 1.5;
-      font-weight: 500;
+      line-height: 1.45;
+      font-weight: 600;
     }
 
     .intro-card strong {
       color: var(--text-primary);
-      font-weight: 700;
+      font-weight: 800;
     }
 
-    /* LISTA DE PUNTOS CLAVE / CARACTERÍSTICAS */
+    /* LISTA DE PUNTOS CLAVE */
     .points-list {
       display: flex;
       flex-direction: column;
@@ -243,48 +220,48 @@
     .point-item {
       display: flex;
       align-items: flex-start;
-      gap: 18px;
+      gap: 20px;
       background: #ffffff;
-      padding: 20px 24px;
-      border-radius: 18px;
+      padding: 20px 26px;
+      border-radius: 16px;
       border: 1px solid var(--border-color);
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.03);
     }
 
     .point-icon {
-      width: 36px;
-      height: 36px;
-      min-width: 36px;
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
       background: linear-gradient(135deg, rgba(0, 163, 255, 0.15), rgba(56, 189, 248, 0.15));
       color: var(--blue-primary);
-      border-radius: 10px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 18px;
+      font-size: 20px;
       margin-top: 2px;
     }
 
     .point-text {
-      font-size: 20px;
+      font-size: 22px;
       color: var(--text-secondary);
-      line-weight: 1.4;
       line-height: 1.4;
+      font-weight: 500;
     }
 
     .point-text strong {
       color: var(--text-primary);
-      font-weight: 700;
+      font-weight: 800;
     }
 
     /* RESUMEN / HIGHLIGHT FINAL */
     .highlight-box {
       background: linear-gradient(135deg, var(--text-primary), #1e293b);
       color: #ffffff;
-      padding: 22px 28px;
-      border-radius: 18px;
-      font-size: 20px;
+      padding: 24px 30px;
+      border-radius: 16px;
+      font-size: 22px;
       font-weight: 600;
       line-height: 1.4;
       box-shadow: 0 12px 25px rgba(15, 23, 42, 0.15);
@@ -296,24 +273,41 @@
       font-weight: 800;
     }
 
-    /* PIE DE PÁGINA */
+    /* PIE DE PÁGINA CON LLAMADO A LA ACCIÓN (CTA) */
     .footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 24px;
-      border-top: 2px dashed rgba(15, 23, 42, 0.08);
+      padding: 20px 26px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
     }
 
-    .social-handle {
-      font-size: 20px;
+    .footer-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-title {
+      font-size: 19px;
       font-weight: 800;
       color: var(--text-primary);
+      letter-spacing: -0.3px;
+    }
+
+    .footer-subtitle {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--blue-primary);
     }
 
     .footer-note {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 20px;
+      font-weight: 800;
       color: var(--blue-primary);
       display: flex;
       align-items: center;
@@ -332,26 +326,26 @@
 
     <div class="content-wrapper">
       
+      <!-- ENCABEZADO CON LOGO Y ETIQUETA -->
       <header class="header">
-        <div class="">
-          <div class=""></div>
-          <span class=""></span>
+        <div class="logo-container">
+          <img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo">
         </div>
-        <div class="badge-info">Aprende Hoy</div>
+        <div class="badge-info">APRENDE HOY</div>
       </header>
 
       <main class="main-body">
         
         <div class="question-header">
-          <span class="category-tag">Conceptos Clave</span>
+          <span class="category-tag">Visibilidad Local</span>
           <h1 class="main-question">
-            ¿Qué es una <span>Landing Page</span>?
+            ¿Qué es el <span>SEO Local</span>?
           </h1>
         </div>
 
         <div class="intro-card">
           <p>
-            Es una página web diseñada con un <strong>único propósito</strong>: convertir visitantes en leads o clientes potenciales eliminando cualquier navegación innecesaria.
+            Es la estrategia para lograr que tu negocio aparezca en los <strong>primeros resultados de Google y Google Maps</strong> cuando alguien busca tus servicios cerca de su ubicación.
           </p>
         </div>
 
@@ -360,29 +354,33 @@
           <div class="point-item">
             <div class="point-icon">✓</div>
             <div class="point-text">
-              <strong>Sin distracciones:</strong> No incluye menú ni enlaces secundarios para mantener al usuario enfocado.
+              <strong>Clientes cercanos:</strong> Atraes personas que están buscando exactamente lo que ofreces en tu misma ciudad o comuna.
             </div>
           </div>
 
           <div class="point-item">
             <div class="point-icon">✓</div>
             <div class="point-text">
-              <strong>CTA Claro:</strong> Contiene una llamada a la acción única y directa (comprar, registrarse, descargar).
+              <strong>Más llamadas y visitas:</strong> Facilita que encuentren tu dirección, horarios, teléfono y sitio web de forma inmediata.
             </div>
           </div>
 
         </div>
 
         <div class="highlight-box">
-          💡 <span>En resumen:</span> Si buscas promocionar un producto o servicio específico, una Landing Page convierte hasta <strong>3 veces más</strong> que un sitio tradicional.
+          💡 <span>En resumen:</span> Si tienes un negocio físico o prestas servicios en zonas específicas, el SEO Local es tu mejor aliado para <strong>vender más en tu área</strong>.
         </div>
 
       </main>
 
+      <!-- PIE DE PÁGINA CON LLAMADO CLARO -->
       <footer class="footer">
-        <span class="social-handle"></span>
+        <div class="footer-cta">
+          <span class="footer-title">¿Necesitas ayuda con esto?</span>
+          <span class="footer-subtitle">¡Déjalo en mis manos y potenciemos tu web! 🚀</span>
+        </div>
         <div class="footer-note">
-          Guarda esta información 🔖
+          Guarda este post 🔖
         </div>
       </footer>
 

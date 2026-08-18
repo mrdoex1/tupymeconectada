@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte de Auditoría y Optimización Web</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style id="reportStyle">
+    :root {
+      --bg-body: #0f172a;
+      --bg-container: #ffffff;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --border-color: #e2e8f0;
+      --blue-primary: #00a3ff;
+      --blue-light: #eef4fb;
+      --accent-red: #ef4444;
+      --accent-red-bg: #fef2f2;
+      --accent-green: #10b981;
+      --accent-green-bg: #ecfdf5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Contenedor tipo reporte imprescriptible / A4 width approx */
+    .report-container {
+      width: 100%;
+      max-width: 900px;
+      background: var(--bg-container);
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ENCABEZADO DEL REPORTE */
+    .report-header {
+      padding: 40px 50px;
+      background: linear-gradient(135deg, #f8fafc 0%, var(--blue-light) 100%);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      height: 50px;
+      max-width: 250px;
+    }
+
+    .logo-container img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .report-meta {
+      text-align: right;
+    }
+
+    .report-tag {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--blue-primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .report-date {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    /* SECCIÓN DE TÍTULO */
+    .report-body {
+      padding: 50px;
+    }
+
+    .title-section {
+      margin-bottom: 40px;
+    }
+
+    .title-section h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .title-section p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .target-url {
+      display: inline-block;
+      background: #f1f5f9;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-top: 8px;
+    }
+
+    /* TARJETAS DE HALLAZGOS (PROBLEMAS) */
+    .finding-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-bottom: 30px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    }
+
+    .finding-header {
+      padding: 20px 30px;
+      background: #fafafa;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .finding-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-issue {
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .finding-content {
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .finding-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* CONTENEDOR DE PANTALLAZO (adaptable a móvil vertical y desktop) */
+    .screenshot-box {
+      width: 100%;
+      min-height: 220px;
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 2px dashed #cbd5e1;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      color: #64748b;
+      overflow: hidden;
+    }
+
+    .screenshot-box.has-image {
+      border-style: solid;
+      background: #f8fafc;
+    }
+
+    .screenshot-box img {
+      max-width: 100%;
+      max-height: 520px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+    }
+
+    .screenshot-box img.shot-movil {
+      max-width: 300px;
+      max-height: 640px;
+    }
+
+    .screenshot-placeholder-text {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* DESCRIPCIÓN Y PROPUESTA */
+    .finding-details {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .issue-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .issue-desc strong {
+      color: var(--text-primary);
+    }
+
+    .solution-box {
+      background: var(--accent-green-bg);
+      border-left: 4px solid var(--accent-green);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      font-size: 15px;
+      color: #065f46;
+      line-height: 1.5;
+    }
+
+    .solution-box strong {
+      color: #047857;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* SECCIÓN DE LLAMADO A LA ACCIÓN (CTA) */
+    .cta-section {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 40px 50px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .cta-section h2 {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: #94a3b8;
+      max-width: 600px;
+      margin: 0 auto 25px auto;
+      line-height: 1.5;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--blue-primary);
+      color: #ffffff;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 10px 20px rgba(0, 163, 255, 0.3);
+      transition: transform 0.2s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+    }
+
+    /* PIE DE PÁGINA DEL REPORTE */
+    .report-footer {
+      padding: 30px 50px;
+      text-align: center;
+      font-size: 14px;
+      color: #94a3b8;
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* Modo PDF (html2canvas): evita grid/flex para un render fiel */
+    .pdf-mode .finding-content {
+      display: block;
+    }
+
+    .pdf-mode .finding-content .screenshot-box {
+      margin-bottom: 18px;
+    }
+
+    .pdf-mode .finding-content .screenshot-box img {
+      max-height: 420px;
+    }
+
+    .pdf-mode .badge-issue {
+      background: #f1f5f9 !important;
+      color: #0f172a !important;
+    }
+
+    /* Conservar colores al imprimir (botones CTA, fondos, badges, etc.) */
+    .report-container,
+    .report-container * {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    @media print {
+      #editBtn, #editorOverlay { display: none !important; }
+    }
+  </style>
+  <style id="editorStyle">
+    /* ===== BOTÓN FLOTANTE DE EDICIÓN ===== */
+    #editBtn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: none;
+      background: var(--blue-primary, #00a3ff);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(0, 163, 255, 0.4);
+      z-index: 9998;
+      opacity: 0.85;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    #editBtn:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    #editBtn svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* ===== PANEL EDITOR ===== */
+    .editor-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 9999;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .editor-overlay[hidden] {
+      display: none;
+    }
+
+    .editor-panel {
+      width: min(540px, 100%);
+      height: 100%;
+      background: #ffffff;
+      color: #0f172a;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -20px 0 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .editor-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .editor-head h3 {
+      font-size: 17px;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    .editor-warn {
+      padding: 10px 22px;
+      background: #fffbeb;
+      color: #b45309;
+      font-size: 12px;
+      line-height: 1.5;
+      border-bottom: 1px solid #fde68a;
+    }
+
+    .editor-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 22px;
+    }
+
+    .editor-section {
+      margin-bottom: 26px;
+    }
+
+    .editor-section h4 {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #00a3ff;
+      margin: 0 0 12px;
+    }
+
+    .editor-section label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      margin: 12px 0 6px;
+    }
+
+    .editor-section input[type="text"],
+    .editor-section textarea,
+    .editor-section select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      color: #0f172a;
+      background: #f8fafc;
+    }
+
+    .editor-section input[type="text"]:focus,
+    .editor-section textarea:focus,
+    .editor-section select:focus {
+      outline: none;
+      border-color: #00a3ff;
+      background: #ffffff;
+    }
+
+    .editor-section textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    .editor-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .editor-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #editorLogoPrev {
+      height: 44px;
+      max-width: 160px;
+      object-fit: contain;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 4px;
+    }
+
+    .editor-finding {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 14px 16px;
+      margin-bottom: 14px;
+      background: #fbfdff;
+    }
+
+    .editor-finding-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .editor-finding-head strong {
+      font-size: 13px;
+    }
+
+    .editor-finding-head .icon-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .editor-img-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .editor-finding-thumb {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: #f1f5f9;
+      flex-shrink: 0;
+    }
+
+    .icon-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #0f172a;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .icon-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .icon-btn.danger {
+      color: #ef4444;
+    }
+
+    .editor-btn {
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity 0.2s ease;
+    }
+
+    .editor-btn:hover {
+      opacity: 0.85;
+    }
+
+    .editor-btn.primary {
+      background: #00a3ff;
+      border-color: #00a3ff;
+      color: #ffffff;
+    }
+
+    .editor-btn.danger {
+      background: #fef2f2;
+      border-color: #fecaca;
+      color: #ef4444;
+    }
+
+    .editor-btn.ghost {
+      background: transparent;
+    }
+
+    .editor-btn.add {
+      width: 100%;
+      border-style: dashed;
+      padding: 12px;
+      margin-top: 4px;
+    }
+
+    .editor-foot {
+      padding: 16px 22px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .editor-foot .editor-btn.primary {
+      flex: 1;
+    }
+
+    @media (max-width: 768px) {
+      .editor-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BOTÓN FLOTANTE PARA ENTRAR EN MODO EDICIÓN -->
+  <button id="editBtn" title="Editar reporte" aria-label="Editar reporte">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 20h4L18.5 9.5a2.12 2.12 0 0 0-3-3L5 17v3z"></path>
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
+    </svg>
+  </button>
+
+  <!-- REPORTE (se renderiza por JavaScript) -->
+  <div class="report-container" id="app"></div>
+
+  <!-- PANEL EDITOR -->
+  <div id="editorOverlay" class="editor-overlay" hidden>
+    <div class="editor-panel">
+      <div class="editor-head">
+        <h3>Editar reporte</h3>
+        <button class="editor-btn ghost" id="editorClose" aria-label="Cerrar">✕</button>
+      </div>
+      <div id="storageWarn" class="editor-warn" hidden>
+        ⚠️ Almacenamiento local casi lleno: las imágenes nuevas podrían no guardarse. Reduce su tamaño (ideal bajo 1 MB).
+      </div>
+      <div class="editor-body">
+        <section class="editor-section">
+          <h4>Generales</h4>
+          <label>Logo del cliente</label>
+          <div class="editor-logo-row">
+            <img id="editorLogoPrev" alt="Logo">
+            <div>
+              <input type="file" id="editorLogoInput" accept="image/*" hidden>
+              <button class="editor-btn" id="editorLogoBtn" type="button">Subir logo</button>
+              <button class="editor-btn ghost" id="editorLogoClear" type="button">Quitar</button>
+            </div>
+          </div>
+          <label>Etiqueta del reporte</label>
+          <input type="text" id="eTag">
+          <label>Fecha de la auditoría</label>
+          <input type="text" id="eDate" placeholder="Ej: Agosto 2026">
+          <label>URL analizada</label>
+          <input type="text" id="eUrl" placeholder="https://www.sitio-del-cliente.cl">
+        </section>
+
+        <section class="editor-section">
+          <h4>Título principal</h4>
+          <label>Título</label>
+          <input type="text" id="eH1">
+          <label>Subtítulo</label>
+          <textarea id="eSubtitle"></textarea>
+        </section>
+
+        <section class="editor-section">
+          <h4>Hallazgos</h4>
+          <div id="editorFindings"></div>
+          <button class="editor-btn add" id="editorAddFinding" type="button">+ Agregar hallazgo</button>
+        </section>
+
+        <section class="editor-section">
+          <h4>Llamado a la acción</h4>
+          <label>Título CTA</label>
+          <input type="text" id="eCtaTitle">
+          <label>Texto CTA</label>
+          <textarea id="eCtaText"></textarea>
+          <label>Enlace WhatsApp</label>
+          <input type="text" id="eCtaWa" placeholder="https://wa.me/56959909150?text=...">
+        </section>
+
+        <section class="editor-section">
+          <h4>Pie de página</h4>
+          <label>Texto</label>
+          <input type="text" id="eFooter">
+        </section>
+      </div>
+      <div class="editor-foot">
+        <button class="editor-btn primary" id="editorSave" type="button">Guardar cambios</button>
+        <button class="editor-btn" id="editorExport" type="button">Exportar HTML</button>
+        <button class="editor-btn" id="editorExportPdf" type="button">Exportar PDF</button>
+        <button class="editor-btn danger" id="editorReset" type="button">Restablecer</button>
+        <button class="editor-btn ghost" id="editorCancel" type="button">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ========== MODELO DE DATOS ========== */
+      var LS_KEY = 'reporteTPC';
+
+      var DEFAULT_DATA = {
+        meta: {
+          logoDataUrl: '',
+          tag: 'Reporte de Auditoría UX/UI',
+          date: 'Agosto 2026',
+          url: 'https://tu-sitio-web-cliente.cl'
+        },
+        title: {
+          h1: 'Análisis de Oportunidades de Mejora',
+          subtitle: 'Hemos detectado algunos puntos críticos en la estructura y experiencia de tu sitio web actual que podrían estar frenando tus conversiones:'
+        },
+        findings: [
+          {
+            title: 'Llamado a la acción (CTA) poco visible',
+            badge: 'Crítico',
+            img: { dataUrl: '', type: 'desktop' },
+            problem: 'Actualmente, el botón principal de contacto o compra se confunde con el fondo y carece de contraste. Los usuarios no identifican de inmediato qué acción realizar al ingresar.',
+            proposal: 'Rediseñar el bloque principal con colores de alto contraste y tipografía destacada para guiar al usuario directamente a la conversión.'
+          },
+          {
+            title: 'Estructura móvil desorganizada',
+            badge: 'Moderado',
+            img: { dataUrl: '', type: 'movil' },
+            problem: 'Los elementos de texto y los espacios en la versión móvil se superponen, lo que genera una lectura pesada y aumenta la tasa de rebote.',
+            proposal: 'Implementar un diseño responsivo fluido, optimizando los márgenes y jerarquías visuales para retener la atención en pantallas de celulares.'
+          },
+          {
+            title: 'Exceso de distracciones visuales',
+            badge: 'Mejora',
+            img: { dataUrl: '', type: 'desktop' },
+            problem: 'La barra de navegación superior incluye demasiados enlaces secundarios que distraen al visitante del objetivo principal de la página.',
+            proposal: 'Simplificar la navegación hacia una estructura tipo Landing Page enfocada en un único propósito comercial.'
+          }
+        ],
+        cta: {
+          title: '¿Transformamos estos puntos en más ventas?',
+          text: 'Un rediseño enfocado en rendimiento y conversión puede marcar la diferencia entre un visitante que se va y un cliente que te contrata.',
+          whatsapp: 'https://wa.me/56959909150?text=Hola,%20quiero%20agendar%20una%20corrección%20y%20rediseño%20de%20mi%20web'
+        },
+        footerText: 'Reporte generado profesionalmente por @tupymeconectada.'
+      };
+
+      var DEFAULT_LOGO = 'recursos/imagenes/logoTPC-dark.png';
+      var MAX_IMG_BYTES = 2.5 * 1024 * 1024;
+
+      function clone(obj) {
+        return JSON.parse(JSON.stringify(obj));
+      }
+
+      function esc(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      function badgeColor(b) {
+        return b === 'Crítico' ? '#ef4444' : b === 'Moderado' ? '#f59e0b' : '#10b981';
+      }
+
+      function load() {
+        try {
+          var raw = localStorage.getItem(LS_KEY);
+          if (raw) { return JSON.parse(raw); }
+        } catch (e) {}
+        return clone(DEFAULT_DATA);
+      }
+
+      var storageWarn = document.getElementById('storageWarn');
+      var storageFull = false;
+
+      function persist() {
+        try {
+          localStorage.setItem(LS_KEY, JSON.stringify(state));
+          if (storageFull) { storageFull = false; storageWarn.hidden = true; }
+        } catch (e) {
+          storageFull = true;
+          storageWarn.hidden = false;
+        }
+      }
+
+      /* ========== ESTADO (auto-guardado en localStorage) ========== */
+      var state = load();
+      var app = document.getElementById('app');
+
+      /* ========== RENDER DEL REPORTE ========== */
+      function buildReport(data, logoOverride) {
+        var logo = logoOverride !== undefined ? logoOverride : (data.meta.logoDataUrl || DEFAULT_LOGO);
+
+        var findingsHtml = data.findings.map(function (f, i) {
+          var num = String(i + 1).padStart(2, '0');
+          var type = f.img && f.img.type === 'movil' ? 'movil' : 'desktop';
+          var alt = f.img && f.img.type === 'movil' ? 'captura móvil' : 'captura escritorio';
+          var imgHtml = (f.img && f.img.dataUrl)
+            ? '<img class="shot-' + type + '" src="' + esc(f.img.dataUrl) + '" alt="' + alt + '">'
+            : '<span class="screenshot-placeholder-text">📸 Inserta aquí el pantallazo del problema</span>';
+          var hasImage = (f.img && f.img.dataUrl) ? ' has-image' : '';
+          return (
+            '<div class="finding-card">' +
+              '<div class="finding-header">' +
+                '<div class="finding-title"><span>' + num + '. ' + esc(f.title) + '</span></div>' +
+                '<span class="badge-issue" style="background:' + badgeColor(f.badge) + '1a;color:' + badgeColor(f.badge) + '">' + esc(f.badge) + '</span>' +
+              '</div>' +
+              '<div class="finding-content">' +
+                '<div class="screenshot-box' + hasImage + '">' + imgHtml + '</div>' +
+                '<div class="finding-details">' +
+                  '<p class="issue-desc"><strong>El problema:</strong> ' + esc(f.problem) + '</p>' +
+                  '<div class="solution-box"><strong>Propuesta de Optimización:</strong> ' + esc(f.proposal) + '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>'
+          );
+        }).join('');
+
+        return (
+          '<header class="report-header">' +
+            '<div class="logo-container"><img src="' + esc(logo) + '" alt="Logo"></div>' +
+            '<div class="report-meta">' +
+              '<div class="report-tag">' + esc(data.meta.tag) + '</div>' +
+              '<div class="report-date">Fecha: ' + esc(data.meta.date) + '</div>' +
+            '</div>' +
+          '</header>' +
+          '<main class="report-body">' +
+            '<div class="title-section">' +
+              '<h1>' + esc(data.title.h1) + '</h1>' +
+              '<p>' + esc(data.title.subtitle) + '</p>' +
+              '<div class="target-url">' + esc(data.meta.url) + '</div>' +
+            '</div>' +
+            findingsHtml +
+            '<div class="cta-section">' +
+              '<h2>' + esc(data.cta.title) + '</h2>' +
+              '<p>' + esc(data.cta.text) + '</p>' +
+              '<a href="' + esc(data.cta.whatsapp) + '" class="cta-button" target="_blank">Agendar Corrección y Rediseño 🚀</a>' +
+            '</div>' +
+          '</main>' +
+          '<footer class="report-footer">' + esc(data.footerText) + '</footer>'
+        );
+      }
+
+      function renderReport() {
+        app.innerHTML = buildReport(state);
+        document.title = state.title.h1 || 'Reporte de Auditoría y Optimización Web';
+      }
+
+      /* ========== EDITOR ========== */
+      var editorOverlay = document.getElementById('editorOverlay');
+      var editorFindings = document.getElementById('editorFindings');
+      var THUMB_PLACEHOLDER = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><rect width='80' height='80' fill='#e2e8f0'/></svg>");
+
+      function readFileAsDataURL(file, cb) {
+        var r = new FileReader();
+        r.onload = function () { cb(r.result); };
+        r.readAsDataURL(file);
+      }
+
+      function openEditor() {
+        populateEditor();
+        editorOverlay.hidden = false;
+      }
+
+      function closeEditor() {
+        editorOverlay.hidden = true;
+      }
+
+      function populateEditor() {
+        document.getElementById('editorLogoPrev').src = state.meta.logoDataUrl || DEFAULT_LOGO;
+        document.getElementById('eTag').value = state.meta.tag;
+        document.getElementById('eDate').value = state.meta.date;
+        document.getElementById('eUrl').value = state.meta.url;
+        document.getElementById('eH1').value = state.title.h1;
+        document.getElementById('eSubtitle').value = state.title.subtitle;
+        document.getElementById('eCtaTitle').value = state.cta.title;
+        document.getElementById('eCtaText').value = state.cta.text;
+        document.getElementById('eCtaWa').value = state.cta.whatsapp;
+        document.getElementById('eFooter').value = state.footerText;
+        renderEditorFindings();
+      }
+
+      function findingCardHtml(f, i) {
+        return (
+          '<div class="editor-finding" data-idx="' + i + '">' +
+            '<div class="editor-finding-head">' +
+              '<strong>Hallazgo ' + (i + 1) + '</strong>' +
+              '<div class="icon-group">' +
+                '<button class="icon-btn" data-act="up" type="button" title="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+                '<button class="icon-btn" data-act="down" type="button" title="Bajar"' + (i === state.findings.length - 1 ? ' disabled' : '') + '>↓</button>' +
+                '<button class="icon-btn danger" data-act="del" type="button" title="Eliminar">🗑</button>' +
+              '</div>' +
+            '</div>' +
+            '<label>Título del hallazgo</label>' +
+            '<input type="text" data-field="title" value="' + esc(f.title) + '">' +
+            '<div class="editor-row">' +
+              '<div>' +
+                '<label>Severidad</label>' +
+                '<select data-field="badge">' +
+                  '<option value="Crítico"' + (f.badge === 'Crítico' ? ' selected' : '') + '>Crítico</option>' +
+                  '<option value="Moderado"' + (f.badge === 'Moderado' ? ' selected' : '') + '>Moderado</option>' +
+                  '<option value="Mejora"' + (f.badge === 'Mejora' ? ' selected' : '') + '>Mejora</option>' +
+                '</select>' +
+              '</div>' +
+              '<div>' +
+                '<label>Tipo de captura</label>' +
+                '<select data-field="img.type">' +
+                  '<option value="movil"' + (f.img.type === 'movil' ? ' selected' : '') + '>Móvil (vertical)</option>' +
+                  '<option value="desktop"' + (f.img.type === 'desktop' ? ' selected' : '') + '>Desktop (horizontal)</option>' +
+                '</select>' +
+              '</div>' +
+            '</div>' +
+            '<label>Imagen</label>' +
+            '<div class="editor-img-row">' +
+              '<img class="editor-finding-thumb" src="' + (f.img.dataUrl || THUMB_PLACEHOLDER) + '" alt="">' +
+              '<div>' +
+                '<input type="file" accept="image/*" data-upload hidden>' +
+                '<button class="editor-btn" data-act="upload" type="button">Subir imagen</button>' +
+                '<button class="editor-btn ghost" data-act="clearimg" type="button"' + (f.img.dataUrl ? '' : ' disabled') + '>Quitar</button>' +
+              '</div>' +
+            '</div>' +
+            '<label>El problema</label>' +
+            '<textarea data-field="problem">' + esc(f.problem) + '</textarea>' +
+            '<label>Propuesta de optimización</label>' +
+            '<textarea data-field="proposal">' + esc(f.proposal) + '</textarea>' +
+          '</div>'
+        );
+      }
+
+      function renderEditorFindings() {
+        editorFindings.innerHTML = state.findings.map(findingCardHtml).join('');
+      }
+
+      /* Listeners de campos generales del editor (auto-guardado) */
+      document.getElementById('eTag').addEventListener('input', function (e) { state.meta.tag = e.target.value; persist(); });
+      document.getElementById('eDate').addEventListener('input', function (e) { state.meta.date = e.target.value; persist(); });
+      document.getElementById('eUrl').addEventListener('input', function (e) { state.meta.url = e.target.value; persist(); });
+      document.getElementById('eH1').addEventListener('input', function (e) { state.title.h1 = e.target.value; persist(); });
+      document.getElementById('eSubtitle').addEventListener('input', function (e) { state.title.subtitle = e.target.value; persist(); });
+      document.getElementById('eCtaTitle').addEventListener('input', function (e) { state.cta.title = e.target.value; persist(); });
+      document.getElementById('eCtaText').addEventListener('input', function (e) { state.cta.text = e.target.value; persist(); });
+      document.getElementById('eCtaWa').addEventListener('input', function (e) { state.cta.whatsapp = e.target.value; persist(); });
+      document.getElementById('eFooter').addEventListener('input', function (e) { state.footerText = e.target.value; persist(); });
+
+      /* Logo del encabezado */
+      document.getElementById('editorLogoBtn').addEventListener('click', function () {
+        document.getElementById('editorLogoInput').click();
+      });
+      document.getElementById('editorLogoInput').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        if (!file) return;
+        if (file.size > MAX_IMG_BYTES) {
+          alert('La imagen supera 2.5 MB. Sube una versión más liviana.');
+          e.target.value = '';
+          return;
+        }
+        readFileAsDataURL(file, function (dataUrl) {
+          state.meta.logoDataUrl = dataUrl;
+          document.getElementById('editorLogoPrev').src = dataUrl;
+          persist();
+        });
+      });
+      document.getElementById('editorLogoClear').addEventListener('click', function () {
+        state.meta.logoDataUrl = '';
+        document.getElementById('editorLogoPrev').src = DEFAULT_LOGO;
+        persist();
+      });
+
+      /* Hallazgos: clicks (subir/bajar/eliminar/upload/limpiar imagen) */
+      editorFindings.addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-act]');
+        if (!btn) return;
+        var card = e.target.closest('.editor-finding');
+        var idx = parseInt(card.dataset.idx, 10);
+        var act = btn.dataset.act;
+
+        if (act === 'up' && idx > 0) {
+          var a = state.findings[idx - 1], b = state.findings[idx];
+          state.findings[idx - 1] = b; state.findings[idx] = a;
+          renderEditorFindings();
+          persist();
+        } else if (act === 'down' && idx < state.findings.length - 1) {
+          var c = state.findings[idx], d = state.findings[idx + 1];
+          state.findings[idx] = d; state.findings[idx + 1] = c;
+          renderEditorFindings();
+          persist();
+        } else if (act === 'del') {
+          if (state.findings.length > 1 || confirm('¿Eliminar este hallazgo?')) {
+            state.findings.splice(idx, 1);
+            renderEditorFindings();
+            persist();
+          }
+        } else if (act === 'upload') {
+          card.querySelector('input[data-upload]').click();
+        } else if (act === 'clearimg') {
+          state.findings[idx].img.dataUrl = '';
+          renderEditorFindings();
+          persist();
+        }
+      });
+
+      /* Hallazgos: cambios (inputs, selects y subida de imagen) */
+      editorFindings.addEventListener('change', function (e) {
+        var el = e.target;
+        var card = el.closest('.editor-finding');
+        if (!card) return;
+        var idx = parseInt(card.dataset.idx, 10);
+
+        if (el.matches('input[data-upload]')) {
+          var file = el.files[0];
+          if (!file) return;
+          if (file.size > MAX_IMG_BYTES) {
+            alert('La imagen supera 2.5 MB. Sube una versión más liviana para que quepa en el guardado local.');
+            el.value = '';
+            return;
+          }
+          readFileAsDataURL(file, function (dataUrl) {
+            state.findings[idx].img.dataUrl = dataUrl;
+            renderEditorFindings();
+            persist();
+          });
+        } else if (el.matches('select[data-field="img.type"]')) {
+          state.findings[idx].img.type = el.value;
+          persist();
+        } else if (el.matches('[data-field]')) {
+          state.findings[idx][el.dataset.field] = el.value;
+          persist();
+        }
+      });
+
+      document.getElementById('editorAddFinding').addEventListener('click', function () {
+        state.findings.push({
+          title: 'Nuevo hallazgo',
+          badge: 'Mejora',
+          img: { dataUrl: '', type: 'desktop' },
+          problem: 'Describe el problema detectado en el sitio del cliente.',
+          proposal: 'Describe la propuesta de optimización para resolverlo.'
+        });
+        renderEditorFindings();
+        persist();
+      });
+
+      /* Acciones principales */
+      document.getElementById('editorSave').addEventListener('click', function () {
+        persist();
+        renderReport();
+        closeEditor();
+      });
+
+      document.getElementById('editorReset').addEventListener('click', function () {
+        if (confirm('¿Restablecer todos los datos a los valores por defecto? Se borrarán las ediciones actuales.')) {
+          state = clone(DEFAULT_DATA);
+          persist();
+          populateEditor();
+          renderReport();
+        }
+      });
+
+      document.getElementById('editorExport').addEventListener('click', exportReport);
+      document.getElementById('editorExportPdf').addEventListener('click', exportPDF);
+      document.getElementById('editorClose').addEventListener('click', closeEditor);
+      document.getElementById('editorCancel').addEventListener('click', closeEditor);
+
+      /* ========== EXPORTAR HTML AUTOCONTENIDO ========== */
+      function imgToDataURL(src, cb) {
+        var img = new Image();
+        img.onload = function () {
+          try {
+            var c = document.createElement('canvas');
+            c.width = img.naturalWidth;
+            c.height = img.naturalHeight;
+            c.getContext('2d').drawImage(img, 0, 0);
+            cb(c.toDataURL('image/png'));
+          } catch (err) {
+            cb('');
+          }
+        };
+        img.onerror = function () { cb(''); };
+        img.src = src;
+      }
+
+      function ensureLogoData(data, cb) {
+        if (data.meta.logoDataUrl) { return cb(data.meta.logoDataUrl); }
+        imgToDataURL(DEFAULT_LOGO, cb);
+      }
+
+      function exportReport() {
+        persist();
+        var data = state;
+
+        function doExport(logoData) {
+          var body = '<div class="report-container">' + buildReport(data, logoData) + '</div>';
+          var css = document.getElementById('reportStyle').textContent;
+          var fonts =
+            '<link rel="preconnect" href="https://fonts.googleapis.com">' +
+            '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
+            '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">';
+          var slug = (data.meta.url || 'reporte')
+            .replace(/^https?:\/\//i, '')
+            .replace(/[^\w.-]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+            .toLowerCase() || 'reporte';
+          var html =
+            '<!DOCTYPE html>\n<html lang="es">\n<head>\n' +
+            '<meta charset="UTF-8">\n' +
+            '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+            '<title>' + esc(data.title.h1) + '</title>\n' +
+            fonts + '\n' +
+            '<style>' + css + '</style>\n' +
+            '</head>\n<body>\n' +
+            body + '\n' +
+            '</body>\n</html>';
+          var blob = new Blob([html], { type: 'text/html' });
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'reporte-' + slug + '.html';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+        }
+
+        ensureLogoData(data, doExport);
+      }
+
+      /* ========== EXPORTAR PDF ========== */
+      var PDF_LIB_URL = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+
+      function loadScript(src, timeout, cb) {
+        var s = document.createElement('script');
+        var done = false;
+        function finish(err) { if (done) return; done = true; cb && cb(err); }
+        s.src = src;
+        s.onload = function () { finish(); };
+        s.onerror = function () { finish(new Error('load')); };
+        document.head.appendChild(s);
+        setTimeout(function () { finish(new Error('timeout')); }, timeout || 8000);
+      }
+
+      function fallbackPrint() {
+        if (confirm('No se pudo generar el PDF automáticamente. ¿Abrir el diálogo de impresión para guardarlo como PDF?')) {
+          window.print();
+        }
+      }
+
+      function runPdf(holder, finish) {
+        var opt = {
+          margin: 8,
+          filename: 'reporte.pdf',
+          image: { type: 'jpeg', quality: 0.95 },
+          html2canvas: { scale: 2, useCORS: true, logging: false, scrollX: 0, scrollY: 0 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        window.html2pdf().set(opt).from(holder).save()
+          .then(finish)
+          .catch(function () { finish(); fallbackPrint(); });
+      }
+
+      function exportPDF() {
+        persist();
+        var appEl = document.getElementById('app');
+        var hadPdf = appEl.classList.contains('pdf-mode');
+        appEl.classList.add('pdf-mode');
+
+        function finish() {
+          if (!hadPdf) { appEl.classList.remove('pdf-mode'); }
+        }
+
+        if (typeof window.html2pdf === 'function') {
+          runPdf(appEl, finish);
+          return;
+        }
+
+        loadScript(PDF_LIB_URL, 10000, function (err) {
+          if (!err && typeof window.html2pdf === 'function') {
+            runPdf(appEl, finish);
+          } else {
+            finish();
+            fallbackPrint();
+          }
+        });
+      }
+
+      /* ========== INICIO ========== */
+      document.getElementById('editBtn').addEventListener('click', openEditor);
+      renderReport();
+    })();
+  </script>
+
+</body>
+</html>
