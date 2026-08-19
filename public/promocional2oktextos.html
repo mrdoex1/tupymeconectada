@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plantilla Instagram Dinámica - Variante Espejo 1080x1080</title>
+  <title>Plantilla Instagram Dinámica - Variante Espejo 1080x1440</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -36,17 +36,17 @@
       padding: 20px;
     }
 
-    /* Lienzo exacto para post de Instagram (1080x1080) */
+    /* Lienzo exacto para post de Instagram (1080x1440) */
     .post-canvas {
       width: 1080px;
-      height: 1080px;
+      height: 1440px;
       background: #ffffff;
       position: relative;
       overflow: hidden;
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
     }
 
-    /* CAPAS Y FORMAS DIAGONALES EN EL FONDO (INVERTIDAS PARA ESTA VARIANTE) */
+    /* CAPAS Y FORMAS DIAGONALES EN EL FONDO */
     .bg-gradient-base {
       position: absolute;
       inset: 0;
@@ -54,7 +54,6 @@
       z-index: 1;
     }
 
-    /* Bloque diagonal superior a la izquierda */
     .diagonal-shape-top {
       position: absolute;
       top: -120px;
@@ -68,7 +67,6 @@
       z-index: 2;
     }
 
-    /* Franja diagonal con acento azul a la izquierda */
     .diagonal-stripe {
       position: absolute;
       top: 150px;
@@ -82,7 +80,6 @@
       z-index: 2;
     }
 
-    /* Esquina inferior derecha en tono oscuro */
     .diagonal-accent-bottom {
       position: absolute;
       bottom: -150px;
@@ -95,7 +92,6 @@
       z-index: 2;
     }
 
-    /* Resplandor fluorescente a la izquierda */
     .blue-glow-spot {
       position: absolute;
       top: 200px;
@@ -115,7 +111,7 @@
       z-index: 10;
       width: 100%;
       height: 100%;
-      padding: 70px;
+      padding: 70px 60px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -126,94 +122,75 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      z-index: 20;
     }
 
-    .logo-area {
+    .logo-wrapper {
       display: flex;
       align-items: center;
-      gap: 16px;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      padding: 12px 24px 12px 14px;
-      border-radius: 20px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
     }
 
-    .logo-placeholder {
-      width: 52px;
-      height: 52px;
-      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      font-weight: 800;
-      font-size: 15px;
-      box-shadow: 0 6px 16px rgba(0, 163, 255, 0.3);
-    }
-
-    .brand-name {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--text-primary);
-      letter-spacing: -0.5px;
+    .brand-logo {
+      max-height: 76px;
+      width: auto;
+      object-fit: contain;
     }
 
     .badge {
       background: var(--text-primary);
       color: #ffffff;
-      padding: 12px 24px;
+      padding: 12px 28px;
       border-radius: 100px;
-      font-size: 15px;
+      font-size: 24px;
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
       box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
     }
 
-    /* CUERPO PRINCIPAL EN GRID */
+    /* CUERPO PRINCIPAL: Ajustado para partir desde arriba */
     .main-body {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
-      margin: auto 0;
+      flex: 1;
+      display: flex;
+      align-items: flex-start; /* El contenido parte desde arriba eliminando el espacio vacío superior */
+      position: relative;
+      padding-top: 140px; /* Margen superior controlado respecto al header */
     }
 
-    /* SECCIÓN DE TEXTO (AHORA A LA IZQUIERDA POR ORDEN EN EL HTML) */
+    /* SECCIÓN DE TEXTO (Más ancha y alta) */
     .text-container {
+      width: 54%;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 24px;
+      z-index: 5;
     }
 
     .tag-line {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       color: var(--blue-primary);
       font-weight: 800;
-      font-size: 16px;
+      font-size: 24px;
       text-transform: uppercase;
       letter-spacing: 1.5px;
     }
 
     .tag-line::before {
       content: '';
-      width: 24px;
-      height: 3px;
+      width: 28px;
+      height: 4px;
       background: var(--blue-primary);
       border-radius: 2px;
     }
 
     .main-title {
-      font-size: 42px;
+      font-size: 76px; /* Título considerablemente más grande y de mayor impacto */
       font-weight: 900;
       color: var(--text-primary);
-      line-height: 1.15;
-      letter-spacing: -1.5px;
+      line-height: 1.08;
+      letter-spacing: -2px;
     }
 
     .main-title span {
@@ -223,65 +200,28 @@
     }
 
     .description {
-      font-size: 20px;
+      font-size: 32px; /* Texto descriptivo más grande y legible */
       color: var(--text-secondary);
       line-height: 1.5;
-      font-weight: 500;
-    }
-
-    /* MARCO DIAGONAL DE IMAGEN (AHORA A LA DERECHA) CON CORTE INVERTIDO */
-    .image-container {
-      position: relative;
-      width: 100%;
-      height: 520px;
-    }
-
-    .image-border-decor {
-      position: absolute;
-      inset: -8px;
-      background: linear-gradient(135deg, var(--blue-light), transparent, var(--blue-primary));
-      clip-path: polygon(5% 0, 100% 0, 100% 92%, 0 100%);
-      border-radius: 30px;
-      opacity: 0.8;
-    }
-
-    .image-frame {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background: var(--bg-surface);
-      clip-path: polygon(5% 0, 100% 0, 100% 92%, 0 100%);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--border-color);
-    }
-
-    .image-placeholder-content {
-      text-align: center;
-      padding: 30px;
-      color: var(--text-secondary);
-    }
-
-    .image-placeholder-content svg {
-      width: 64px;
-      height: 64px;
-      stroke: var(--blue-primary);
-      margin-bottom: 12px;
-    }
-
-    .image-placeholder-content p {
-      font-size: 18px;
       font-weight: 600;
-      line-height: 1.4;
+      max-width: 500px;
     }
 
-    .user-image {
+    /* CONTENEDOR DEL MOCKUP FLOTANTE (CENTRADO A LA DERECHA) */
+    .mockup-overlay {
+      position: absolute;
+      right: -40px;
+      top: 15px; /* Ubicado de forma óptima acompañando al nuevo flujo superior */
+      width: 620px;
+      z-index: 15;
+      pointer-events: none;
+    }
+
+    .mockup-overlay img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none; /* Cambiar a block al cargar imagen */
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.25));
     }
 
     /* PIE DE PÁGINA */
@@ -291,10 +231,11 @@
       align-items: center;
       padding-top: 24px;
       border-top: 2px dashed rgba(15, 23, 42, 0.08);
+      z-index: 20;
     }
 
     .social-handle {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 800;
       color: var(--text-primary);
     }
@@ -302,9 +243,9 @@
     .cta-button {
       background: linear-gradient(135deg, var(--blue-primary), #0082cc);
       color: #ffffff;
-      padding: 14px 28px;
+      padding: 16px 32px;
       border-radius: 16px;
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 700;
       box-shadow: 0 10px 20px rgba(0, 163, 255, 0.35);
       display: flex;
@@ -316,6 +257,7 @@
 <body>
 
   <div class="post-canvas">
+    <!-- ELEMENTOS DE FONDO DE TU MARCA -->
     <div class="bg-gradient-base"></div>
     <div class="diagonal-shape-top"></div>
     <div class="diagonal-stripe"></div>
@@ -325,9 +267,8 @@
     <div class="content-wrapper">
       
       <header class="header">
-        <div class="">
-          <div class=""></div>
-          <span class="brand-name"></span>
+        <div class="logo-wrapper">
+          <img src="recursos/imagenes/logoTPC-dark.png" alt="Tu Logo" class="brand-logo">
         </div>
         <div class="badge">Destacado</div>
       </header>
@@ -335,33 +276,21 @@
       <main class="main-body">
         
         <div class="text-container">
-          <span class="tag-line">Innovación & Estilo</span>
+          <span class="tag-line">Adaptabilidad total</span>
           <h1 class="main-title">
-            Lorem Ipsum <span>Dolor Sit</span> Amet
+            Tu sitio web optimizado <span>para cualquier pantalla</span>
           </h1>
           <p class="description">
-            Consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.
+            Cada visita cuenta. Asegúrate de que tu negocio luzca impecable y funcione a la perfección sin importar si tus usuarios acceden desde un celular, una tablet o un computador de escritorio.
           </p>
         </div>
 
-        <div class="image-container">
-          <div class="image-border-decor"></div>
-          <div class="image-frame">
-            <div class="image-placeholder-content">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-              </svg>
-              <p>Tu Imagen Aquí<br><small style="font-size:14px; opacity:0.8;">(Corte Invertido)</small></p>
-            </div>
-            </div>
-        </div>
+        <!-- ESPACIO PARA TU MOCKUP CON LA MANO (FORMATO PNG TRANSPARENTE) -->
+  
 
       </main>
 
-      <footer class="footer">
-        <span class="social-handle"></span>
-        <div class="cta-button">Más Información ➔</div>
-      </footer>
+  
 
     </div>
   </div>
