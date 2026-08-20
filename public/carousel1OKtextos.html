@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mantenimiento y Cuidado Web - Carrusel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #ffffff;
+      --bg-gradient-end: #eef4fb;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --border-color: rgba(15, 23, 42, 0.1);
+      --blue-primary: #00a3ff;
+      --blue-light: #38bdf8;
+      --blue-glow: rgba(0, 163, 255, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    body {
+      display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+      gap: 30px; min-height: 100vh; background-color: #0f172a; padding: 30px;
+    }
+
+    /* Canvas para Feed (1080x1440) */
+    .post-canvas {
+      width: 1080px; height: 1440px; background: #ffffff; position: relative;
+      overflow: hidden; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4); border-radius: 12px;
+    }
+
+    /* FORMAS Y ELEMENTOS DE FONDO */
+    .bg-gradient-base { position: absolute; inset: 0; background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-gradient-end) 100%); z-index: 1; }
+    .diagonal-shape-top { position: absolute; top: -120px; right: -100px; width: 750px; height: 750px; background: linear-gradient(135deg, rgba(0, 163, 255, 0.08) 0%, rgba(56, 189, 248, 0.02) 100%); transform: rotate(20deg); border-radius: 80px; border: 1px solid rgba(0, 163, 255, 0.15); z-index: 2; }
+    .diagonal-stripe { position: absolute; top: 600px; right: -200px; width: 900px; height: 100px; background: linear-gradient(90deg, var(--blue-primary), var(--blue-light)); transform: rotate(-25deg); border-radius: 50px; opacity: 0.12; z-index: 2; }
+    .diagonal-accent-bottom { position: absolute; bottom: -150px; left: -150px; width: 600px; height: 600px; background: var(--text-primary); transform: rotate(15deg); border-radius: 80px; z-index: 2; }
+    .blue-glow-spot { position: absolute; top: 500px; left: 80px; width: 500px; height: 500px; background: var(--blue-glow); filter: blur(150px); border-radius: 50%; z-index: 2; }
+
+    /* ESTRUCTURA Y TIPOGRAFÍA */
+    .content-wrapper { position: relative; z-index: 10; width: 100%; height: 100%; padding: 80px; display: flex; flex-direction: column; justify-content: space-between; }
+    .header { display: flex; justify-content: space-between; align-items: center; }
+    .logo-container { height: 76px; }
+    .logo-container img { height: 100%; width: auto; object-fit: contain; }
+    .badge-info { background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); color: #ffffff; padding: 14px 28px; border-radius: 100px; font-size: 24px; font-weight: 800; text-transform: uppercase; }
+
+    .main-body { display: flex; flex-direction: column; gap: 40px; margin: auto 0; }
+    .main-title { font-size: 76px; font-weight: 900; color: var(--text-primary); line-height: 1.1; letter-spacing: -2px; }
+    .main-title span { background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .intro-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px); border: 1px solid var(--border-color); border-left: 6px solid var(--blue-primary); border-radius: 18px; padding: 32px; font-size: 32px; color: var(--text-secondary); line-height: 1.5; }
+    .point-item { display: flex; align-items: flex-start; gap: 20px; background: #ffffff; padding: 25px; border-radius: 16px; border: 1px solid var(--border-color); }
+    .point-icon { width: 50px; height: 50px; background: rgba(0, 163, 255, 0.1); color: var(--blue-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 24px; }
+    .point-text { font-size: 32px; color: var(--text-secondary); }
+    
+    .footer { display: flex; justify-content: space-between; align-items: center; padding: 30px; background: rgba(255, 255, 255, 0.95); border-radius: 16px; }
+    .footer-title { font-size: 24px; font-weight: 800; color: var(--text-primary); }
+    .footer-note { font-size: 18px; font-weight: 800; color: var(--blue-primary); }
+  </style>
+</head>
+<body>
+
+  <!-- Slide 1 -->
+  <div class="post-canvas">
+    <div class="bg-gradient-base"></div>
+    <div class="diagonal-shape-top"></div>
+    <div class="diagonal-stripe"></div>
+    <div class="diagonal-accent-bottom"></div>
+    <div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Logo"></div>
+        <div class="badge-info">Servicio Web</div>
+      </header>
+      <main class="main-body">
+        <h1 class="main-title">¿Cansado de los <span>problemas técnicos</span> de tu web?</h1>
+        <div class="intro-card">Deja de preocuparte por la parte técnica. Me encargo del mantenimiento y cuidado de tu sitio, para que tú te enfoques 100% en tu negocio.</div>
+      </main>
+      <footer class="footer"><span class="footer-title">Mantenimiento y Cuidado Web</span><div class="footer-note">Desliza ➔</div></footer>
+    </div>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="post-canvas">
+    <div class="bg-gradient-base"></div>
+    <div class="diagonal-shape-top"></div>
+    <div class="diagonal-stripe"></div>
+    <div class="diagonal-accent-bottom"></div>
+    <div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Logo"></div>
+        <div class="badge-info">¿Qué incluye?</div>
+      </header>
+      <main class="main-body">
+        <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Actualizaciones:</strong> Contenido siempre al día.</div></div>
+        <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Seguridad:</strong> Respaldos constantes.</div></div>
+        <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Renovaciones:</strong> Dominio y hosting gestionados.</div></div>
+        <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Soporte Técnico:</strong> Corregimos cualquier error, incluso problemas de diseño (como un botón que se vea mal).</div></div>
+      </main>
+      <footer class="footer"><span class="footer-title">Soluciones integrales</span><div class="footer-note">Desliza ➔</div></footer>
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="post-canvas">
+    <div class="bg-gradient-base"></div>
+    <div class="diagonal-shape-top"></div>
+    <div class="diagonal-stripe"></div>
+    <div class="diagonal-accent-bottom"></div>
+    <div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Logo"></div>
+        <div class="badge-info">Planes</div>
+      </header>
+      <main class="main-body">
+        <h1 class="main-title">Elige tu <span>tranquilidad</span></h1>
+        <div class="intro-card">Suscríbete de forma <strong>mensual</strong> y olvídate para siempre de los dolores de cabeza técnicos.</div>
+      </main>
+      <footer class="footer"><span class="footer-title">¡Escríbeme para empezar!</span><div class="footer-note">Envíame un mensaje 🚀</div></footer>
+    </div>
+  </div>
+
+</body>
+</html>
