@@ -1,0 +1,75 @@
+---
+const PARTICLES = Array.from({ length: 60 });
+---
+
+<section id="top" class="pp-hero">
+  <div class="pp-particles" aria-hidden="true">
+    {PARTICLES.map(() => <span class="pp-particle"></span>)}
+  </div>
+  <div class="pp-hero-inner">
+    <div class="pp-hero-layout">
+      <div class="pp-hero-aside">
+        <h1>
+          Sitios web limpios, rápidos y enfocados en <em>vender más</em>
+        </h1>
+        <p>
+          Ayudo a tu negocio a dar el salto digital con plataformas modernas,
+          optimizadas para celulares y listas para conectar directamente con tus
+          clientes por WhatsApp. ¿Tu sitio actual carga lento? También lo
+          optimizo para que vuelva a ser rápido y a convertir.
+        </p>
+        <div class="pp-hero-actions">
+          <a href="#servicios" class="pp-link-underline"
+            >Ver servicios <i class="ti ti-arrow-down" aria-hidden="true"></i
+          ></a>
+        </div>
+      </div>
+
+      <div class="pp-brief pp-chat" role="group" aria-label="Así respondo por WhatsApp">
+        <div class="pp-chat-head">
+          <span class="pp-chat-avatar"><img src="/recursos/imagenes/logoTPC-dark.png" alt="Tu Pyme Conectada" /></span>
+          <div class="pp-chat-id">
+            <span class="pp-chat-name">Tu Pyme Conectada</span>
+            <span class="pp-chat-status"><i class="pp-chat-dot" aria-hidden="true"></i> Respuesta rápida</span>
+          </div>
+        </div>
+
+        <div class="pp-chat-cap">Así respondemos cuando alguien quiere su primera web: primero ayudamos, después proponemos.</div>
+
+        <div class="pp-chat-body">
+          <div class="pp-chat-msg pp-chat--in">
+            <div class="pp-chat-bubble">hola, esta es mi primera web y no sé por dónde empezar, me ayudas? 😅</div>
+          </div>
+
+          <div class="pp-chat-msg pp-chat--out">
+            <div class="pp-chat-bubble">
+              claro, estamos para eso. te hacemos unas preguntas para entender tu negocio y te proponemos algo a tu medida, sin compromiso.
+              <span class="pp-chat-meta">11:02 <i class="ti ti-checks" aria-hidden="true"></i></span>
+            </div>
+          </div>
+
+          <div class="pp-chat-msg pp-chat--in">
+            <div class="pp-chat-bubble">¿cuánto se demora en tener mi web lista?</div>
+          </div>
+
+          <div class="pp-chat-msg pp-chat--out">
+            <div class="pp-chat-bubble">
+              cuando nos cuentes qué necesitas te damos una fecha por escrito desde el inicio. Así sabes qué esperar y cuándo.
+              <span class="pp-chat-meta">11:04 <i class="ti ti-checks" aria-hidden="true"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pp-chat-foot">
+          <a
+            href="https://wa.me/56959909150?text=Hola,%20me%20gustaría%20hacer%20mi%20primera%20web"
+            class="pp-chat-cta"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Iniciar conversación</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

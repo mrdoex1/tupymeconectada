@@ -2,361 +2,524 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plantilla Instagram Stories Informativa - 1080x1920</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <title>Glosario y Tips Completos - Formato Historias</title>
   <style>
     :root {
-      --bg-main: #ffffff;
-      --bg-surface: #f5f7fb;
+      --bg-main: #ffffff; 
+      --bg-surface: #f5f7fb; 
       --bg-gradient-end: #eef4fb;
-      --text-primary: #0f172a;
-      --text-secondary: #334155;
+      --text-primary: #0f172a; 
+      --text-secondary: #334155; 
       --border-color: rgba(15, 23, 42, 0.1);
-      --blue-primary: #00a3ff;
-      --blue-light: #38bdf8;
+      --blue-primary: #00a3ff; 
+      --blue-light: #38bdf8; 
       --blue-glow: rgba(0, 163, 255, 0.35);
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    body { 
+      background-color: #0f172a; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      padding: 50px; 
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
     }
-
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background-color: #0f172a;
-      padding: 20px;
+    .story-canvas { 
+      width: 1080px; 
+      height: 1920px; 
+      background: #ffffff; 
+      position: relative; 
+      overflow: hidden; 
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4); 
+      margin-bottom: 50px;
+      flex-shrink: 0;
     }
-
-    /* Canvas para Historias de Instagram (1080x1920) */
-    .story-canvas {
-      width: 1080px;
-      height: 1920px;
-      background: #ffffff;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-    }
-
-    /* CAPAS Y FORMAS GEOMÉTRICAS DE FONDO */
-    .bg-gradient-base {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-gradient-end) 100%);
-      z-index: 1;
-    }
-
-    .diagonal-shape-top {
-      position: absolute;
-      top: -100px;
-      right: -100px;
-      width: 850px;
-      height: 850px;
-      background: linear-gradient(135deg, rgba(0, 163, 255, 0.08) 0%, rgba(56, 189, 248, 0.02) 100%);
-      transform: rotate(20deg);
-      border-radius: 80px;
-      border: 1px solid rgba(0, 163, 255, 0.15);
-      z-index: 2;
-    }
-
-    .diagonal-stripe {
-      position: absolute;
-      top: 700px;
-      right: -200px;
-      width: 1000px;
-      height: 120px;
-      background: linear-gradient(90deg, var(--blue-primary), var(--blue-light));
-      transform: rotate(-25deg);
-      border-radius: 50px;
-      opacity: 0.12;
-      z-index: 2;
-    }
-
-    .diagonal-accent-bottom {
-      position: absolute;
-      bottom: -150px;
-      left: -150px;
-      width: 700px;
-      height: 700px;
-      background: var(--text-primary);
-      transform: rotate(15deg);
-      border-radius: 80px;
-      z-index: 2;
-    }
-
-    .blue-glow-spot {
-      position: absolute;
-      top: 500px;
-      left: 100px;
-      width: 600px;
-      height: 600px;
-      background: var(--blue-glow);
-      filter: blur(160px);
-      border-radius: 50%;
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    /* CONTENEDOR PRINCIPAL */
-    .content-wrapper {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      height: 100%;
-      padding: 100px 80px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    /* ENCABEZADO */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /* ESTILOS PARA EL LOGO ADAPTABLE */
-    .logo-container {
-      display: flex;
-      align-items: center;
-      height: 70px; /* Altura máxima fija para la zona del logo */
-      max-width: 400px;
-    }
-
-    .logo-container img {
-      height: 100%; /* Se adapta automáticamente a la altura del contenedor */
-      width: auto;  /* Mantiene la proporción original sin estirarse */
-      object-fit: contain;
-    }
-
-    .badge-info {
-      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
-      color: #ffffff;
-      padding: 16px 32px;
-      border-radius: 100px;
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      box-shadow: 0 10px 20px rgba(0, 163, 255, 0.3);
-    }
-
-    /* CUERPO CENTRAL INFORMATIVO */
-    .main-body {
-      display: flex;
-      flex-direction: column;
-      gap: 45px;
-      margin: auto 0;
-    }
-
-    /* TITULAR PRINCIPAL */
-    .question-header {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .category-tag {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--blue-primary);
-      text-transform: uppercase;
-      letter-spacing: 2.5px;
-    }
-
-    .main-question {
-      font-size: 72px;
-      font-weight: 900;
-      color: var(--text-primary);
-      line-height: 1.1;
-      letter-spacing: -2px;
-    }
-
-    .main-question span {
-      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    /* DEFINICIÓN / INTRODUCCIÓN GENERAL */
-    .intro-card {
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--border-color);
-      border-left: 8px solid var(--blue-primary);
-      border-radius: 22px;
-      padding: 36px 40px;
-      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.05);
-    }
-
-    .intro-card p {
-      font-size: 30px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      font-weight: 600;
-    }
-
-    .intro-card strong {
-      color: var(--text-primary);
-      font-weight: 800;
-    }
-
-    /* LISTA DE PUNTOS CLAVE */
-    .points-list {
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-    }
-
-    .point-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 24px;
-      background: #ffffff;
-      padding: 28px 34px;
-      border-radius: 20px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.03);
-    }
-
-    .point-icon {
-      width: 48px;
-      height: 48px;
-      min-width: 48px;
-      background: linear-gradient(135deg, rgba(0, 163, 255, 0.15), rgba(56, 189, 248, 0.15));
-      color: var(--blue-primary);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 24px;
-      margin-top: 2px;
-    }
-
-    .point-text {
-      font-size: 28px;
-      color: var(--text-secondary);
-      line-height: 1.45;
-      font-weight: 500;
-    }
-
-    .point-text strong {
-      color: var(--text-primary);
-      font-weight: 800;
-    }
-
-    /* RESUMEN / HIGHLIGHT FINAL */
-    .highlight-box {
-      background: linear-gradient(135deg, var(--text-primary), #1e293b);
-      color: #ffffff;
-      padding: 32px 38px;
-      border-radius: 20px;
-      font-size: 28px;
-      font-weight: 600;
-      line-height: 1.45;
-      box-shadow: 0 12px 25px rgba(15, 23, 42, 0.15);
-      border-left: 6px solid var(--blue-primary);
-    }
-
-    .highlight-box span {
-      color: var(--blue-light);
-      font-weight: 800;
-    }
-
-    /* PIE DE PÁGINA */
-    .footer {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-top: 30px;
-      border-top: 2px dashed rgba(15, 23, 42, 0.1);
-    }
-
-    .footer-note {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--blue-primary);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .bg-gradient-base { position: absolute; inset: 0; background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-gradient-end) 100%); z-index: 1; }
+    .diagonal-shape-top { position: absolute; top: -100px; right: -100px; width: 850px; height: 850px; background: linear-gradient(135deg, rgba(0, 163, 255, 0.08) 0%, rgba(56, 189, 248, 0.02) 100%); transform: rotate(20deg); border-radius: 80px; z-index: 2; }
+    .diagonal-stripe { position: absolute; top: 700px; right: -200px; width: 1000px; height: 120px; background: linear-gradient(90deg, var(--blue-primary), var(--blue-light)); transform: rotate(-25deg); border-radius: 50px; opacity: 0.12; z-index: 2; }
+    .diagonal-accent-bottom { position: absolute; bottom: -150px; left: -150px; width: 700px; height: 700px; background: var(--text-primary); transform: rotate(15deg); border-radius: 80px; z-index: 2; }
+    .blue-glow-spot { position: absolute; top: 500px; left: 100px; width: 600px; height: 600px; background: var(--blue-glow); filter: blur(160px); border-radius: 50%; z-index: 2; }
+    
+    .content-wrapper { position: relative; z-index: 10; width: 100%; height: 100%; padding: 100px 80px; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; }
+    .header { display: flex; justify-content: space-between; align-items: center; }
+    .logo-container { height: 70px; }
+    .logo-container img { height: 100%; width: auto; object-fit: contain; }
+    .badge-info { background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); color: #ffffff; padding: 16px 32px; border-radius: 100px; font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+    
+    .main-body { display: flex; flex-direction: column; gap: 45px; margin: auto 0; }
+    .category-tag { font-size: 24px; font-weight: 800; color: var(--blue-primary); text-transform: uppercase; letter-spacing: 2.5px; display: block; margin-bottom: 10px; }
+    .main-question { font-size: 72px; font-weight: 900; color: var(--text-primary); line-height: 1.1; margin: 0; }
+    .main-question span { background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    .intro-card { background: rgba(255, 255, 255, 0.9); border-left: 8px solid var(--blue-primary); border-radius: 22px; padding: 36px 40px; box-shadow: 0 15px 35px rgba(15, 23, 42, 0.05); }
+    .intro-card p { font-size: 30px; color: var(--text-secondary); line-height: 1.5; font-weight: 600; margin: 0; }
+    
+    .points-list { display: flex; flex-direction: column; gap: 22px; }
+    .point-item { display: flex; align-items: flex-start; gap: 24px; background: #ffffff; padding: 28px 34px; border-radius: 20px; border: 1px solid var(--border-color); }
+    .point-icon { width: 48px; height: 48px; min-width: 48px; background: rgba(0, 163, 255, 0.15); color: var(--blue-primary); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 24px; }
+    .point-text { font-size: 28px; color: var(--text-secondary); line-height: 1.45; font-weight: 500; }
+    
+    .highlight-box { background: linear-gradient(135deg, var(--text-primary), #1e293b); color: #ffffff; padding: 32px 38px; border-radius: 20px; font-size: 28px; font-weight: 600; border-left: 6px solid var(--blue-primary); }
+    .highlight-box span { color: var(--blue-light); font-weight: 800; }
+    
+    .footer { display: flex; justify-content: center; align-items: center; padding-top: 30px; border-top: 2px dashed rgba(15, 23, 42, 0.1); }
+    .footer-note { font-size: 26px; font-weight: 800; color: var(--blue-primary); }
   </style>
 </head>
 <body>
 
+  <!-- 1. E-Commerce -->
   <div class="story-canvas">
-    <div class="bg-gradient-base"></div>
-    <div class="diagonal-shape-top"></div>
-    <div class="diagonal-stripe"></div>
-    <div class="diagonal-accent-bottom"></div>
-    <div class="blue-glow-spot"></div>
-
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
     <div class="content-wrapper">
-      
-      <!-- ENCABEZADO CON LOGO A LA IZQUIERDA -->
       <header class="header">
-        <div class="logo-container">
-          <!-- Reemplaza 'tu-logo.png' con la ruta o URL de tu imagen -->
-          <img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo">
-        </div>
-        <div class="badge-info">Aprende Hoy</div>
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">E-Commerce</div>
       </header>
-
       <main class="main-body">
-        
         <div class="question-header">
           <span class="category-tag">Conceptos Clave</span>
-          <h1 class="main-question">
-            ¿Qué es una <span>Landing Page</span>?
-          </h1>
+          <h1 class="main-question">¿Qué es un <span>E-Commerce</span>?</h1>
         </div>
-
-        <div class="intro-card">
-          <p>
-            Es una página web diseñada con un <strong>único propósito</strong>: convertir visitantes en leads o clientes potenciales eliminando cualquier navegación innecesaria.
-          </p>
-        </div>
-
+        <div class="intro-card"><p>Tu <strong>tienda física en la web</strong>. Permite vender productos o servicios las 24 horas del día sin límites geográficos.</p></div>
         <div class="points-list">
-          
-          <div class="point-item">
-            <div class="point-icon">✓</div>
-            <div class="point-text">
-              <strong>Sin distracciones:</strong> No incluye menú ni enlaces secundarios para mantener al usuario enfocado.
-            </div>
-          </div>
-
-          <div class="point-item">
-            <div class="point-icon">✓</div>
-            <div class="point-text">
-              <strong>CTA Claro:</strong> Contiene una llamada a la acción única y directa (comprar, registrarse, descargar).
-            </div>
-          </div>
-
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Venta 24/7:</strong> Gestiona pagos e inventarios automáticamente sin pausas.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Escalabilidad Global:</strong> Llega a clientes en cualquier parte del mundo.</div></div>
         </div>
-
-        <div class="highlight-box">
-          💡 <span>En resumen:</span> Si buscas promocionar un producto o servicio específico, una Landing Page convierte hasta <strong>3 veces más</strong> que un sitio tradicional.
-        </div>
-
+        <div class="highlight-box">💡 <span>Resumen: Es el vendedor que <span>nunca duerme</span> y trabaja 24/7.</span></div>
       </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
 
-      <footer class="footer">
-        <div class="footer-note">
-          Guarda esta información 🔖
+  <!-- 2. Web Corporativa vs Blog -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Web vs Blog</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">Web o Blog: <span>¿Cuál elegir?</span></h1>
         </div>
-      </footer>
+        <div class="intro-card"><p>No son lo mismo. Una <strong>web corporativa</strong> presenta tu marca, un <strong>blog</strong> atrae clientes mediante contenido de valor.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Web Corporativa:</strong> Foco en presentar tus servicios y generar contacto.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Blog Informativo:</strong> Foco en educar a tu audiencia y atraer tráfico.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: Combina ambos para una <span>estrategia ganadora</span>.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
 
+  <!-- 3. One-Page -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">One-Page</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">¿Qué es una <span>Web One-Page</span>?</h1>
+        </div>
+        <div class="intro-card"><p>Una <strong>sola página estructurada</strong> donde toda la información relevante está al alcance inmediato del usuario.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Simpleza Total:</strong> Menos clics y fricción para el usuario al navegar.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Enfoque Directo:</strong> Guías al cliente hacia una acción rápida e inmediata.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: Ideal para una <span>conversión rápida</span> y directa.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 4. Portal Web -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Portal Web</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">¿Qué es un <span>Portal Web</span>?</h1>
+        </div>
+        <div class="intro-card"><p>Es un <strong>sistema avanzado</strong> donde los usuarios inician sesión para gestionar su contenido, perfil o membresía.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Acceso Exclusivo:</strong> Áreas restringidas y personalizadas para miembros.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Gestión Activa:</strong> Permite interacción directa con el usuario final.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: Ideal si ofreces <span>servicios recurrentes</span>.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 5. Velocidad Web -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Velocidad Web</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">¿Por qué <span>carga lento</span> tu web?</h1>
+        </div>
+        <div class="intro-card"><p>Una web lenta espanta clientes. El <strong>tiempo de carga es crítico</strong> para retener a tus visitantes y convertir ventas.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Optimización:</strong> Las imágenes sin comprimir son el enemigo #1.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Experiencia:</strong> Cada segundo de demora reduce tus conversiones.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: Una web rápida es igual a un <span>cliente feliz</span>.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 6. Diseño Responsive -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Diseño Responsive</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">¿Qué es el <span>Diseño Responsive</span>?</h1>
+        </div>
+        <div class="intro-card"><p>Es la capacidad de tu sitio web para <strong>adaptarse automáticamente</strong> a cualquier dispositivo o pantalla.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Mobile-First:</strong> Diseñado pensado en la pantalla del celular primero.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Confianza:</strong> Se ve impecable y profesional en todo equipo.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: Si tu sitio no es responsive, <span>simplemente no existe</span>.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 7. SEO On-Page -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">SEO On-Page</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">¿Qué es el <span>SEO On-Page</span>?</h1>
+        </div>
+        <div class="intro-card"><p>Es optimizar tu casa digital para que buscadores como <strong>Google</strong> la encuentren y posicionen fácilmente.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Palabras Clave:</strong> Utiliza el mismo lenguaje que buscan tus clientes.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Estructura Clara:</strong> Organiza la información para que Google la indexe.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: El SEO es tu <span>tráfico gratuito constante</span>.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 8. Certificado SSL -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Certificado SSL</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">¿Qué es un <span>Certificado SSL</span>?</h1>
+        </div>
+        <div class="intro-card"><p>Es el conocido <strong>candado de seguridad (HTTPS)</strong>. Representa la base del cifrado y la confianza en tu web.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Protección:</strong> Encripta y protege los datos personales de tus clientes.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Reputación:</strong> Evita que navegadores adviertan que tu web es 'no segura'.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: Sin SSL, <span>ahuyentas inmediatamente</span> a tus clientes.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 9. Errores Fatales -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Errores Fatales</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">3 Errores <span>Fatales</span> en tu Web</h1>
+        </div>
+        <div class="intro-card"><p>Tu web debe ser clara y efectiva. Evita cometer fallas que pueden estar <strong>costándote ventas</strong> ahora mismo.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Sin Botones Claros:</strong> No incluir un llamado a la acción directo.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Lenguaje Complejo:</strong> Usar textos demasiado aburridos o técnicos.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: Tu sitio web debe <span>vender</span>, no solo informar.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 10. Call to Action (CTA) -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Call to Action</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">¿Qué es un <span>CTA</span>?</h1>
+        </div>
+        <div class="intro-card"><p>Es la <strong>instrucción o llamada a la acción</strong> que le indicas al usuario: 'Comprar ahora', 'Contáctanos'.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Claridad Directa:</strong> Guías al cliente indicando el siguiente paso exacto.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Psicología:</strong> Un CTA visible impulsa a tomar la decisión de compra.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: Si no hay un CTA claro, <span>el cliente se va</span>.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 11. Web vs Instagram -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Web vs Instagram</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">¿Web Propia o solo <span>Instagram</span>?</h1>
+        </div>
+        <div class="intro-card"><p>Instagram es una vitrina alquilada; <strong>tu web es tu propiedad real</strong> donde mantienes el control total.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Control Total:</strong> No dependes de cambios imprevistos de algoritmos.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Autoridad Profesional:</strong> Un sitio web propio transmite confianza.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: Redes para atraer, <span>web para cerrar ventas</span>.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 12. Embudo de Ventas -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Embudo de Ventas</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">¿Qué es un <span>Embudo</span>?</h1>
+        </div>
+        <div class="intro-card"><p>El <strong>camino estratégico</strong> que recorre un usuario desde que te descubre hasta que efectúa una compra.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Atracción:</strong> Captas el interés con contenido de valor o publicidad.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Conversión:</strong> Guías al prospecto hasta convertirlo en cliente.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: Tu web es el motor para <span>automatizar tus ventas</span>.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 13. Mantenimiento Web -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Mantenimiento Web</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">¿Qué tras el <span>Lanzamiento</span>?</h1>
+        </div>
+        <div class="intro-card"><p>Una web requiere <strong>mantenimiento periódico</strong>, respaldos y actualizaciones para garantizar su estabilidad.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Seguridad Activa:</strong> Protege la plataforma contra posibles ataques.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Contenido Actual:</strong> Mantener tus datos actualizados genera valor.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: El lanzamiento es <span>solo el primer paso</span>.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 14. Dominio vs Hosting -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Dominio vs Hosting</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">Dominio <span>vs</span> Hosting</h1>
+        </div>
+        <div class="intro-card"><p>La analogía ideal: El <strong>dominio</strong> es la dirección de tu casa, el <strong>hosting</strong> es el terreno donde está construida.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Dominio:</strong> Es tu nombre exclusivo en internet (ej: tuweb.com).</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Hosting:</strong> Espacio de servidor donde guardas tus archivos.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: Son los <span>cimientos esenciales</span> de tu presencia.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 15. CMS -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">CMS</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">¿Qué es un <span>CMS</span>?</h1>
+        </div>
+        <div class="intro-card"><p>Es un gestor de contenidos (como <strong>WordPress</strong>) que te permite administrar tu sitio fácilmente sin programar.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Control Intuitivo:</strong> Cambias textos, blogs e imágenes de forma sencilla.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Autogestión:</strong> No dependes de un programador para cada cambio.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: Te otorga el <span>control total</span> sobre tu contenido.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 16. Caso de Éxito 1 -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Caso de Éxito</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">Caso: De 0 a <span>Ventas</span></h1>
+        </div>
+        <div class="intro-card"><p>Un cliente vendía solo por redes. Desarrollamos su web y en 1 mes <strong>aumentó sus consultas un 40%</strong>.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Estrategia Clave:</strong> Landing page optimizada con CTA claro.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Resultado:</strong> Atracción de clientes con mayor intención de compra.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: ¡Una buena web <span>vende mientras duermes</span>!</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 17. Caso de Éxito 2 -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Caso de Éxito</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">Caso: Web <span>+ Rápida</span></h1>
+        </div>
+        <div class="intro-card"><p>Una web tardaba 10 segundos en cargar. Tras la optimización, <strong>bajó a 2s</strong> y subió posiciones en Google.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Acción Aplicada:</strong> Optimización técnica y compresión de archivos.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Resultado:</strong> Menor tasa de rebote y mayor retención de usuarios.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: La velocidad es tu <span>mejor publicidad</span>.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</footer>
+    </div>
+  </div>
+
+  <!-- 18. Tip de Diseño 1 -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Tip de Diseño</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">Tip: <span>Jerarquía Visual</span></h1>
+        </div>
+        <div class="intro-card"><p>No todo puede destacar igual. Aplica distintos tamaños para <strong>guiar la vista del usuario</strong>.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Regla Básica:</strong> Titulares destacados y textos complementarios claros.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Efecto Directo:</strong> El usuario entiende el orden de lectura de inmediato.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: Ordena tu diseño para <span>vender más</span>.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
+    </div>
+  </div>
+
+  <!-- 19. Tip de Diseño 2 -->
+  <div class="story-canvas">
+    <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+        <div class="badge-info">Tip de Diseño</div>
+      </header>
+      <main class="main-body">
+        <div class="question-header">
+          <span class="category-tag">Conceptos Clave</span>
+          <h1 class="main-question">Tip: <span>Espacio en Blanco</span></h1>
+        </div>
+        <div class="intro-card"><p>Evita recargar la pantalla. El <strong>espaciado o 'aire'</strong> ayuda a que la lectura sea fluida y confortable.</p></div>
+        <div class="points-list">
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Regla de Oro:</strong> A mayores márgenes, mejor comprensión lectora.</div></div>
+          <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Efecto Directo:</strong> Un aspecto limpio, moderno y profesional.</div></div>
+        </div>
+        <div class="highlight-box">💡 <span>Resumen: En diseño web, <span>menos es siempre más</span>.</span></div>
+      </main>
+      <footer class="footer"><div class="footer-note">Guarda esta información 🔖</div></footer>
     </div>
   </div>
 
