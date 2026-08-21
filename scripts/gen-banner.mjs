@@ -33,7 +33,6 @@ const bannerPage = () => `<!doctype html>
   .title .hl { color:#00a3ff; position:relative; white-space:nowrap; }
   .title .hl::after { content:""; position:absolute; left:0; right:-6px; bottom:-8px; height:14px; background-image:url("data:image/svg+xml;utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20220%2014'%3E%3Cpath%20d='M3%209%20C%2040%203,%2070%2012,%20108%208%20C%20146%204,%20180%2011,%20217%206'%20fill='none'%20stroke='%2300a3ff'%20stroke-width='4'%20stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-size:100% 100%; background-position:bottom; opacity:0.85; }
   .tag { font-family:'Karla', sans-serif; font-size:21px; color:#475569; max-width:520px; line-height:1.55; font-weight:500; }
-  .cta { display:inline-flex; align-items:center; gap:10px; background:#00a3ff; color:#04121f; font-family:'Karla',sans-serif; font-weight:700; font-size:18px; padding:13px 32px; border-radius:100px; box-shadow:0 12px 26px rgba(0,163,255,0.28); }
   .sign { font-family:'Caveat', cursive; font-size:24px; color:#00a3ff; }
 </style>
 </head><body>
@@ -46,8 +45,7 @@ const bannerPage = () => `<!doctype html>
   <div class="content">
     <img class="logo" src="${LOGO_URL}" alt="">
     <h1 class="title">Sitios web limpios, rápidos y<BR>enfocados en <span class="hl">vender más</span></h1>
-    <p class="tag">Diseño web, rediseño, mantenimiento y SEO local para pymes en Chile.</p>
-    <div class="cta">Habla por WhatsApp</div>
+    <p class="tag">One Page Web, catálogos con pedido por WhatsApp, sitios corporativos y mantenimiento web para pymes en Chile.</p>
     <div class="sign">Tu Pyme Conectada</div>
   </div>
 </div>
