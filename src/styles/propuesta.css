@@ -1921,6 +1921,42 @@ a {
         font-size: 1.1rem;
       }
 
+      .pp-servicios-catalogo {
+        display: flex;
+        justify-content: center;
+        margin-top: 26px;
+      }
+
+      .pp-link-catalogo {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-decoration: none;
+        padding: 11px 22px;
+        border: 1px solid var(--border-glow);
+        border-radius: 100px;
+        background: rgba(0, 163, 255, 0.08);
+        transition: var(--transition);
+      }
+
+      .pp-link-catalogo i {
+        font-size: 1.05rem;
+        transition: transform 0.25s ease;
+      }
+
+      .pp-link-catalogo:hover {
+        background: rgba(0, 163, 255, 0.16);
+        border-color: var(--primary);
+        transform: translateY(-2px);
+      }
+
+      .pp-link-catalogo:hover i {
+        transform: translateX(3px);
+      }
+
       @media (min-width: 1025px) {
         .pp-srv-count {
           display: none;
