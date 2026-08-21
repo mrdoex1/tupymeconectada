@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title = 'Diseño Web para PYMES en Chile | Tu Pyme Conectada',
-  description = 'Sitios web limpios, rápidos y enfocados en vender más. Diseño web, rediseño, mantenimiento y SEO local para pymes en Chile. Habla directo por WhatsApp.',
+  description = 'Sitios web limpios, rápidos y enfocados en vender más. Creación de sitios web, rediseño, mantenimiento y SEO local para pymes en Chile. Habla directo por WhatsApp.',
 } = Astro.props;
 
 const LOCAL_BUSINESS_JSONLD = {
@@ -21,7 +21,7 @@ const LOCAL_BUSINESS_JSONLD = {
   email: 'contacto@tupymeconectada.cl',
   priceRange: '$$',
   description:
-    'Diseño de sitios web para pymes en Chile: desarrollo web, rediseño, mantenimiento y SEO local con atención directa por WhatsApp.',
+    'Creación de sitios web para pymes en Chile: diseño web, rediseño, mantenimiento mensual y SEO local con atención directa por WhatsApp.',
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'CL',
@@ -42,7 +42,15 @@ const FAQ_JSONLD = {
       name: '¿Qué tipos de sitios web puedo pedirte?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Creamos landing pages de una página, sitios corporativos multipágina, catálogos digitales o tiendas online. Todos adaptados al objetivo de tu negocio, ya sea captar clientes, mostrar tus servicios o vender por internet.',
+        text: 'Creamos landing pages, catálogos con pedido por WhatsApp, sitios corporativos multipágina o tiendas online. Todos adaptados al objetivo de tu negocio, ya sea captar clientes, mostrar tus servicios o vender por internet.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Cuál es la diferencia entre un Catálogo WhatsApp y una Tienda Online?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'El Catálogo WhatsApp es ideal para empezar: el cliente arma su pedido y llega directo a tu teléfono, y tú gestionas el pago como ya lo haces (transferencia o entrega). La Tienda Online (E-commerce) integra pagos con tarjeta (Mercado Pago / Transbank), confirma la venta sola y vende 24/7.',
       },
     },
     {
@@ -58,7 +66,7 @@ const FAQ_JSONLD = {
       name: '¿Cómo consigo clientes por WhatsApp desde mi web?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Tu sitio se diseña para convertir visitas en contactos: botones de WhatsApp, formularios y llamados a la acción claros que llevan al cliente directo a conversar contigo.',
+        text: 'Tu sitio se diseña para convertir visitas en contactos: botones de WhatsApp y llamados a la acción claros que llevan al cliente directo a conversar contigo. El formulario de contacto con correo configurado se integra aparte, según cada proyecto.',
       },
     },
     {
@@ -82,7 +90,7 @@ const FAQ_JSONLD = {
       name: '¿Qué incluye el plan de mantenimiento?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Incluye actualizaciones de contenido, respaldos de seguridad, renovación de dominio y hosting, corrección de errores y soporte técnico. Tú te despreocupas de lo técnico y te enfocas en tu negocio.',
+        text: 'Incluye actualizaciones de contenido, respaldos de seguridad, gestión de dominio y hosting, corrección de errores y soporte técnico. Tú te despreocupas de lo técnico y te enfocas en tu negocio.',
       },
     },
     {
@@ -106,7 +114,7 @@ const FAQ_JSONLD = {
       name: '¿Me integran WhatsApp, formularios y redes sociales?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Sí, configuramos los botones de WhatsApp, formularios y la vinculación con tus redes sociales para que todo esté conectado y tu negocio se vea profesional en todos lados.',
+        text: 'Sí, configuramos los botones de WhatsApp y la vinculación con tus redes sociales para que todo esté conectado y tu negocio se vea profesional en todos lados.',
       },
     },
     {
@@ -151,7 +159,7 @@ const FAQ_JSONLD = {
     <meta property="og:description" content={description} />
     <meta
       property="og:image"
-      content="https://tupymeconectada.cl/recursos/imagenes/bannerFacebook.png"
+      content="https://tupymeconectada.cl/recursos/imagenes/bannerFacebook-v2.jpg"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -163,7 +171,7 @@ const FAQ_JSONLD = {
     <meta name="twitter:description" content={description} />
     <meta
       name="twitter:image"
-      content="https://tupymeconectada.cl/recursos/imagenes/bannerFacebook.png"
+      content="https://tupymeconectada.cl/recursos/imagenes/bannerFacebook-v2.jpg"
     />
     <title>{title}</title>
 

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Servicios | Tu Pyme Conectada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gelasio:wght@500;600;700&family=Karla:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="/recursos/imagenes/favicon.png">
+<style>
+  :root {
+    --bg-main: #ffffff;
+    --bg-gradient-end: #eef4fb;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #475569;
+    --border-color: rgba(15, 23, 42, 0.1);
+    --blue-primary: #00a3ff;
+    --blue-light: #38bdf8;
+    --blue-glow: rgba(0, 163, 255, 0.35);
+    --ink: #0e1726;
+    --wa: #25d366;
+    --surface: #f5f7fb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  h1, h2, h3, h4 { font-family: 'Gelasio', Georgia, serif; }
+  body {
+    background-color: var(--ink);
+    background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-gradient-end) 100%);
+    color: var(--text-primary);
+    font-family: 'Karla', system-ui, sans-serif;
+    min-height: 100vh;
+  }
+
+  /* Fondo decorativo (estilo instaStory) */
+  .bg-fixed { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+  .diag-top { position: absolute; top: -160px; right: -160px; width: 620px; height: 620px; background: linear-gradient(135deg, rgba(0,163,255,0.10) 0%, rgba(56,189,248,0.02) 100%); transform: rotate(20deg); border-radius: 80px; }
+  .diag-stripe { position: absolute; top: 300px; right: -265px; width: 900px; height: 100px; background: linear-gradient(90deg, var(--blue-primary), var(--blue-light)); transform: rotate(-25deg); border-radius: 50px; opacity: 0.12; }
+  .diag-bottom { position: absolute; bottom: -100px; left: -100px; width: 340px; height: 340px; background: var(--text-primary); transform: rotate(15deg); border-radius: 60px; opacity: 0.92; }
+  .glow-spot { position: absolute; top: 120px; left: 60px; width: 360px; height: 360px; background: rgba(0,163,255,0.28); filter: blur(110px); border-radius: 50%; }
+
+  .wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 48px 5% 90px; }
+
+  /* Header */
+  .catalogo-head {
+    text-align: center;
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(18px);
+    border: 1px solid var(--border-color);
+    border-radius: 28px;
+    padding: 40px 30px;
+    box-shadow: 0 24px 60px rgba(15,23,42,0.08);
+  }
+  .catalogo-head .logo { height: 54px; width: auto; margin: 0 auto 14px; object-fit: contain; display: block; }
+  .catalogo-head h1 { font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--text-primary); letter-spacing: -0.02em; margin-bottom: 6px; }
+  .catalogo-head .hl { color: var(--blue-primary); font-family: 'Gelasio', serif; position: relative; }
+  .catalogo-head p { font-family: 'Karla'; color: var(--text-muted); max-width: 640px; margin: 12px auto 0; font-size: 0.98rem; line-height: 1.65; }
+
+  /* Filtros */
+  .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; margin: 30px 0 8px; }
+  .chip { background: var(--bg-main); border: 1px solid var(--border-color); color: var(--text-secondary); padding: 9px 16px; border-radius: 100px; font-weight: 600; font-size: 0.82rem; cursor: pointer; font-family: 'Karla'; transition: all 0.2s ease; }
+  .chip:hover { border-color: var(--blue-primary); color: var(--text-primary); }
+  .chip.active { background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); border-color: var(--blue-primary); color: #fff; font-weight: 700; }
+
+  /* Grid de tarjetas — una sola columna, ancho completo */
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; margin-top: 18px; }
+  .card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 22px;
+    padding: 32px;
+    box-shadow: 0 18px 40px rgba(15,23,42,0.07);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 32px;
+    position: relative;
+    transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.25s ease;
+  }
+  .card:hover { transform: translateY(-3px); border-color: rgba(0,163,255,0.3); }
+  .card[hidden] { display: none; }
+  .card-head { display: flex; align-items: center; gap: 12px; grid-column: 1 / -1; margin-bottom: 8px; }
+  .card-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(0,163,255,0.12); color: var(--blue-primary); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 800; }
+  .badge { background: rgba(0,163,255,0.1); border: 1px solid rgba(0,163,255,0.3); color: var(--blue-primary); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 11px; border-radius: 50px; }
+  .card h3 { margin-top: 4px; font-size: 1.5rem; grid-column: 1 / -1; }
+  .card-intro { font-family: 'Karla'; color: var(--text-secondary); font-size: 0.92rem; margin: 4px 0 16px; grid-column: 1 / -1; }
+
+  /* Bloques de detalle en 2 columnas internas */
+  .card .price { grid-column: 1 / -1; margin-bottom: 8px; }
+  .blk-left { grid-column: 1; }
+  .blk-right { grid-column: 2; display: flex; flex-direction: column; gap: 0; }
+  .cta { grid-column: 1 / -1; margin-top: 8px; }
+
+  /* SEO Local: siempre apilada, título y contenido juntos */
+  .card[data-cat="seo"] { grid-template-columns: 1fr; }
+  .card[data-cat="seo"] .blk-left,
+  .card[data-cat="seo"] .blk-right { grid-column: 1 / -1; }
+
+  .price {
+    display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px;
+  }
+  .price .amount { font-family: 'Gelasio'; font-size: 1.55rem; font-weight: 700; color: var(--text-primary); }
+  .price .note { font-family: 'Karla'; font-size: 0.76rem; color: var(--text-muted); }
+
+  .lbl { font-family: 'Karla'; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue-primary); margin: 12px 0 4px; display: block; }
+  .list { list-style: none; margin: 0; padding: 0; }
+  .list li { display: flex; align-items: flex-start; gap: 8px; font-family: 'Karla'; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+  .list li::before { content: "·"; color: var(--blue-primary); font-weight: 700; }
+  .list li:last-child { border-bottom: none; }
+
+  .cta {
+    width: 100%; margin-top: auto; padding: 13px 18px; border-radius: 100px;
+    background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
+    color: #04121f; font-weight: 700; font-size: 0.9rem; text-decoration: none;
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    box-shadow: 0 12px 26px rgba(0,163,255,0.25); transition: transform 0.2s ease;
+  }
+  .cta:hover { transform: translateY(-2px); }
+
+  .opt {
+    margin-top: 14px;
+    background: rgba(0,163,255,0.07);
+    border: 1px dashed rgba(0,163,255,0.35);
+    border-radius: 14px;
+    padding: 12px 14px;
+  }
+  .opt .opt-title {
+    font-family: 'Karla'; font-size: 0.78rem; font-weight: 700;
+    color: var(--blue-primary); text-transform: uppercase; letter-spacing: 0.06em;
+    display: flex; align-items: center; gap: 6px; margin-bottom: 6px;
+  }
+  .opt .opt-title::before { content: "+"; color: var(--blue-primary); font-weight: 800; }
+  .opt ul { list-style: none; margin: 0; padding: 0; }
+  .opt ul li { display: flex; gap: 8px; font-family: 'Karla'; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
+  .opt ul li::before { content: "＋"; color: var(--blue-primary); }
+
+  /* Condiciones */
+  .cond {
+    margin-top: 40px; background: rgba(255,255,255,0.9);
+    border: 1px solid var(--border-color); border-radius: 24px; padding: 34px 28px;
+    border-left: 6px solid var(--blue-primary); box-shadow: 0 18px 44px rgba(15,23,42,0.07);
+  }
+  .cond h2 { font-size: 1.5rem; margin-bottom: 8px; }
+  .cond .pago-badge { display: inline-block; background: var(--wa); color: #fff; padding: 6px 14px; border-radius: 100px; font-weight: 700; font-size: 0.78rem; }
+  .cond ol { list-style: none; counter-reset: c; padding: 0; }
+  .cond ol li { counter-increment: c; display: flex; gap: 12px; font-family: 'Karla'; color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; padding: 10px 0; }
+  .cond ol li::before { content: counter(c); width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: rgba(0,163,255,0.12); color: var(--blue-primary); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
+
+  footer { text-align: center; margin-top: 40px; color: var(--text-muted); font-size: 0.82rem; font-family: 'Karla'; }
+
+  @media (max-width: 900px) {
+    .card { grid-template-columns: 1fr; padding: 26px 22px; }
+    .card-head, .card h3, .card-intro, .card .price, .cta { grid-column: 1 / -1; }
+    .blk-left, .blk-right { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+  <div class="bg-fixed">
+    <div class="diag-top"></div>
+    <div class="diag-stripe"></div>
+    <div class="diag-bottom"></div>
+    <div class="glow-spot"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="catalogo-head">
+      <img src="recursos/imagenes/logoTPC-dark.png" alt="Tu Pyme Conectada" class="logo">
+      <h1>Catálogo de <span class="hl">Servicios</span></h1>
+      <p>Todo lo que incluye cada servicio, sus tiempos y lo que necesitas de ti. Claros y sin letra chica. Precios en CLP.</p>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="chip active" data-filter="landing">Landing</button>
+      <button class="chip" data-filter="catalogo">Catálogo WhatsApp</button>
+      <button class="chip" data-filter="corporativo">Sitio Corporativo</button>
+      <button class="chip" data-filter="ecommerce">E-commerce</button>
+      <button class="chip" data-filter="mantenimiento">Mantenimiento</button>
+      <button class="chip" data-filter="optimizacion">Optimización</button>
+      <button class="chip" data-filter="seo">SEO Local</button>
+    </div>
+
+    <div class="grid" id="grid">
+
+      <!-- 1. Landing Page -->
+      <article class="card" data-cat="landing">
+        <div class="card-head"><div class="card-icon">1</div><span class="badge">Pago único</span></div>
+        <h3>Landing Page</h3>
+        <p class="card-intro">Ideal para lanzar una campaña o hacer vender un solo objetivo concreto: servicios, promociones o captación.</p>
+        <div class="price"><span class="amount">$79.990 – $149.990</span></div>
+        <div class="blk-left">
+          <span class="lbl">Incluye</span>
+          <ul class="list">
+            <li>Secciones: Hero (oferta) · Beneficios · Servicios/Cómo funciona · Testimonios · CTA final</li>
+            <li>CTA principal: botón de WhatsApp</li>
+            <li>Panel para editar textos y fotos sin romper el diseño</li>
+            <li>Mapa de Google (si eres negocio local)</li>
+            <li>Analítica web básica (visitas y conversiones)</li>
+            <li>Certificado SSL y velocidad de carga incluidos</li>
+            <li>SEO técnico e indexación en Google</li>
+            <li>2 rondas de revisiones incluidas</li>
+          </ul>
+          <div class="opt">
+            <span class="opt-title">Opcionales que suben el precio</span>
+            <ul>
+              <li>Formulario de contacto con correo configurado</li>
+              <li>Sección de Precios / Planes</li>
+              <li>Preguntas frecuentes (FAQ)</li>
+              <li>Analítica avanzada (eventos y seguimiento de campañas)</li>
+              <li>Copywriting avanzado (textos y estrategia de mensaje)</li>
+              <li>Sitio en más de un idioma</li>
+            </ul>
+          </div>
+        </div>
+        <div class="blk-right">
+          <span class="lbl">Necesitamos de ti</span>
+          <ul class="list"><li>Textos y fotos (o apoyo de redacción con IA)</li></ul>
+          <span class="lbl">Entrega</span>
+          <ul class="list"><li>2 – 3 días hábiles</li></ul>
+          <span class="lbl">No incluye</span>
+          <ul class="list"><li>Dominio (ej. .cl) pagado aparte · Hosting incluido sin costo</li></ul>
+        </div>
+        <a class="cta" href="https://wa.me/56959909150?text=Hola,%20quiero%20cotizar%20una%20landing%20page" target="_blank" rel="noopener noreferrer">Cotizar Landing</a>
+      </article>
+
+      <!-- 2. Catálogo WhatsApp -->
+      <article class="card" data-cat="catalogo">
+        <div class="card-head"><div class="card-icon">2</div><span class="badge">Pago único</span></div>
+        <h3>Catálogo WhatsApp</h3>
+        <p class="card-intro">Muestra tus productos con fotos. El cliente arma el pedido y llega directo a tu WhatsApp; el pago lo gestionas tú.</p>
+        <div class="price"><span class="amount">$79.990 – $149.990</span></div>
+        <div class="blk-left">
+          <span class="lbl">Incluye</span>
+          <ul class="list">
+            <li>Secciones: Hero corto · Categorías · Grilla de productos con botón "Pedir por WhatsApp" · Despacho/retiro</li>
+            <li>Búsqueda y filtros por categoría y precio</li>
+            <li>Carrito que arma el pedido en tu teléfono</li>
+            <li>Panel para modificar categorías, productos, precios y textos</li>
+            <li>Mapa de Google (si eres negocio local)</li>
+            <li>Certificado SSL, diseño responsive y carga rápida</li>
+            <li>2 rondas de diseño incluidas</li>
+          </ul>
+          <div class="opt">
+            <span class="opt-title">Opcionales que suben el precio</span>
+            <ul>
+              <li>Variantes de productos (talla, color)</li>
+              <li>Nota de stock en cada producto</li>
+              <li>Fotos múltiples por producto</li>
+              <li>Búsqueda y filtros avanzados</li>
+            </ul>
+          </div>
+        </div>
+        <div class="blk-right">
+          <span class="lbl">Necesitamos de ti</span>
+          <ul class="list"><li>Fotos y precios de tus productos</li></ul>
+          <span class="lbl">Entrega</span>
+          <ul class="list"><li>3 – 5 días hábiles</li></ul>
+          <span class="lbl">No incluye</span>
+          <ul class="list"><li>Pagos online (solo pedido por WhatsApp)</li><li>Dominio (ej. .cl) pagado aparte · Hosting incluido sin costo</li></ul>
+        </div>
+        <a class="cta" href="https://wa.me/56959909150?text=Hola,%20quiero%20cotizar%20un%20cat%C3%A1logo%20WhatsApp" target="_blank" rel="noopener noreferrer">Cotizar Catálogo</a>
+      </article>
+
+      <!-- 3. Sitio Corporativo -->
+      <article class="card" data-cat="corporativo">
+        <div class="card-head"><div class="card-icon">3</div><span class="badge">Pago único</span></div>
+        <h3>Sitio Corporativo Pyme</h3>
+        <p class="card-intro">Multipágina para proyectar autoridad: lo que hace tu negocio, qué ofrece y cómo te contactan.</p>
+        <div class="price"><span class="amount">$179.990 – $219.990</span></div>
+        <div class="blk-left">
+          <span class="lbl">Páginas del sitio</span>
+          <ul class="list">
+            <li>Inicio · Nosotros / Quiénes somos · Servicios · Testimonios o Casos · Contacto</li>
+            <li>Formulario de contacto con correo configurado</li>
+            <li>Panel para editar textos y fotos sin romper el diseño</li>
+            <li>Configuración de Google Business / SEO local</li>
+            <li>Mapa de Google (si eres negocio local)</li>
+            <li>Certificado SSL, diseño avanzado, responsive y rápido</li>
+            <li>SEO técnico e indexación en Google</li>
+            <li>2 rondas de diseño incluidas</li>
+          </ul>
+          <div class="opt">
+            <span class="opt-title">Opcionales que suben el precio</span>
+            <ul>
+              <li>Páginas adicionales (más de 5)</li>
+              <li>Blog (artículos y contenido de valor)</li>
+              <li>Portafolio / Trabajos realizados</li>
+              <li>Sitio en más de un idioma (multilenguaje)</li>
+              <li>Video de presentación (hero o sección)</li>
+              <li>Redacción de textos (si no los entregas)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="blk-right">
+          <span class="lbl">Necesitamos de ti</span>
+          <ul class="list"><li>Textos, fotos del negocio y datos de contacto</li></ul>
+          <span class="lbl">Entrega</span>
+          <ul class="list"><li>5 – 7 días hábiles</li></ul>
+          <span class="lbl">No incluye</span>
+          <ul class="list"><li>Dominio (ej. .cl) pagado aparte · Hosting incluido sin costo</li></ul>
+        </div>
+        <a class="cta" href="https://wa.me/56959909150?text=Hola,%20quiero%20cotizar%20mi%20sitio%20corporativo" target="_blank" rel="noopener noreferrer">Cotizar Sitio</a>
+      </article>
+
+      <!-- 4. E-commerce -->
+      <article class="card" data-cat="ecommerce">
+        <div class="card-head"><div class="card-icon">4</div><span class="badge">Pago único</span></div>
+        <h3>E-commerce (pagos online)</h3>
+        <p class="card-intro">Tienda completa que vende 24/7 con tarjeta y confirmación automática.</p>
+        <div class="price"><span class="amount">$299.990 – $349.990</span></div>
+        <div class="blk-left">
+          <span class="lbl">Incluye</span>
+          <ul class="list">
+            <li>Catálogo + carrito de compras + checkout</li>
+            <li>Búsqueda y filtros básicos</li>
+            <li>Integración de pagos (Mercado Pago / Transbank)</li>
+            <li>Confirmación de venta por correo</li>
+            <li>Páginas de políticas (envío y devolución)</li>
+            <li>Panel para editar productos y precios</li>
+            <li>Mapa de Google (si eres negocio local)</li>
+            <li>Certificado SSL, SEO, velocidad optimizada y 2 rondas de diseño</li>
+          </ul>
+          <div class="opt">
+            <span class="opt-title">Opcionales que suben el precio</span>
+            <ul>
+              <li>Cupones / descuentos</li>
+              <li>Gestión de inventario y stock en el panel</li>
+              <li>Notificaciones de pedido (WhatsApp y correo)</li>
+              <li>Filtros por variantes (talla, color)</li>
+              <li>Boleta / factura electrónica</li>
+              <li>Despacho integrado (Chilexpress, Starken u otros)</li>
+              <li>Reportes de ventas avanzados</li>
+            </ul>
+          </div>
+        </div>
+        <div class="blk-right">
+          <span class="lbl">Necesitamos de ti</span>
+          <ul class="list"><li>Fotos/precios de productos</li><li>Cuenta de Mercado Pago o pasarela propia</li></ul>
+          <span class="lbl">Entrega</span>
+          <ul class="list"><li>7 – 10 días hábiles</li></ul>
+          <span class="lbl">No incluye</span>
+          <ul class="list"><li>Cuenta/pasarela de pagos (debe tramitarla el cliente)</li><li>Dominio (ej. .cl) pagado aparte · Hosting incluido sin costo</li></ul>
+        </div>
+        <a class="cta" href="https://wa.me/56959909150?text=Hola,%20quiero%20cotizar%20una%20tienda%20online" target="_blank" rel="noopener noreferrer">Cotizar Tienda</a>
+      </article>
+
+      <!-- 5. -->
+      <article class="card" data-cat="mantenimiento">
+        <div class="card-head"><div class="card-icon">5</div><span class="badge">Suscripción</span></div>
+        <h3>Mantenimiento Web</h3>
+        <p class="card-intro">Delega la parte técnica y mantén tu sitio cuidado, actualizado y protegido.</p>
+        <div class="price"><span class="amount">desde $14.990</span><span class="note">/ mes · piso</span></div>
+        <div class="blk-left">
+          <span class="lbl">Incluye</span>
+          <ul class="list">
+            <li>Bolsa de 3 horas de trabajo al mes</li>
+            <li>Respaldos de seguridad y monitoreo</li>
+            <li>Actualización de sistema y plugins</li>
+            <li>Micro-cambios: textos, fotos, productos</li>
+            <li>Gestión de dominio y hosting por nosotros</li>
+          </ul>
+        </div>
+        <div class="blk-right">
+          <span class="lbl plan-plus">Plan Plus $25.990/mes = 6 horas</span>
+          <span class="lbl">Más allá de tu bolsa</span>
+          <ul class="list"><li>Hora extra: $6.000 (se descuenta de la siguiente mensualidad)</li></ul>
+          <span class="lbl">Regla</span>
+          <ul class="list"><li>Las horas no usadas no se acumulan al mes siguiente</li></ul>
+        </div>
+        <a class="cta" href="https://wa.me/56959909150?text=Hola,%20quiero%20contratar%20el%20plan%20de%20mantenimiento" target="_blank" rel="noopener noreferrer">Contratar Mantenimiento</a>
+      </article>
+
+      <!-- 6. -->
+      <article class="card" data-cat="optimizacion">
+        <div class="card-head"><div class="card-icon">6</div><span class="badge">Diagnóstico</span></div>
+        <h3>Optimización y Rediseño Web</h3>
+        <p class="card-intro">Tu web activa pero lenta, vieja, rota o que no vende. Lo ponemos a punto.</p>
+        <div class="price"><span class="amount">desde $29.990</span><span class="note">según alcance</span></div>
+        <div class="blk-left">
+          <span class="lbl">Incluye</span>
+          <ul class="list">
+            <li>Diagnóstico previo gratuito</li>
+            <li>Velocidad y optimización de código</li>
+            <li>Rediseño y modernización visual</li>
+            <li>Reparación de errores técnicos</li>
+          </ul>
+        </div>
+        <div class="blk-right">
+          <span class="lbl">Límite</span>
+          <ul class="list"><li>Hasta 8 horas de trabajo al mes</li></ul>
+          <span class="lbl">Entrega</span>
+          <ul class="list"><li>Según alcance (se define en la cotización)</li></ul>
+        </div>
+        <a class="cta" href="https://wa.me/56959909150?text=Hola,%20quiero%20un%20diagnóstico%20de%20mi%20web" target="_blank" rel="noopener noreferrer">Solicitar Diagnóstico</a>
+      </article>
+
+      <!-- 7. -->
+      <article class="card" data-cat="seo">
+        <div class="card-head"><div class="card-icon">7</div><span class="badge">Pago único</span></div>
+        <h3>SEO Local y Google Maps</h3>
+        <p class="card-intro">Aparece cuando la gente busca tu servicio en tu comuna.</p>
+        <div class="price"><span class="amount">$39.990 – $49.990</span></div>
+        <div class="blk-left">
+          <span class="lbl">Incluye</span>
+          <ul class="list">
+            <li>Perfil de Empresa en Google creado/optimizado</li>
+            <li>Posicionamiento local en tu zona</li>
+            <li>Sistema de reseñas y reputación</li>
+            <li>Vinculación a WhatsApp, llamadas y sitio web</li>
+          </ul>
+        </div>
+        <div class="blk-right">
+          <span class="lbl">Necesitamos de ti</span>
+          <ul class="list"><li>Datos de tu negocio y dirección (si existe)</li></ul>
+          <span class="lbl">Entrega</span>
+          <ul class="list"><li>1 – 2 días hábiles</li></ul>
+        </div>
+        <a class="cta" href="https://wa.me/56959909150?text=Hola,%20quiero%20potenciar%20mi%20negocio%20local" target="_blank" rel="noopener noreferrer">Potenciar mi negocio</a>
+      </article>
+
+    </div>
+
+    <section class="cond">
+      <h2>Condiciones generales</h2>
+      <span class="pago-badge">Aceptas pago por: <strong>Transferencia</strong> o <strong>Mercado Pago</strong></span>
+      <ol>
+        <li>Creación de sitios: <strong>50% al iniciar</strong> el proyecto y <strong>50% contra la entrega publicada</strong>.</li>
+        <li>Hosting incluido sin costo en proyectos de creación, optimización y SEO. El <strong>dominio</strong> (ej. .cl ~$9.990/año) lo paga el cliente aparte. En el <strong>Mantenimiento</strong> nosotros gestionamos dominio y hosting.</li>
+        <li>Certificado SSL incluido en todos los sitios (sin costo extra).</li>
+        <li>Se incluyen <strong>2 rondas de revisiones</strong> para correcciones de lo acordado. Los cambios o requerimientos nuevos se cotizan aparte.</li>
+        <li>El cliente entrega los <strong>textos y fotos</strong> de su negocio (apoyamos con redacción vía IA si es necesario).</li>
+        <li>Las horas del plan de mantenimiento <strong>no se acumulan</strong> al mes siguiente.</li>
+        <li>En optimización/rediseño el máximo es <strong>8 horas por mes</strong>; el exceso se cotiza.</li>
+        <li>Hora extra sobre la bolsa de mantenimiento: <strong>$6.000/h</strong>.</li>
+        <li>Propiedad total del sitio y su código al <strong>completar el pago</strong>.</li>
+      </ol>
+    </section>
+
+    <footer>© 2026 Tu Pyme Conectada · Precios en CLP · Sujeto a confirmación según alcance</footer>
+  </div>
+
+  <a href="https://wa.me/56959909150?text=Hola,%20quiero%20información%20de%20tu%20catálogo%20de%20servicios" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Chatear por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" style="width:30px;height:30px"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg></a>
+
+  <script>
+    const chips = document.querySelectorAll('#filters .chip');
+    const cards = document.querySelectorAll('#grid .card');
+    const setFilter = (f) => {
+      chips.forEach(c => c.classList.toggle('active', c.dataset.filter === f));
+      cards.forEach(card => {
+        card.hidden = card.dataset.cat !== f;
+      });
+    };
+    chips.forEach(c => c.addEventListener('click', () => setFilter(c.dataset.filter)));
+    setFilter('landing');
+  </script>
+  <style>
+    .wa-float { position: fixed; bottom: 28px; right: 28px; width: 58px; height: 58px; border-radius: 50%; background: var(--wa); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 28px; z-index: 50; box-shadow: 0 12px 26px rgba(37,211,102,0.4); text-decoration: none; }
+  </style>
+</body>
+</html>
