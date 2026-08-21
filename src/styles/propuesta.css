@@ -183,15 +183,15 @@ a {
 }
 
 .pp-btn--primary {
-  background: var(--pp-blue);
-  color: #04121f;
+  background: #28d366;
+  color: #ffffff;
   border-radius: 100px;
   padding: 10px 22px;
   font-size: 0.86rem;
 }
 
 .pp-btn--primary:hover {
-  background: #3bb8ff;
+  background: #28d366;
   transform: translateY(-1px);
 }
 
@@ -544,7 +544,7 @@ a {
 }
 
 .pp-chat--out .pp-chat-bubble {
-  background: #25d366;
+  background: var(--pp-blue);
   color: #ffffff;
   border-top-right-radius: 4px;
 }
@@ -588,8 +588,8 @@ a {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: var(--pp-blue);
-  color: #04121f;
+  background: #28d366;
+  color: #ffffff;
   font-size: 0.95rem;
   font-weight: 700;
   padding: 14px 18px;
@@ -600,7 +600,7 @@ a {
 }
 
 .pp-chat-cta:hover {
-  background: #3bb8ff;
+  background: #28d366;
   transform: translateY(-2px);
 }
 
@@ -1326,8 +1326,15 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   min-width: 320px;
+}
+
+.pp-cierre-hint {
+  color: var(--pp-text-dark-muted, var(--pp-text-dark));
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .pp-cierre-wa {
@@ -1357,20 +1364,20 @@ a {
 .pp-cierre-ch {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
+  justify-content: center;
+  gap: 16px;
 }
 
 .pp-cierre-ch-link {
-  border-radius: 100px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
   border: 1px solid var(--pp-border-dark);
+  background: rgba(255, 255, 255, 0.04);
   color: var(--pp-text-dark);
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  justify-content: center;
   text-decoration: none;
   transition: var(--pp-transition);
 }
@@ -1378,11 +1385,12 @@ a {
 .pp-cierre-ch-link:hover {
   color: var(--pp-blue);
   border-color: var(--pp-blue);
+  background: rgba(0, 163, 255, 0.1);
   transform: translateY(-2px);
 }
 
 .pp-cierre-ch-link i {
-  font-size: 1.05rem;
+  font-size: 1.4rem;
 }
 
 @media (max-width: 1024px) {
@@ -1521,7 +1529,7 @@ a {
     align-items: stretch;
   }
   .pp-cierre-ch {
-    justify-content: flex-start;
+    justify-content: center;
   }
   .pp-cierre-title em {
     white-space: normal;
@@ -1643,11 +1651,11 @@ a {
       }
 
       .carousel-btn.prev {
-        left: -50px;
+        left: -20px;
       }
 
       .carousel-btn.next {
-        right: -50px;
+        right: -20px;
       }
 
       .carousel-btn[disabled] {
@@ -1656,35 +1664,42 @@ a {
       }
 
       .pricing-wrap {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-        gap: 24px;
-        max-width: 1180px;
-        margin: 0 auto;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 10px 0 16px;
+      }
+      .pricing-wrap::-webkit-scrollbar {
+        display: none;
       }
 
+      /* Cards de ancho relativo: 3 visibles en desktop, 2 en tablet, 1 en móvil.
+         Cada card mide (100% - gaps)/N, así siempre se ven N completas y el resto queda fuera. */
       @media (min-width: 1025px) {
-        .pricing-wrap {
-          display: flex;
-          gap: 24px;
-          overflow-x: auto;
-          scroll-snap-type: x mandatory;
-          scroll-behavior: smooth;
-          width: 100%;
-          max-width: 100%;
-          margin: 0;
-          padding: 10px 0 16px;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-        .pricing-wrap::-webkit-scrollbar {
-          display: none;
-        }
+        .pricing-wrap { gap: 24px; }
         .pricing-wrap .pricing-card {
-          flex: 0 0 auto;
-          width: 360px;
-          max-width: 360px;
-          scroll-snap-align: start;
+          flex: 0 0 calc((100% - 48px) / 3);
+          scroll-snap-align: center;
+        }
+        .pricing-card { max-width: 400px; }
+      }
+
+      @media (max-width: 1024px) {
+        .pricing-wrap { gap: 14px; padding: 10px 0; }
+      }
+      @media (min-width: 769px) and (max-width: 1024px) {
+        .pricing-wrap .pricing-card {
+          flex: 0 0 calc((100% - 14px) / 2);
+          scroll-snap-align: center;
+        }
+      }
+      @media (max-width: 768px) {
+        .pricing-wrap .pricing-card {
+          flex: 0 0 100%;
+          scroll-snap-align: center;
         }
       }
 
@@ -1903,22 +1918,44 @@ a {
         transform: translateY(-2px);
       }
 
-      /* Contador de servicios: indica en qué card estás y cuántas hay */
-      .pp-srv-count {
+      /* Contenedor que apila el CTA de WhatsApp y el botón "Ver detalle" */
+      .pricing-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: auto;
+      }
+
+      .pricing-actions .pp-link-catalogo {
+        justify-content: center;
+        width: 100%;
+      }
+
+      /* Indicadores (dots) del carrusel de servicios */
+      .pp-srv-dots {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
+        gap: 10px;
         margin-top: 24px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--text-dark-muted);
-        font-family: inherit;
       }
 
-      .pp-srv-count b {
-        color: var(--primary);
-        font-size: 1.1rem;
+      .pp-srv-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: 1px solid var(--border-glow);
+        background: transparent;
+        padding: 0;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .pp-srv-dot[aria-current="true"],
+      .pp-srv-dot[aria-selected="true"] {
+        background: var(--primary);
+        border-color: var(--primary);
+        transform: scale(1.25);
       }
 
       .pp-servicios-catalogo {
@@ -1958,24 +1995,12 @@ a {
       }
 
       @media (min-width: 1025px) {
-        .pp-srv-count {
+        .pp-srv-dots {
           display: none;
         }
       }
 
       @media (max-width: 768px) {
-        .pricing-wrap {
-          display: flex;
-          overflow-x: auto;
-          scroll-snap-type: x mandatory;
-          gap: 20px;
-        }
-        .pricing-card {
-          min-width: 88%;
-          max-width: 88%;
-          flex: 0 0 auto;
-          scroll-snap-align: start;
-        }
         .pricing-card:hover {
           transform: none;
         }

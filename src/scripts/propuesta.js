@@ -46,9 +46,9 @@ const initApp = () => {
 
   const scrollServices = (dir) => {
     if (!srvCarousel) return;
-    const card = srvCarousel.querySelector('.pricing-card');
-    const step = card ? card.offsetWidth + 20 : 400;
-    srvCarousel.scrollBy({ left: dir * step, behavior: reduceMotion ? 'auto' : 'smooth' });
+    // Avanza una "página": el ancho visible (N cards completas) en cada clic.
+    // Con scroll-snap center + cards relativas, saltar clientWidth deja N cards alineadas.
+    srvCarousel.scrollBy({ left: dir * srvCarousel.clientWidth, behavior: reduceMotion ? 'auto' : 'smooth' });
   };
 
   const updateSrvButtons = () => {
@@ -66,37 +66,44 @@ const initApp = () => {
     updateSrvButtons();
   }
 
-  // Contador "X de N" de servicios
-  const srvCount = document.getElementById('ppSrvCount');
-  if (srvCarousel && srvCount) {
+  // Indicadores (dots) del carrusel de servicios
+  const srvDots = document.getElementById('ppSrvDots');
+  if (srvCarousel && srvDots) {
     const srvCards = srvCarousel.querySelectorAll('.pricing-card');
-    const srvTotal = srvCards.length;
-    const srvCountB = srvCount.querySelector('b');
-    const srvCountSpan = srvCount.querySelector('span');
-    if (srvCountSpan && srvCountSpan.textContent !== String(srvTotal)) {
-      srvCountSpan.textContent = String(srvTotal);
-    }
-    const updateSrvCount = () => {
+    const dotsEl = srvDots;
+    const dots = srvDots.querySelectorAll('.pp-srv-dot');
+    const updateDots = () => {
       if (!srvCards.length) return;
-      if (srvCarousel.scrollWidth <= srvCarousel.clientWidth + 4) {
-        if (srvCountB) srvCountB.textContent = String(srvTotal);
-        return;
-      }
-      const mid = srvCarousel.scrollLeft + srvCarousel.clientWidth / 2;
       let idx = 0;
-      let best = Infinity;
-      srvCards.forEach((card, i) => {
-        const c = Math.abs(card.offsetLeft + card.offsetWidth / 2 - mid);
-        if (c < best) {
-          best = c;
-          idx = i;
-        }
+      if (srvCarousel.scrollWidth > srvCarousel.clientWidth + 4) {
+        const mid = srvCarousel.scrollLeft + srvCarousel.clientWidth / 2;
+        let best = Infinity;
+        srvCards.forEach((card, i) => {
+          const c = Math.abs(card.offsetLeft + card.offsetWidth / 2 - mid);
+          if (c < best) {
+            best = c;
+            idx = i;
+          }
+        });
+      }
+      dots.forEach((dot, i) => {
+        const active = i === idx;
+        dot.setAttribute('aria-current', String(active));
+        dot.setAttribute('aria-selected', String(active));
       });
-      if (srvCountB) srvCountB.textContent = String(idx + 1);
     };
-    srvCarousel.addEventListener('scroll', updateSrvCount, { passive: true });
-    window.addEventListener('resize', updateSrvCount);
-    updateSrvCount();
+    srvCarousel.addEventListener('scroll', updateDots, { passive: true });
+    window.addEventListener('resize', updateDots);
+    dotsEl.addEventListener('click', (e) => {
+      const dot = e.target.closest('.pp-srv-dot');
+      if (!dot || !srvCards.length) return;
+      const i = Number(dot.dataset.index);
+      const card = srvCards[i];
+      if (!card) return;
+      const target = card.offsetLeft - (srvCarousel.clientWidth - card.offsetWidth) / 2;
+      srvCarousel.scrollTo({ left: Math.max(0, target), behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+    updateDots();
   }
 
   // Acordeón FAQ: al abrir uno, los demás quedan cerrados
