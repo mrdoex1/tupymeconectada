@@ -8,7 +8,7 @@
   <!-- Librería externa para exportar a PNG -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-  <style>
+<style>
     :root {
       --bg-main: #ffffff; 
       --bg-surface: #f5f7fb; 
@@ -29,7 +29,7 @@
 
     body { 
       background-color: #0f172a; 
-      color: #ffffff;
+      color: #010101;
       display: flex; 
       flex-direction: column; 
       align-items: center; 
@@ -194,18 +194,65 @@
       border-color: var(--blue-primary);
     }
 
-    /* CANVAS REAL (1080x1350) REDUCIDO VISUALMENTE EN PANTALLA */
+    /* CANVAS REAL (1080x1350) REDUCIDO VISUALMENTE EN PANTALLA (SIN !important EN TRANSFORM PARA PERMITIR EXPORTAR EN JS) */
     .slide-canvas {
       width: 1080px !important;
       height: 1350px !important;
       background: #ffffff;
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      transform-origin: top left !important;
-      transform: scale(0.27777778) !important; /* Reducción de 1080px a 300px */
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top left;
+      transform: scale(0.27777778); /* Reducción de 1080px a 300px */
       pointer-events: none;
       overflow: hidden;
+    }
+
+    .slide-canvas .content-wrapper {
+      padding: 55px 55px; /* Ganamos ancho horizontal para textos grandes */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* HEADER Y CONTROL ESTRICTO DE LOGO */
+    .header { 
+      display: flex !important; 
+      justify-content: space-between !important; 
+      align-items: center !important; 
+      width: 100% !important;
+      height: 80px !important;
+    }
+
+    .logo-container { 
+      height: 70px !important; 
+      max-height: 70px !important; 
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    .logo-container img,
+    .slide-logo { 
+      height: 70px !important; 
+      max-height: 70px !important; 
+      width: auto !important; 
+      max-width: 380px !important; 
+      object-fit: contain !important; 
+    }
+
+    .badge-info { 
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); 
+      color: #ffffff; 
+      padding: 12px 24px; 
+      border-radius: 100px; 
+      font-size: 20px; 
+      font-weight: 800; 
+      text-transform: uppercase; 
+      letter-spacing: 1px; 
+      white-space: nowrap;
     }
 
     /* Elementos de Marca */
@@ -215,68 +262,60 @@
     .diagonal-accent-bottom { position: absolute; bottom: -200px; left: -200px; width: 600px; height: 600px; background: var(--text-primary); transform: rotate(15deg); border-radius: 80px; z-index: 2; }
     .blue-glow-spot { position: absolute; top: 500px; left: 100px; width: 600px; height: 600px; background: var(--blue-glow); filter: blur(160px); border-radius: 50%; z-index: 2; }
 
-    .content-wrapper {
-      padding: 70px 70px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%;
-      position: relative;
-      z-index: 10;
+    /* Cuerpo Principal con Tipografía Optimizada */
+    .main-body { display: flex; flex-direction: column; gap: 24px; margin: auto 0; }
+    .category-tag { font-size: 22px; font-weight: 800; color: var(--blue-primary); text-transform: uppercase; letter-spacing: 2.5px; display: block; }
+    
+    .main-question { 
+      font-size: 62px; 
+      font-weight: 900; 
+      color: var(--text-primary); 
+      line-height: 1.12; 
+      margin: 0; 
+      word-break: break-word;
     }
-
-    /* Header común con Logo de Marca */
-    .header { display: flex; justify-content: space-between; align-items: center; }
-    .logo-container { height: 70px; }
-    .logo-container img { height: 100%; width: auto; object-fit: contain; }
-    .badge-info { background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); color: #ffffff; padding: 14px 28px; border-radius: 100px; font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-
-    /* Cuerpo Principal */
-    .main-body { display: flex; flex-direction: column; gap: 30px; margin: auto 0; }
-    .category-tag { font-size: 20px; font-weight: 800; color: var(--blue-primary); text-transform: uppercase; letter-spacing: 2.5px; display: block; }
-    .main-question { font-size: 58px; font-weight: 900; color: var(--text-primary); line-height: 1.1; margin: 0; }
     .main-question span { background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
     .intro-card {
       background: rgba(255, 255, 255, 0.95);
       border-left: 8px solid var(--blue-primary);
       border-radius: 22px;
-      padding: 26px 30px;
+      padding: 24px 28px;
       box-shadow: 0 15px 35px rgba(15, 23, 42, 0.05);
     }
-    .intro-card p { color: var(--text-secondary); font-size: 24px; font-weight: 600; line-height: 1.4; margin: 0; }
+    .intro-card p { color: var(--text-secondary); font-size: 27px; font-weight: 600; line-height: 1.38; margin: 0; }
 
-    .points-list { display: flex; flex-direction: column; gap: 16px; }
-    .point-item { display: flex; align-items: flex-start; gap: 18px; background: #ffffff; border-radius: 20px; padding: 20px 26px; border: 1px solid var(--border-color); }
+    .points-list { display: flex; flex-direction: column; gap: 14px; }
+    .point-item { display: flex; align-items: flex-start; gap: 16px; background: #ffffff; border-radius: 20px; padding: 18px 24px; border: 1px solid var(--border-color); }
     .point-icon {
-      width: 40px; height: 40px; min-width: 40px;
+      width: 42px; height: 42px; min-width: 42px;
       background: rgba(0, 163, 255, 0.15);
       color: var(--blue-primary);
       border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 20px;
+      font-weight: 800; font-size: 22px;
     }
-    .point-text { color: var(--text-secondary); font-size: 22px; font-weight: 500; line-height: 1.35; }
+    .point-text { color: var(--text-secondary); font-size: 25px; font-weight: 500; line-height: 1.35; }
 
     .highlight-box {
       background: linear-gradient(135deg, var(--text-primary), #1e293b);
       color: #ffffff;
       border-radius: 20px;
-      padding: 24px 30px;
-      font-size: 22px;
+      padding: 22px 28px;
+      font-size: 25px;
       font-weight: 600;
       border-left: 6px solid var(--blue-primary);
       line-height: 1.35;
     }
     .highlight-box span { color: var(--blue-light); font-weight: 800; }
 
-    /* Estilo de CONCLUSIÓN / CTA (Fiel a la marca) */
+    /* Botón de Acción Final CTA */
     .slide-cta .action-btn-box {
       background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
       color: #ffffff;
-      padding: 24px 44px;
+      padding: 26px 48px;
       border-radius: 100px;
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 900;
       display: flex;
       align-items: center;
@@ -287,8 +326,26 @@
       text-align: center;
     }
 
+    /* BOTÓN DE ACCIÓN FINAL (ALTO CONTRASTE Y MÁXIMA LEGIBILIDAD) */
+    .action-btn-box,
+    .slide-cta .action-btn-box {
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)) !important;
+      color: #ffffff !important; /* Texto Azul Marino Oscuro para Contraste Impecable */
+      padding: 24px 44px !important;
+      border-radius: 100px !important;
+      font-size: 28px !important;
+      font-weight: 900 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 14px !important;
+      box-shadow: 0 15px 35px rgba(0, 163, 255, 0.4) !important;
+      margin-top: 10px !important;
+      text-align: center !important;
+    }
+
     .footer { display: flex; justify-content: center; align-items: center; border-top: 2px dashed rgba(15, 23, 42, 0.1); padding-top: 20px; }
-    .footer-note { font-weight: 800; font-size: 22px; color: var(--blue-primary); }
+    .footer-note { font-weight: 800; font-size: 24px; color: var(--blue-primary); }
   </style>
 </head>
 <body>
