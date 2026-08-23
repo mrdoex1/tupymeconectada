@@ -424,7 +424,15 @@
     .intro-card p { color: var(--text-secondary); font-weight: 600; margin: 0; }
     
     .points-list { display: flex; flex-direction: column; }
-    .point-item { display: flex; align-items: flex-start; background: #ffffff; border-radius: 20px; border: 1px solid var(--border-color); }
+   .point-item { 
+      display: flex !important; 
+      align-items: center !important; /* Centra verticalmente el ícono con el texto */
+      gap: 16px; 
+      background: #ffffff; 
+      border-radius: 20px; 
+      padding: 18px 24px; 
+      border: 1px solid var(--border-color); 
+    }
     .point-icon { background: rgba(0, 163, 255, 0.15); color: var(--blue-primary); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-weight: 800; }
     .point-text { color: var(--text-secondary); font-weight: 500; }
     
