@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Carruseles de Instagram - Tu Pyme Conectada</title>
+  
+  <!-- Librería externa para exportar a PNG -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    :root {
+      --bg-main: #ffffff; 
+      --bg-surface: #f5f7fb; 
+      --bg-gradient-end: #eef4fb;
+      --text-primary: #0f172a; 
+      --text-secondary: #334155; 
+      --border-color: rgba(15, 23, 42, 0.1);
+      --blue-primary: #00a3ff; 
+      --blue-light: #38bdf8; 
+      --blue-glow: rgba(0, 163, 255, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body { 
+      background-color: #0f172a; 
+      color: #ffffff;
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      padding: 30px 20px 80px 20px; 
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+    }
+
+    /* Top Navbar Fijo */
+    .filter-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      width: 100%;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      margin-bottom: 30px;
+    }
+
+    .filter-title {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .filter-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      padding: 10px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .filter-btn:hover { background: #334155; color: #ffffff; }
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(0, 163, 255, 0.4);
+    }
+
+    /* Layout principal para carruseles */
+    .carousels-main-container {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      width: 100%;
+      max-width: 1400px;
+    }
+
+    .carousel-section {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 20px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
+
+    .carousel-section.hidden { display: none !important; }
+
+    .carousel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 15px;
+    }
+
+    .carousel-info h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .carousel-info p {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    /* Fila horizontal deslizante para revisar diapositivas */
+    .slides-row {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding: 10px 5px 20px 5px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--blue-primary) #0f172a;
+    }
+
+    .slides-row::-webkit-scrollbar { height: 8px; }
+    .slides-row::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
+    .slides-row::-webkit-scrollbar-thumb { background: var(--blue-primary); border-radius: 10px; }
+
+    /* Estructura individual de diapositiva */
+    .slide-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 300px;
+    }
+
+    .download-btn {
+      background: var(--blue-primary);
+      color: #ffffff;
+      border: none;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 800;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(0, 163, 255, 0.3);
+      transition: background 0.2s ease, transform 0.2s ease;
+      width: 100%;
+    }
+
+    .download-btn:hover {
+      background: #008be6;
+      transform: translateY(-2px);
+    }
+
+    /* Contenedor vista previa miniatura (300x375) - EVITA SUPERPOSICIÓN DE CANVAS */
+    .slide-preview-box {
+      width: 300px;
+      height: 375px; /* Proporción 4:5 (300 * 1.25) */
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      background: #ffffff;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(15, 23, 42, 0.1);
+    }
+
+    .slide-preview-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 163, 255, 0.4);
+      border-color: var(--blue-primary);
+    }
+
+    /* CANVAS REAL (1080x1350) REDUCIDO VISUALMENTE EN PANTALLA */
+    .slide-canvas {
+      width: 1080px !important;
+      height: 1350px !important;
+      background: #ffffff;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      transform-origin: top left !important;
+      transform: scale(0.27777778) !important; /* Reducción de 1080px a 300px */
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    /* Elementos de Marca */
+    .bg-gradient-base { position: absolute; inset: 0; background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-gradient-end) 100%); z-index: 1; }
+    .diagonal-shape-top { position: absolute; top: -150px; right: -150px; width: 700px; height: 700px; background: linear-gradient(135deg, rgba(0, 163, 255, 0.08) 0%, rgba(56, 189, 248, 0.02) 100%); transform: rotate(20deg); border-radius: 80px; z-index: 2; }
+    .diagonal-stripe { position: absolute; top: 500px; right: -200px; width: 1000px; height: 120px; background: linear-gradient(90deg, var(--blue-primary), var(--blue-light)); transform: rotate(-25deg); border-radius: 50px; opacity: 0.12; z-index: 2; }
+    .diagonal-accent-bottom { position: absolute; bottom: -200px; left: -200px; width: 600px; height: 600px; background: var(--text-primary); transform: rotate(15deg); border-radius: 80px; z-index: 2; }
+    .blue-glow-spot { position: absolute; top: 500px; left: 100px; width: 600px; height: 600px; background: var(--blue-glow); filter: blur(160px); border-radius: 50%; z-index: 2; }
+
+    .content-wrapper {
+      padding: 70px 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Header común con Logo de Marca */
+    .header { display: flex; justify-content: space-between; align-items: center; }
+    .logo-container { height: 70px; }
+    .logo-container img { height: 100%; width: auto; object-fit: contain; }
+    .badge-info { background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); color: #ffffff; padding: 14px 28px; border-radius: 100px; font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Cuerpo Principal */
+    .main-body { display: flex; flex-direction: column; gap: 30px; margin: auto 0; }
+    .category-tag { font-size: 20px; font-weight: 800; color: var(--blue-primary); text-transform: uppercase; letter-spacing: 2.5px; display: block; }
+    .main-question { font-size: 58px; font-weight: 900; color: var(--text-primary); line-height: 1.1; margin: 0; }
+    .main-question span { background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .intro-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-left: 8px solid var(--blue-primary);
+      border-radius: 22px;
+      padding: 26px 30px;
+      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.05);
+    }
+    .intro-card p { color: var(--text-secondary); font-size: 24px; font-weight: 600; line-height: 1.4; margin: 0; }
+
+    .points-list { display: flex; flex-direction: column; gap: 16px; }
+    .point-item { display: flex; align-items: flex-start; gap: 18px; background: #ffffff; border-radius: 20px; padding: 20px 26px; border: 1px solid var(--border-color); }
+    .point-icon {
+      width: 40px; height: 40px; min-width: 40px;
+      background: rgba(0, 163, 255, 0.15);
+      color: var(--blue-primary);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 20px;
+    }
+    .point-text { color: var(--text-secondary); font-size: 22px; font-weight: 500; line-height: 1.35; }
+
+    .highlight-box {
+      background: linear-gradient(135deg, var(--text-primary), #1e293b);
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 24px 30px;
+      font-size: 22px;
+      font-weight: 600;
+      border-left: 6px solid var(--blue-primary);
+      line-height: 1.35;
+    }
+    .highlight-box span { color: var(--blue-light); font-weight: 800; }
+
+    /* Estilo de CONCLUSIÓN / CTA (Fiel a la marca) */
+    .slide-cta .action-btn-box {
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
+      color: #ffffff;
+      padding: 24px 44px;
+      border-radius: 100px;
+      font-size: 26px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      box-shadow: 0 15px 35px rgba(0, 163, 255, 0.35);
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .footer { display: flex; justify-content: center; align-items: center; border-top: 2px dashed rgba(15, 23, 42, 0.1); padding-top: 20px; }
+    .footer-note { font-weight: 800; font-size: 22px; color: var(--blue-primary); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Filter Navbar -->
+  <nav class="filter-navbar">
+    <div class="filter-title">🔍 Generador de Carruseles de Instagram</div>
+    <div class="filter-controls">
+      <button class="filter-btn active" onclick="filterCarousel('all', this)">Todos (5)</button>
+      <button class="filter-btn" onclick="filterCarousel('catalogo', this)">🛒 Catálogo WhatsApp</button>
+      <button class="filter-btn" onclick="filterCarousel('onepage', this)">⚡ One Page Web</button>
+      <button class="filter-btn" onclick="filterCarousel('checklist', this)">📋 Auditoría / Checklist</button>
+      <button class="filter-btn" onclick="filterCarousel('precios', this)">💰 Precios Transparentes</button>
+      <button class="filter-btn" onclick="filterCarousel('mantenimiento', this)">🛡️ Plan Mantenimiento</button>
+    </div>
+  </nav>
+
+  <div class="carousels-main-container">
+
+    <!-- ================= CARRUSEL 1: CATÁLOGO WHATSAPP ================= -->
+    <section class="carousel-section" data-carousel="catalogo">
+      <div class="carousel-header">
+        <div class="carousel-info">
+          <h2>🛒 Carrusel 1: Catálogo WhatsApp</h2>
+          <p>Enfocado en eliminar el "precio por DM" y vender pedidos directo al chat.</p>
+        </div>
+      </div>
+      
+      <div class="slides-row">
+        <!-- Slide 1: Portada -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c1-s1', 'c1-slide1-portada')">⬇ Descargar Slide 1</button>
+          <div class="slide-canvas" id="c1-s1">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Diagnóstico PyME</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Atención al Cliente</span>
+                <h1 class="main-question">Si respondes <span>"Precio por DM"</span>, le regalas clientes a la competencia 🛑</h1>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para ver la solución ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Problema -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c1-s2', 'c1-slide2-problema')">⬇ Descargar Slide 2</button>
+          <div class="slide-canvas" id="c1-s2">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Desventaja</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">La Realidad del Cliente</span>
+                <h1 class="main-question">El comprador de hoy <span>no quiere esperar</span></h1>
+                <div class="intro-card"><p>El usuario en internet busca ver productos, comparar precios y tomar decisiones de compra al instante sin demoras.</p></div>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Respuesta Lenta:</strong> Esperar horas por un mensaje enfriará el interés.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Fuga de Clientes:</strong> Buscarán otra pyme con precios claros.</div></div>
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para ver la solución ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Solución -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c1-s3', 'c1-slide3-solucion')">⬇ Descargar Slide 3</button>
+          <div class="slide-canvas" id="c1-s3">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">La Solución</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Catálogo WhatsApp</span>
+                <h1 class="main-question">Tu Vitrina Web <span>Automatizada</span></h1>
+                <div class="intro-card"><p>Un Catálogo Web interactivo donde tus clientes exploran tus productos con fotos, arman su carrito y te envían el pedido listo a tu WhatsApp.</p></div>
+                <div class="highlight-box">💡 <span>Recibe pedidos armados en tu chat <span>sin pagar comisiones en USD</span>.</span></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para ver beneficios ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Beneficios -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c1-s4', 'c1-slide4-beneficios')">⬇ Descargar Slide 4</button>
+          <div class="slide-canvas" id="c1-s4">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Ventajas</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">¿Qué incluye?</span>
+                <h1 class="main-question">Comodidad para ti y <span>tu Cliente</span></h1>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>0% Comisiones:</strong> Cobras por transferencia o entrega directa.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Panel Fácil:</strong> Modifica productos, fotos y precios tú mismo.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Hosting Gratuito:</strong> Servidor de alta velocidad incluido.</div></div>
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para cotizar ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5: Conclusión/CTA -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c1-s5', 'c1-slide5-cta')">⬇ Descargar Slide 5</button>
+          <div class="slide-canvas" id="c1-s5">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Pide la tuya</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Tu Pyme Conectada</span>
+                <h1 class="main-question">¿Todo listo para vender a <span>tu WhatsApp</span>?</h1>
+                <div class="intro-card"><p>Catálogo Web desde <strong>$79.990 CLP</strong>. Entrega en 3 a 5 días con <strong>Hosting Gratuito Incluido</strong>.</p></div>
+                <div class="action-btn-box">
+                  💬 Comenta "CATÁLOGO" por DM
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Te enviamos una demo interactiva por mensaje 📩</div></footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= CARRUSEL 2: ONE PAGE WEB (ENFOQUE SERVICIOS) ================= -->
+    <section class="carousel-section" data-carousel="onepage">
+      <div class="carousel-header">
+        <div class="carousel-info">
+          <h2>⚡ Carrusel 2: One Page Web (Para Servicios)</h2>
+          <p>Enfocado en pymes y profesionales que ofrecen servicios y quieren cerrar clientes sin explicaciones largas por DM.</p>
+        </div>
+      </div>
+      
+      <div class="slides-row">
+        <!-- Slide 1: Portada -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c2-s1', 'c2-slide1-portada')">⬇ Descargar Slide 1</button>
+          <div class="slide-canvas" id="c2-s1">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Servicios PyME</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Venta de Servicios</span>
+                <h1 class="main-question">Si vendes <span>SERVICIOS</span>, deja de explicarlos por mensaje largo 🛑</h1>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para ver cómo profesionalizar tu oferta ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: El Problema -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c2-s2', 'c2-slide2-problema-mensajes')">⬇ Descargar Slide 2</button>
+          <div class="slide-canvas" id="c2-s2">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">El Problema</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Explicar por DM</span>
+                <h1 class="main-question">Escribir párrafos gigantes <span>frena tus ventas</span></h1>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Mensajes Aburridos:</strong> El cliente no lee textos largos en el chat de Instagram.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Falta de Respaldo:</strong> En un mensaje no ve tus testimonios, casos ni garantía.</div></div>
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para ver la solución ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: La Solución One Page -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c2-s3', 'c2-slide3-onepage-servicios')">⬇ Descargar Slide 3</button>
+          <div class="slide-canvas" id="c2-s3">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">One Page Web</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">La Solución Rápida</span>
+                <h1 class="main-question">Tu Propuesta de Valor en <span>Una Sola Página</span></h1>
+                <div class="intro-card"><p>Una One Page de Servicios explica qué problema resuelves, muestra opiniones de clientes satisfechos y deja el botón para agendar o escribirte.</p></div>
+                <div class="highlight-box">💡 <span>Tu cliente entiende tu servicio en 30s y <span>te escribe listo para agendar</span>.</span></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para ver qué incluye ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Conclusión/CTA -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c2-s4', 'c2-slide4-cta')">⬇ Descargar Slide 4</button>
+          <div class="slide-canvas" id="c2-s4">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Presentación Profesional</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Tu Pyme Conectada</span>
+                <h1 class="main-question">Lanza la Web de tu Servicio en <span>3 a 5 Días</span></h1>
+                <div class="intro-card"><p>Publicada desde <strong>$79.990 CLP</strong>. Incluye integración a WhatsApp y <strong>Hosting Gratuito Incluido</strong>.</p></div>
+                <div class="action-btn-box">
+                  🚀 DM con la palabra "ONE PAGE"
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Posiciona tu servicio como una empresa seria 🚀</div></footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= CARRUSEL 3: CHECKLIST / AUDITORÍA WEB ================= -->
+    <section class="carousel-section" data-carousel="checklist">
+      <div class="carousel-header">
+        <div class="carousel-info">
+          <h2>📋 Carrusel 3: Auditoría / Checklist Web</h2>
+          <p>5 Puntos claves para asegurar que un sitio web de pyme genera ventas reales.</p>
+        </div>
+      </div>
+      
+      <div class="slides-row">
+        <!-- Slide 1: Portada -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c3-s1', 'c3-slide1-portada')">⬇ Descargar Slide 1</button>
+          <div class="slide-canvas" id="c3-s1">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Checklist PyME</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Auditoría Web</span>
+                <h1 class="main-question">5 Cosas que DEBE tener la web de tu pyme para <span>Vender Reales</span> 📋</h1>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para revisar tu sitio ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Puntos 1 y 2 -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c3-s2', 'c3-slide2-puntos1-2')">⬇ Descargar Slide 2</button>
+          <div class="slide-canvas" id="c3-s2">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Elementos 1 y 2</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Esenciales de Venta</span>
+                <h1 class="main-question">Contacto Rápido y <span>Velocidad</span></h1>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>1. Botón de WhatsApp Fijo:</strong> El cliente prefiere chatear antes que llenar formularios largos.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>2. Carga en < 3 Segundos:</strong> El 85% entra desde móviles; si tarda, se van.</div></div>
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para ver más puntos ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Puntos 3, 4 y 5 -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c3-s3', 'c3-slide3-puntos3-5')">⬇ Descargar Slide 3</button>
+          <div class="slide-canvas" id="c3-s3">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Elementos 3 a 5</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Confianza y Seguridad</span>
+                <h1 class="main-question">Respaldos y <span>Seguridad SSL</span></h1>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>3. Opiniones Reales:</strong> Testimonios para dar tranquilidad.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>4. Certificado SSL:</strong> Candado de conexión segura HTTPS.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>5. Diseño Responsive:</strong> Optimizado 100% para celular.</div></div>
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para auditar tu web ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Conclusión/CTA -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c3-s4', 'c3-slide4-cta')">⬇ Descargar Slide 4</button>
+          <div class="slide-canvas" id="c3-s4">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Auditoría Gratis</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Tu Pyme Conectada</span>
+                <h1 class="main-question">¿A tu web le falta alguno de estos <span>5 Puntos</span>?</h1>
+                <div class="intro-card"><p>Mándanos el link de tu sitio web por DM y le hacemos un diagnóstico de velocidad y diseño <strong>totalmente GRATIS</strong>.</p></div>
+                <div class="action-btn-box">
+                  🔍 Escríbenos tu Link por DM
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Optimizamos tu presencia digital 🔍</div></footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= CARRUSEL 4: PRECIOS TRANSPARENTES ================= -->
+    <section class="carousel-section" data-carousel="precios">
+      <div class="carousel-header">
+        <div class="carousel-info">
+          <h2>💰 Carrusel 4: Precios Transparentes en Chile</h2>
+          <p>Desmitificar costos web para pymes con opciones accesibles en CLP.</p>
+        </div>
+      </div>
+      
+      <div class="slides-row">
+        <!-- Slide 1: Portada -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c4-s1', 'c4-slide1-portada')">⬇ Descargar Slide 1</button>
+          <div class="slide-canvas" id="c4-s1">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Precios Claros</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Transparencia</span>
+                <h1 class="main-question">¿Cuánto cuesta REALMENTE la web de tu negocio en Chile? <span>(Sin Letra Chica)</span> 🔍</h1>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para ver los precios ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Mito vs Realidad -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c4-s2', 'c4-slide2-mito-realidad')">⬇ Descargar Slide 2</button>
+          <div class="slide-canvas" id="c4-s2">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Mito vs Realidad</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Precios Justos</span>
+                <h1 class="main-question">No necesitas gastar <span>Fortunas</span></h1>
+                <div class="intro-card"><p><strong>Mito:</strong> 'Necesito $500.000 para vender por internet'.<br><strong>Realidad:</strong> Para el 90% de las PyMEs, un sitio liviano conectado a WhatsApp es suficiente.</p></div>
+                <div class="highlight-box">💡 <span>Todos nuestros desarrollos incluyen <span>Hosting Gratuito</span> sin cobros extra.</span></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para ver nuestros planes ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Nuestros Valores -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c4-s3', 'c4-slide3-planes')">⬇ Descargar Slide 3</button>
+          <div class="slide-canvas" id="c4-s3">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Catálogo de Valores</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Precios en CLP</span>
+                <h1 class="main-question">Nuestras Soluciones <span>Web</span></h1>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>One Page Web:</strong> $79.990 – $149.990 CLP (Lista en 3 a 5 días).</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Catálogo WhatsApp:</strong> $79.990 – $149.990 CLP (Sin comisiones).</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Sitio Corporativo:</strong> $249.990 CLP (Hasta 4 páginas completas).</div></div>
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para asesorarte ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Conclusión/CTA -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c4-s4', 'c4-slide4-cta')">⬇ Descargar Slide 4</button>
+          <div class="slide-canvas" id="c4-s4">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Asesoría sin costo</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Tu Pyme Conectada</span>
+                <h1 class="main-question">¿Cuál es la mejor opción para <span>tu Pyme</span>?</h1>
+                <div class="intro-card"><p>Escríbenos un DM contándonos de qué es tu negocio y te recomendamos el sitio ideal sin compromiso.</p></div>
+                <div class="action-btn-box">
+                  🔖 Guarda esta publicación
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Tu Pyme Conectada · Claros y sin letra chica</div></footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= CARRUSEL 5: PLAN DE MANTENIMIENTO ================= -->
+    <section class="carousel-section" data-carousel="mantenimiento">
+      <div class="carousel-header">
+        <div class="carousel-info">
+          <h2>🛡️ Carrusel 5: Plan de Mantenimiento ($29.990/mes)</h2>
+          <p>Tranquilidad técnica, respaldos y prevención de caídas o virus.</p>
+        </div>
+      </div>
+      
+      <div class="slides-row">
+        <!-- Slide 1: Portada -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c5-s1', 'c5-slide1-portada')">⬇ Descargar Slide 1</button>
+          <div class="slide-canvas" id="c5-s1">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Cuidado Web</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Prevención</span>
+                <h1 class="main-question">Lo que nadie te dice sobre lanzar una web <span>(y cómo evitar perderla)</span> ⚠️</h1>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para proteger tu sitio ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: El Riesgo -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c5-s2', 'c5-slide2-riesgo')">⬇ Descargar Slide 2</button>
+          <div class="slide-canvas" id="c5-s2">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Riesgo Técnico</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Prevención V/s Reparación</span>
+                <h1 class="main-question">Una Web sin Mantención <span>Se Degrada</span></h1>
+                <div class="intro-card"><p>Lanzar la web es solo el inicio. Si no se actualiza, los plugins fallan, la velocidad cae y queda expuesta a hackeos.</p></div>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Arreglos Caros:</strong> Reparar un sitio caído puede costar fortunas.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Pérdida de Ventas:</strong> Un sitio caído en fin de semana espanta clientes.</div></div>
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para ver la solución ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: El Plan -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c5-s3', 'c5-slide3-plan')">⬇ Descargar Slide 3</button>
+          <div class="slide-canvas" id="c5-s3">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Plan Mantenimiento</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">$29.990 CLP / mes</span>
+                <h1 class="main-question">Tranquilidad Total para <span>tu Pyme</span></h1>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Respaldos y Seguridad:</strong> Copias periódicas guardadas fuera del servidor.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Bolsa de 2 Horas:</strong> Para que nos pidas cambios de precios, textos o fotos.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Sin Contratos:</strong> Pagas mes a mes y cancelas cuando quieras.</div></div>
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Desliza para activar ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Conclusión/CTA -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c5-s4', 'c5-slide4-cta')">⬇ Descargar Slide 4</button>
+          <div class="slide-canvas" id="c5-s4">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Protege tu Web</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Tu Pyme Conectada</span>
+                <h1 class="main-question">¿Tienes una web abandonada <span>o desactualizada</span>?</h1>
+                <div class="intro-card"><p>Mándanos un DM con la palabra <strong>"MANTENIMIENTO"</strong> y nos encargamos de todo el trabajo técnico.</p></div>
+                <div class="action-btn-box">
+                  🛡️ Activar Plan $29.990 / mes
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Tu web rápida, segura y actualizada 🛡️</div></footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+  // Envuelve cada canvas en un contenedor de vista previa 'slide-preview-box' para evitar superposición
+  function setupPreviewBoxes() {
+    const canvases = document.querySelectorAll('.slide-canvas');
+    canvases.forEach(canvas => {
+      if (!canvas.parentElement.classList.contains('slide-preview-box')) {
+        const box = document.createElement('div');
+        box.className = 'slide-preview-box';
+        canvas.parentNode.insertBefore(box, canvas);
+        box.appendChild(canvas);
+      }
+    });
+  }
+
+  // Función de Filtrado de Carruseles
+  function filterCarousel(category, btnElement) {
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    btnElement.classList.add('active');
+
+    const sections = document.querySelectorAll('.carousel-section');
+    sections.forEach(sec => {
+      if (category === 'all' || sec.getAttribute('data-carousel') === category) {
+        sec.classList.remove('hidden');
+      } else {
+        sec.classList.add('hidden');
+      }
+    });
+  }
+
+  // Función de Descargar Canvas (1080x1350 px sin deformación ni espacios en blanco)
+  async function downloadCanvas(elementId, baseFileName) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    // 1. Convertir imágenes locales a Base64 dinámicamente si no lo están
+    const images = element.querySelectorAll('img');
+    for (let img of images) {
+      if (img.src && !img.src.startsWith('data:')) {
+        try {
+          const response = await fetch(img.src);
+          const blob = await response.blob();
+          await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              img.src = reader.result;
+              resolve();
+            };
+            reader.readAsDataURL(blob);
+          });
+        } catch (e) {
+          console.warn("No se pudo precargar la imagen como Base64:", e);
+        }
+      }
+    }
+
+    // 2. Definir dimensiones objetivo (Publicación 4:5 Instagram)
+    const targetWidth = 1080;
+    const targetHeight = 1350;
+    const fileName = baseFileName + '-carousel-4x5.png';
+
+    // 3. Renderizar eliminando escala reducida en memoria
+    html2canvas(element, {
+      scale: 1,
+      width: targetWidth,
+      height: targetHeight,
+      windowWidth: targetWidth,
+      windowHeight: targetHeight,
+      scrollX: 0,
+      scrollY: 0,
+      useCORS: true,
+      allowTaint: false,
+      backgroundColor: '#ffffff',
+      onclone: (clonedDoc) => {
+        const clonedElement = clonedDoc.getElementById(elementId);
+        if (!clonedElement) return;
+
+        // RESET DE ESCALA: Forzar expansión a 1080p con prioridad alta (important)
+        clonedElement.style.setProperty('transform', 'none', 'important');
+        clonedElement.style.setProperty('position', 'relative', 'important');
+        clonedElement.style.setProperty('top', '0', 'important');
+        clonedElement.style.setProperty('left', '0', 'important');
+        clonedElement.style.setProperty('width', targetWidth + 'px', 'important');
+        clonedElement.style.setProperty('height', targetHeight + 'px', 'important');
+        clonedElement.style.setProperty('box-shadow', 'none', 'important');
+        clonedElement.style.setProperty('margin', '0', 'important');
+
+        if (clonedElement.parentElement && clonedElement.parentElement.classList.contains('slide-preview-box')) {
+          clonedElement.parentElement.style.setProperty('width', targetWidth + 'px', 'important');
+          clonedElement.parentElement.style.setProperty('height', targetHeight + 'px', 'important');
+          clonedElement.parentElement.style.setProperty('overflow', 'visible', 'important');
+          clonedElement.parentElement.style.setProperty('transform', 'none', 'important');
+          clonedElement.parentElement.style.setProperty('box-shadow', 'none', 'important');
+        }
+
+        // FIX 1: Reparar .intro-card (Elimina caja blanca borrando la sombra e imponiendo fondo sólido)
+        const introCards = clonedElement.querySelectorAll('.intro-card');
+        introCards.forEach(card => {
+          card.style.backgroundColor = '#ffffff';
+          card.style.boxShadow = 'none';
+          card.style.border = '1px solid rgba(15, 23, 42, 0.1)';
+          card.style.borderLeft = '8px solid #00a3ff';
+        });
+
+        // FIX 2: Corregir texto con gradiente (-webkit-background-clip: text)
+        const gradientSpans = clonedElement.querySelectorAll('.main-question span');
+        gradientSpans.forEach(span => {
+          span.style.webkitBackgroundClip = 'initial';
+          span.style.webkitTextFillColor = 'initial';
+          span.style.background = 'none';
+          span.style.color = '#00a3ff';
+        });
+
+        // FIX 3: Corregir el filtro blur difuminado
+        const glowSpots = clonedElement.querySelectorAll('.blue-glow-spot');
+        glowSpots.forEach(glow => {
+          glow.style.filter = 'none';
+          glow.style.background = 'radial-gradient(circle, rgba(0,163,255,0.25) 0%, rgba(255,255,255,0) 70%)';
+        });
+      }
+    }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = fileName;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }).catch(err => {
+      console.error("Error al generar la imagen del carrusel:", err);
+    });
+  }
+
+  // Inicializar vista previa al cargar la página
+  document.addEventListener('DOMContentLoaded', () => {
+    setupPreviewBoxes();
+  });
+</script>
+
+</body>
+</html>
