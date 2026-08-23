@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Historias Destacadas - Tu Pyme Conectada</title>
+  
+  <!-- Librería externa para exportar a PNG -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    :root {
+      --bg-main: #ffffff; 
+      --bg-surface: #f5f7fb; 
+      --bg-gradient-end: #eef4fb;
+      --text-primary: #0f172a; 
+      --text-secondary: #334155; 
+      --border-color: rgba(15, 23, 42, 0.1);
+      --blue-primary: #00a3ff; 
+      --blue-light: #38bdf8; 
+      --blue-glow: rgba(0, 163, 255, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body { 
+      background-color: #0f172a; 
+      color: #ffffff;
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      padding: 30px 20px 80px 20px; 
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+    }
+
+    /* Top Navbar Fijo */
+    .filter-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      width: 100%;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      margin-bottom: 30px;
+    }
+
+    .filter-title {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .filter-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      padding: 10px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .filter-btn:hover { background: #334155; color: #ffffff; }
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(0, 163, 255, 0.4);
+    }
+
+    /* Layout principal para carpetas de destacadas */
+    .highlights-main-container {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      width: 100%;
+      max-width: 1400px;
+    }
+
+    .highlight-section {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 20px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
+
+    .highlight-section.hidden { display: none !important; }
+
+    .highlight-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 15px;
+    }
+
+    .highlight-info h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .highlight-info p {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    /* Fila horizontal deslizante para revisar historias */
+    .slides-row {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding: 10px 5px 20px 5px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--blue-primary) #0f172a;
+    }
+
+    .slides-row::-webkit-scrollbar { height: 8px; }
+    .slides-row::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
+    .slides-row::-webkit-scrollbar-thumb { background: var(--blue-primary); border-radius: 10px; }
+
+    /* Estructura individual de historia */
+    .slide-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 300px;
+    }
+
+    .download-btn {
+      background: var(--blue-primary);
+      color: #ffffff;
+      border: none;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 800;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(0, 163, 255, 0.3);
+      transition: background 0.2s ease, transform 0.2s ease;
+      width: 100%;
+    }
+
+    .download-btn:hover {
+      background: #008be6;
+      transform: translateY(-2px);
+    }
+
+    /* Contenedor vista previa miniatura (300x533) - FORMATO HISTORIA 9:16 */
+    .story-preview-box {
+      width: 300px;
+      height: 533px; /* Proporción 9:16 (300 * 1.777) */
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      background: #ffffff;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(15, 23, 42, 0.1);
+    }
+
+    .story-preview-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 163, 255, 0.4);
+      border-color: var(--blue-primary);
+    }
+
+    /* CANVAS REAL HISTORIA (1080x1920) REDUCIDO VISUALMENTE */
+    .story-canvas {
+      width: 1080px !important;
+      height: 1920px !important;
+      background: #ffffff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top left;
+      transform: scale(0.27777778); /* Reducción de 1080px a 300px */
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .story-canvas .content-wrapper {
+      padding: 85px 65px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* HEADER Y CONTROL ESTRICTO DE LOGO */
+    .header { 
+      display: flex !important; 
+      justify-content: space-between !important; 
+      align-items: center !important; 
+      width: 100% !important;
+      height: 80px !important;
+    }
+
+    .logo-container { 
+      height: 70px !important; 
+      max-height: 70px !important; 
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    .logo-container img { 
+      height: 70px !important; 
+      max-height: 70px !important; 
+      width: auto !important; 
+      max-width: 380px !important; 
+      object-fit: contain !important; 
+    }
+
+    .badge-info { 
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); 
+      color: #ffffff; 
+      padding: 12px 24px; 
+      border-radius: 100px; 
+      font-size: 20px; 
+      font-weight: 800; 
+      text-transform: uppercase; 
+      letter-spacing: 1px; 
+      white-space: nowrap;
+    }
+
+    /* Elementos de Marca */
+    .bg-gradient-base { position: absolute; inset: 0; background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-gradient-end) 100%); z-index: 1; }
+    .diagonal-shape-top { position: absolute; top: -100px; right: -100px; width: 850px; height: 850px; background: linear-gradient(135deg, rgba(0, 163, 255, 0.08) 0%, rgba(56, 189, 248, 0.02) 100%); transform: rotate(20deg); border-radius: 80px; z-index: 2; }
+    .diagonal-stripe { position: absolute; top: 700px; right: -200px; width: 1000px; height: 120px; background: linear-gradient(90deg, var(--blue-primary), var(--blue-light)); transform: rotate(-25deg); border-radius: 50px; opacity: 0.12; z-index: 2; }
+    .diagonal-accent-bottom { position: absolute; bottom: -150px; left: -150px; width: 700px; height: 700px; background: var(--text-primary); transform: rotate(15deg); border-radius: 80px; z-index: 2; }
+    .blue-glow-spot { position: absolute; top: 500px; left: 100px; width: 600px; height: 600px; background: var(--blue-glow); filter: blur(160px); border-radius: 50%; z-index: 2; }
+
+    /* Cuerpo Principal con Tipografía Optimizada para Historia */
+    .main-body { display: flex; flex-direction: column; gap: 32px; margin: auto 0; }
+    .category-tag { font-size: 24px; font-weight: 800; color: var(--blue-primary); text-transform: uppercase; letter-spacing: 2.5px; display: block; margin-bottom: 8px; }
+    
+    .main-question { 
+      font-size: 76px; 
+      font-weight: 900; 
+      color: var(--text-primary); 
+      line-height: 1.1; 
+      margin: 0; 
+      word-break: break-word;
+    }
+    .main-question span { background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .intro-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-left: 8px solid var(--blue-primary);
+      border-radius: 22px;
+      padding: 32px 36px;
+      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.05);
+    }
+    .intro-card p { color: var(--text-secondary); font-size: 32px; font-weight: 600; line-height: 1.4; margin: 0; }
+
+    .points-list { display: flex; flex-direction: column; gap: 18px; }
+    .point-item { display: flex; align-items: flex-start; gap: 20px; background: #ffffff; border-radius: 20px; padding: 22px 28px; border: 1px solid var(--border-color); }
+    .point-icon {
+      width: 50px; height: 50px; min-width: 50px;
+      background: rgba(0, 163, 255, 0.15);
+      color: var(--blue-primary);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 26px;
+    }
+    .point-text { color: var(--text-secondary); font-size: 28px; font-weight: 500; line-height: 1.35; }
+
+    .highlight-box {
+      background: linear-gradient(135deg, var(--text-primary), #1e293b);
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 30px 36px;
+      font-size: 30px;
+      font-weight: 600;
+      border-left: 6px solid var(--blue-primary);
+      line-height: 1.38;
+    }
+    .highlight-box span { color: var(--blue-light); font-weight: 800; }
+
+    /* Botón de Acción Final CTA */
+    .action-btn-box {
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)) !important;
+      color: #0f172a !important; /* Contraste oscuro legible */
+      padding: 26px 48px !important;
+      border-radius: 100px !important;
+      font-size: 30px !important;
+      font-weight: 900 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 14px !important;
+      box-shadow: 0 15px 35px rgba(0, 163, 255, 0.35) !important;
+      margin-top: 10px !important;
+      text-align: center !important;
+    }
+
+    /* Tarjetas Tipo Reserva (Placeholder para testimonios del usuario) */
+    .placeholder-card {
+      border: 3px dashed var(--blue-primary);
+      background: rgba(0, 163, 255, 0.04);
+      border-radius: 22px;
+      padding: 40px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .footer { display: flex; justify-content: center; align-items: center; border-top: 2px dashed rgba(15, 23, 42, 0.1); padding-top: 30px; }
+    .footer-note { font-weight: 800; font-size: 28px; color: var(--blue-primary); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Filter Navbar -->
+  <nav class="filter-navbar">
+    <div class="filter-title">🔍 Generador de Historias Destacadas (9:16)</div>
+    <div class="filter-controls">
+      <button class="filter-btn active" onclick="filterHighlight('all', this)">Todas (4 Carpetas)</button>
+      <button class="filter-btn" onclick="filterHighlight('servicios', this)">💼 Servicios</button>
+      <button class="filter-btn" onclick="filterHighlight('precios', this)">💰 Precios</button>
+      <button class="filter-btn" onclick="filterHighlight('preguntas', this)">❓ Preguntas</button>
+      <button class="filter-btn" onclick="filterHighlight('clientes', this)">⭐ Clientes</button>
+    </div>
+  </nav>
+
+  <div class="highlights-main-container">
+
+    <!-- ================= CARPETA 1: SERVICIOS (8 Historias) ================= -->
+    <section class="highlight-section" data-folder="servicios">
+      <div class="highlight-header">
+        <div class="highlight-info">
+          <h2>💼 Carpeta Destacada 1: Servicios</h2>
+          <p>Muestra tus 4 soluciones completas para orientar a cada tipo de cliente.</p>
+        </div>
+      </div>
+      
+      <div class="slides-row">
+        <!-- Story 1: Bienvenida -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h1-s1', 'h1-story1-bienvenida')">⬇ Descargar Historia 1</button>
+          <div class="story-canvas" id="h1-s1">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Tu Pyme Conectada</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Soluciones Web</span>
+                <h1 class="main-question">Servicios Web para <span>tu PyME</span> 🚀</h1>
+                <div class="intro-card"><p>Plataformas rápidas, transparentes y optimizadas para recibir clientes directamente en tu WhatsApp.</p></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para ver nuestras opciones ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 2: El Orientador con los 4 Servicios -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h1-s2', 'h1-story2-orientador')">⬇ Descargar Historia 2</button>
+          <div class="story-canvas" id="h1-s2">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">¿Qué buscas?</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Encuentra tu Solución</span>
+                <h1 class="main-question">¿Qué necesita <span>tu Negocio</span>?</h1>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">🛒</div><div class="point-text"><strong>Vendes Productos o Comida:</strong> Catálogo WhatsApp.</div></div>
+                  <div class="point-item"><div class="point-icon">⚡</div><div class="point-text"><strong>Vendes Servicios:</strong> One Page Web.</div></div>
+                  <div class="point-item"><div class="point-icon">🏢</div><div class="point-text"><strong>Sitio de Empresa:</strong> Sitio Corporativo.</div></div>
+                  <div class="point-item"><div class="point-icon">🛡️</div><div class="point-text"><strong>Cuidado de tu Web:</strong> Mantenimiento y Optimización.</div></div>
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para revisar cada una ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 3: One Page Web -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h1-s3', 'h1-story3-onepage')">⬇ Descargar Historia 3</button>
+          <div class="story-canvas" id="h1-s3">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Para Servicios</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">One Page Web</span>
+                <h1 class="main-question">Promociona tu <span>Servicio</span></h1>
+                <div class="intro-card"><p>Una sola página estructurada para presentar tu propuesta, testimonios y recibir consultas filtradas.</p></div>
+                <div class="highlight-box">💡 <span>Desde $79.990 CLP · Entrega 3 a 5 días · <span>Hosting Gratuito Incluido</span>.</span></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para ver la siguiente ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 4: Catálogo WhatsApp -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h1-s4', 'h1-story4-catalogo')">⬇ Descargar Historia 4</button>
+          <div class="story-canvas" id="h1-s4">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Para Productos</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Catálogo WhatsApp</span>
+                <h1 class="main-question">Pedidos Directos <span>a tu Chat</span></h1>
+                <div class="intro-card"><p>Tus clientes eligen productos con fotos y te envían el carrito listo a tu WhatsApp sin comisiones.</p></div>
+                <div class="highlight-box">💡 <span>Desde $79.990 CLP · Entrega 3 a 5 días · <span>Hosting Gratuito Incluido</span>.</span></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para ver la siguiente ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 5: Sitio Corporativo -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h1-s5', 'h1-story5-corporativo')">⬇ Descargar Historia 5</button>
+          <div class="story-canvas" id="h1-s5">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Para Empresas</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Sitio Corporativo</span>
+                <h1 class="main-question">Destaca la Imagen de <span>tu Empresa</span></h1>
+                <div class="intro-card"><p>Sitio web completo de hasta 4 páginas con optimización técnica para posicionar en Google.</p></div>
+                <div class="highlight-box">💡 <span>$249.990 CLP · Entrega 8 a 10 días · <span>Hosting Gratuito Incluido</span>.</span></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para ver la siguiente ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 6: Plan Mantenimiento y Optimización -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h1-s6', 'h1-story6-mantenimiento')">⬇ Descargar Historia 6</button>
+          <div class="story-canvas" id="h1-s6">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Plan Mensual</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Mantenimiento y Optimización</span>
+                <h1 class="main-question">Tu Web Siempre <span>Rápida y Segura</span></h1>
+                <div class="intro-card"><p>Nos encargamos del respaldo preventivo, parches de seguridad, optimización de velocidad y una bolsa de 2 horas al mes para tus cambios.</p></div>
+                <div class="highlight-box">💡 <span>$29.990 CLP / mes · <span>Sin contrato de arriendo forzoso</span>.</span></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para ver beneficios generales ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 7: Beneficios Incluidos -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h1-s7', 'h1-story7-beneficios')">⬇ Descargar Historia 7</button>
+          <div class="story-canvas" id="h1-s7">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Beneficios</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">En todos tus proyectos</span>
+                <h1 class="main-question">Siempre <span>Incluido</span></h1>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Hosting Gratuito Incluido:</strong> Servidor de alta velocidad.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Certificado SSL:</strong> Candado de conexión segura HTTPS.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Panel Administrable:</strong> Edita datos cuando quieras.</div></div>
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para cotizar ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 8: CTA Final -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h1-s8', 'h1-story8-cta')">⬇ Descargar Historia 8</button>
+          <div class="story-canvas" id="h1-s8">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Cotiza Hoy</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Tu Pyme Conectada</span>
+                <h1 class="main-question">¿Todo listo para despegar <span>tu Web</span>?</h1>
+                <div class="intro-card"><p>Escríbenos por mensaje directo (DM) o toca el botón de abajo para cotizar por WhatsApp.</p></div>
+                <div class="action-btn-box">
+                  💬 Cotizar por WhatsApp
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Tu Pyme Conectada · Claros y sin letra chica</div></footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= CARPETA 2: PRECIOS (5 Historias) ================= -->
+    <section class="highlight-section" data-folder="precios">
+      <div class="highlight-header">
+        <div class="highlight-info">
+          <h2>💰 Carpeta Destacada 2: Precios</h2>
+          <p>Transparencia total de costos en CLP sin cobros ocultos.</p>
+        </div>
+      </div>
+      
+      <div class="slides-row">
+        <!-- Story 1: Portada -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h2-s1', 'h2-story1-portada')">⬇ Descargar Historia 1</button>
+          <div class="story-canvas" id="h2-s1">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Precios Claros</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Transparencia Total</span>
+                <h1 class="main-question">Nuestras Tarifas <span>en CLP</span> 💰</h1>
+                <div class="intro-card"><p>Sin sorpresas ni cobros en dólares. Todo detallado desde el primer día.</p></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para ver los valores ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 2: Planes Entrada -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h2-s2', 'h2-story2-planes-entrada')">⬇ Descargar Historia 2</button>
+          <div class="story-canvas" id="h2-s2">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Lanzamiento Rápido</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Entrega 3 a 5 Días</span>
+                <h1 class="main-question">One Page & <span>Catálogo Web</span></h1>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">⚡</div><div class="point-text"><strong>One Page Web:</strong> $79.990 – $149.990 CLP.</div></div>
+                  <div class="point-item"><div class="point-icon">🛒</div><div class="point-text"><strong>Catálogo WhatsApp:</strong> $79.990 – $149.990 CLP.</div></div>
+                </div>
+                <div class="highlight-box">💡 <span>Ambos incluyen <span>Hosting Gratuito</span> y conexión a WhatsApp.</span></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para ver más opciones ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 3: Planes Avanzados -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h2-s3', 'h2-story3-planes-avanzados')">⬇ Descargar Historia 3</button>
+          <div class="story-canvas" id="h2-s3">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Empresas & Cuidado</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Avanzado y Mantenimiento</span>
+                <h1 class="main-question">Sitio Corporativo & <span>Plan Mensual</span></h1>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">🏢</div><div class="point-text"><strong>Sitio Corporativo:</strong> $249.990 CLP (Hasta 4 páginas).</div></div>
+                  <div class="point-item"><div class="point-icon">🛡️</div><div class="point-text"><strong>Plan Mantenimiento:</strong> $29.990 / mes (Sin contratos).</div></div>
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para ver formas de pago ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 4: Formas de Pago -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h2-s4', 'h2-story4-formas-pago')">⬇ Descargar Historia 4</button>
+          <div class="story-canvas" id="h2-s4">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Medios de Pago</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Facilidad de Pago</span>
+                <h1 class="main-question">¿Cómo puedes <span>Pagar</span>?</h1>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Modalidad:</strong> 50% al iniciar y 50% contra entrega publicada.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Aceptamos:</strong> Transferencia o Mercado Pago (Tarjetas).</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Emisión:</strong> Entregamos Boleta o Factura.</div></div>
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para cotizar ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 5: CTA Final -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h2-s5', 'h2-story5-cta')">⬇ Descargar Historia 5</button>
+          <div class="story-canvas" id="h2-s5">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Cotiza sin costo</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Tu Pyme Conectada</span>
+                <h1 class="main-question">Cotización exacta en <span>5 Minutos</span></h1>
+                <div class="intro-card"><p>Escríbenos por DM contándonos de qué es tu negocio y te guiamos con la mejor opción.</p></div>
+                <div class="action-btn-box">
+                  📩 Cotizar por DM
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Tu Pyme Conectada · Precios transparentes</div></footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= CARPETA 3: PREGUNTAS FRECUENTES (5 Historias) ================= -->
+    <section class="highlight-section" data-folder="preguntas">
+      <div class="highlight-header">
+        <div class="highlight-info">
+          <h2>❓ Carpeta Destacada 3: Preguntas Frecuentes</h2>
+          <p>Aclara dudas técnicas y de entrega antes de que te escriban.</p>
+        </div>
+      </div>
+      
+      <div class="slides-row">
+        <!-- Story 1: Portada -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h3-s1', 'h3-story1-portada')">⬇ Descargar Historia 1</button>
+          <div class="story-canvas" id="h3-s1">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Preguntas FAQ</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Dudas Frecuentes</span>
+                <h1 class="main-question">Todo lo que necesitas <span>Saber</span></h1>
+                <div class="intro-card"><p>Respondemos las preguntas más comunes antes de iniciar tu proyecto web.</p></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para revisar las respuestas ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 2: Plazos de entrega -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h3-s2', 'h3-story2-plazos')">⬇ Descargar Historia 2</button>
+          <div class="story-canvas" id="h3-s2">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Tiempos</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Plazos de Entrega</span>
+                <h1 class="main-question">¿Cuánto tiempo <span>se demoran</span>?</h1>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">⚡</div><div class="point-text"><strong>One Page & Catálogo:</strong> 3 a 5 días hábiles.</div></div>
+                  <div class="point-item"><div class="point-icon">🏢</div><div class="point-text"><strong>Sitio Corporativo:</strong> 8 a 10 días hábiles.</div></div>
+                </div>
+                <div class="highlight-box">💡 <span>El tiempo corre tras recibir los <span>contenidos y el 50% inicial</span>.</span></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para ver la siguiente ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 3: Hosting y Dominio -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h3-s3', 'h3-story3-hosting')">⬇ Descargar Historia 3</button>
+          <div class="story-canvas" id="h3-s3">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Infraestructura</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Servidores</span>
+                <h1 class="main-question">¿Tengo que pagar <span>Hosting aparte</span>?</h1>
+                <div class="intro-card"><p><strong>No.</strong> En todos nuestros proyectos te regalamos el **Hosting Gratuito**. Tu dominio (`.cl`) lo gestionas por separado en NIC Chile (~$9.990/año).</p></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para ver la siguiente ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 4: Contenidos y Propiedad -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h3-s4', 'h3-story4-propiedad')">⬇ Descargar Historia 4</button>
+          <div class="story-canvas" id="h3-s4">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Garantías</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Contenidos y Propiedad</span>
+                <h1 class="main-question">¿El sitio web es <span>Mío</span>?</h1>
+                <div class="points-list">
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Propiedad Total:</strong> Al completar el pago, la web es 100% tuya.</div></div>
+                  <div class="point-item"><div class="point-icon">✓</div><div class="point-text"><strong>Textos con IA:</strong> Te ayudamos a redactar si no tienes textos.</div></div>
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para contactar ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 5: CTA Final -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h3-s5', 'h3-story5-cta')">⬇ Descargar Historia 5</button>
+          <div class="story-canvas" id="h3-s5">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Resuelve tus dudas</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Tu Pyme Conectada</span>
+                <h1 class="main-question">¿Tienes alguna otra <span>Pregunta</span>?</h1>
+                <div class="intro-card"><p>Escríbenos directamente por mensaje privado o toca el botón para hablar por WhatsApp.</p></div>
+                <div class="action-btn-box">
+                  💬 Preguntar por WhatsApp
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Respondemos de inmediato 📩</div></footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= CARPETA 4: CLIENTES Y TESTIMONIOS (3 Historias) ================= -->
+    <section class="highlight-section" data-folder="clientes">
+      <div class="highlight-header">
+        <div class="highlight-info">
+          <h2>⭐ Carpeta Destacada 4: Clientes y Testimonios</h2>
+          <p>Prueba social con espacios reservados para tus futuras capturas o reseñas.</p>
+        </div>
+      </div>
+      
+      <div class="slides-row">
+        <!-- Story 1: Portada -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h4-s1', 'h4-story1-portada')">⬇ Descargar Historia 1</button>
+          <div class="story-canvas" id="h4-s1">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Prueba Social</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Experiencias Reales</span>
+                <h1 class="main-question">Clientes y <span>Testimonios</span> ⭐</h1>
+                <div class="intro-card"><p>Lo que dicen las PyMEs que confían en Tu Pyme Conectada.</p></div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para ver opiniones ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 2: Reserva Testimonio 1 (Espacio para el usuario) -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h4-s2', 'h4-story2-reserva-testimonio1')">⬇ Descargar Historia 2</button>
+          <div class="story-canvas" id="h4-s2">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Reseña de Cliente</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Testimonio #1</span>
+                <div class="placeholder-card">
+                  📸 [ Espacio Reservado ]<br><br>
+                  Añade aquí una captura de chat de WhatsApp o reseña de Google de tus clientes satisfechos.
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Toca para ver la siguiente ➔</div></footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 3: Reserva Testimonio 2 + CTA -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('h4-s3', 'h4-story3-reserva-testimonio2')">⬇ Descargar Historia 3</button>
+          <div class="story-canvas" id="h4-s3">
+            <div class="bg-gradient-base"></div><div class="diagonal-shape-top"></div><div class="diagonal-stripe"></div><div class="diagonal-accent-bottom"></div><div class="blue-glow-spot"></div>
+            <div class="content-wrapper">
+              <header class="header">
+                <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                <div class="badge-info">Súmate Hoy</div>
+              </header>
+              <main class="main-body">
+                <span class="category-tag">Únete a nuestras PyMEs</span>
+                <h1 class="main-question">Comienza a <span>Vender Online</span></h1>
+                <div class="intro-card"><p>Súmate a los negocios en Chile que automatizan sus contactos y ventas con nosotros.</p></div>
+                <div class="action-btn-box">
+                  🚀 Cotizar mi Web
+                </div>
+              </main>
+              <footer class="footer"><div class="footer-note">Tu Pyme Conectada · Cotiza sin compromiso</div></footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Envuelve cada canvas en un contenedor de vista previa 'story-preview-box' para evitar superposición
+    function setupPreviewBoxes() {
+      const canvases = document.querySelectorAll('.story-canvas');
+      canvases.forEach(canvas => {
+        if (!canvas.parentElement.classList.contains('story-preview-box')) {
+          const box = document.createElement('div');
+          box.className = 'story-preview-box';
+          canvas.parentNode.insertBefore(box, canvas);
+          box.appendChild(canvas);
+        }
+      });
+    }
+
+    // Función de Filtrado de Carpetas
+    function filterHighlight(category, btnElement) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      btnElement.classList.add('active');
+
+      const sections = document.querySelectorAll('.highlight-section');
+      sections.forEach(sec => {
+        if (category === 'all' || sec.getAttribute('data-folder') === category) {
+          sec.classList.remove('hidden');
+        } else {
+          sec.classList.add('hidden');
+        }
+      });
+    }
+
+    // Función de Descargar Canvas (1080x1920 px formato Historia)
+    async function downloadCanvas(elementId, baseFileName) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+
+      // 1. Convertir imágenes locales a Base64 dinámicamente si no lo están
+      const images = element.querySelectorAll('img');
+      for (let img of images) {
+        if (img.src && !img.src.startsWith('data:')) {
+          try {
+            const response = await fetch(img.src);
+            const blob = await response.blob();
+            await new Promise((resolve) => {
+              const reader = new FileReader();
+              reader.onloadend = () => {
+                img.src = reader.result;
+                resolve();
+              };
+              reader.readAsDataURL(blob);
+            });
+          } catch (e) {
+            console.warn("No se pudo precargar la imagen como Base64:", e);
+          }
+        }
+      }
+
+      // 2. Definir dimensiones objetivo (Historia 9:16)
+      const targetWidth = 1080;
+      const targetHeight = 1920;
+      const fileName = baseFileName + '-destacada-9x16.png';
+
+      // 3. Renderizar eliminando escala reducida en memoria
+      html2canvas(element, {
+        scale: 1,
+        width: targetWidth,
+        height: targetHeight,
+        windowWidth: targetWidth,
+        windowHeight: targetHeight,
+        scrollX: 0,
+        scrollY: 0,
+        useCORS: true,
+        allowTaint: false,
+        backgroundColor: '#ffffff',
+        onclone: (clonedDoc) => {
+          const clonedElement = clonedDoc.getElementById(elementId);
+          if (!clonedElement) return;
+
+          // RESET DE ESCALA: Forzar expansión a 1080p con prioridad alta
+          clonedElement.style.setProperty('transform', 'none', 'important');
+          clonedElement.style.setProperty('position', 'relative', 'important');
+          clonedElement.style.setProperty('top', '0', 'important');
+          clonedElement.style.setProperty('left', '0', 'important');
+          clonedElement.style.setProperty('width', targetWidth + 'px', 'important');
+          clonedElement.style.setProperty('height', targetHeight + 'px', 'important');
+          clonedElement.style.setProperty('box-shadow', 'none', 'important');
+          clonedElement.style.setProperty('margin', '0', 'important');
+
+          if (clonedElement.parentElement && clonedElement.parentElement.classList.contains('story-preview-box')) {
+            clonedElement.parentElement.style.setProperty('width', targetWidth + 'px', 'important');
+            clonedElement.parentElement.style.setProperty('height', targetHeight + 'px', 'important');
+            clonedElement.parentElement.style.setProperty('overflow', 'visible', 'important');
+            clonedElement.parentElement.style.setProperty('transform', 'none', 'important');
+            clonedElement.parentElement.style.setProperty('box-shadow', 'none', 'important');
+          }
+
+          // FIX 1: Reparar .intro-card
+          const introCards = clonedElement.querySelectorAll('.intro-card');
+          introCards.forEach(card => {
+            card.style.backgroundColor = '#ffffff';
+            card.style.boxShadow = 'none';
+            card.style.border = '1px solid rgba(15, 23, 42, 0.1)';
+            card.style.borderLeft = '8px solid #00a3ff';
+          });
+
+          // FIX 2: Corregir texto con gradiente (-webkit-background-clip: text)
+          const gradientSpans = clonedElement.querySelectorAll('.main-question span');
+          gradientSpans.forEach(span => {
+            span.style.webkitBackgroundClip = 'initial';
+            span.style.webkitTextFillColor = 'initial';
+            span.style.background = 'none';
+            span.style.color = '#00a3ff';
+          });
+
+          // FIX 3: Corregir el filtro blur difuminado
+          const glowSpots = clonedElement.querySelectorAll('.blue-glow-spot');
+          glowSpots.forEach(glow => {
+            glow.style.filter = 'none';
+            glow.style.background = 'radial-gradient(circle, rgba(0,163,255,0.25) 0%, rgba(255,255,255,0) 70%)';
+          });
+
+          // FIX 4: Forzar contraste del botón de acción
+          const actionBtns = clonedElement.querySelectorAll('.action-btn-box');
+          actionBtns.forEach(btn => {
+            btn.style.color = '#0f172a';
+          });
+        }
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }).catch(err => {
+        console.error("Error al generar la historia destacada:", err);
+      });
+    }
+
+    // Inicializar vista previa al cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+      setupPreviewBoxes();
+    });
+  </script>
+
+</body>
+</html>
