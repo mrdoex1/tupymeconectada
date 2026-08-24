@@ -815,6 +815,15 @@ a {
   margin-bottom: 14px;
 }
 
+.pp-quote-stars {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  color: #f59e0b;
+  font-size: 1.4rem;
+  margin-bottom: 14px;
+}
+
 .pp-quote p {
   font-size: 1.08rem;
   color: var(--pp-text);
@@ -841,10 +850,13 @@ a {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  font-family: "Gelasio", Georgia, serif;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--pp-blue);
+}
+
+.pp-quote-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .pp-quote-name {
