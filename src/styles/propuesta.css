@@ -872,6 +872,18 @@ a {
   text-align: left;
 }
 
+.pp-quote-role a {
+  color: var(--pp-blue);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color var(--pp-transition);
+}
+
+.pp-quote-role a:hover {
+  color: var(--pp-blue-glow);
+  text-decoration: underline;
+}
+
 /* ============================================================
    SOBRE MÍ — monograma + firma
    ============================================================ */
