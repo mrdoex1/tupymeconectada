@@ -155,7 +155,7 @@
       flex-direction: column;
       align-items: center;
       flex-shrink: 0;
-      width: 300px;
+      width: 400px;
     }
 
     .download-btn {
@@ -178,10 +178,10 @@
       transform: translateY(-2px);
     }
 
-    /* Contenedor vista previa miniatura (300x375) - EVITA SUPERPOSICIÓN DE CANVAS */
+    /* Contenedor vista previa miniatura (400x500) - EVITA SUPERPOSICIÓN DE CANVAS */
     .slide-preview-box {
-      width: 300px;
-      height: 375px; /* Proporción 4:5 (300 * 1.25) */
+      width: 400px;
+      height: 500px; /* Proporción 4:5 (400 * 1.25) */
       position: relative;
       overflow: hidden;
       border-radius: 16px;
@@ -206,7 +206,7 @@
       top: 0;
       left: 0;
       transform-origin: top left;
-      transform: scale(0.27777778); /* Reducción de 1080px a 300px */
+      transform: scale(0.37037037); /* Reducción de 1080px a 400px */
       pointer-events: none;
       overflow: hidden;
     }
@@ -249,9 +249,9 @@
     .badge-info { 
       background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); 
       color: #ffffff; 
-      padding: 12px 24px; 
+      padding: 12px 26px; 
       border-radius: 100px; 
-      font-size: 20px; 
+      font-size: 22px; 
       font-weight: 800; 
       text-transform: uppercase; 
       letter-spacing: 1px; 
@@ -267,10 +267,10 @@
 
     /* Cuerpo Principal con Tipografía Optimizada */
     .main-body { display: flex; flex-direction: column; gap: 24px; margin: auto 0; }
-    .category-tag { font-size: 22px; font-weight: 800; color: var(--blue-primary); text-transform: uppercase; letter-spacing: 2.5px; display: block; }
+    .category-tag { font-size: 24px; font-weight: 800; color: var(--blue-primary); text-transform: uppercase; letter-spacing: 2.5px; display: block; }
     
     .main-question { 
-      font-size: 62px; 
+      font-size: 68px; 
       font-weight: 900; 
       color: var(--text-primary); 
       line-height: 1.12; 
@@ -286,7 +286,7 @@
       padding: 24px 28px;
       box-shadow: 0 15px 35px rgba(15, 23, 42, 0.05);
     }
-    .intro-card p { color: var(--text-secondary); font-size: 27px; font-weight: 600; line-height: 1.38; margin: 0; }
+    .intro-card p { color: var(--text-secondary); font-size: 30px; font-weight: 600; line-height: 1.38; margin: 0; }
 
     .points-list { display: flex; flex-direction: column; gap: 14px; }
    .point-item { 
@@ -295,25 +295,25 @@
       gap: 16px; 
       background: #ffffff; 
       border-radius: 20px; 
-      padding: 18px 24px; 
+      padding: 20px 26px; 
       border: 1px solid var(--border-color); 
     }
     .point-icon {
-      width: 42px; height: 42px; min-width: 42px;
+      width: 46px; height: 46px; min-width: 46px;
       background: rgba(0, 163, 255, 0.15);
       color: var(--blue-primary);
       border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 22px;
+      font-weight: 800; font-size: 24px;
     }
-    .point-text { color: var(--text-secondary); font-size: 25px; font-weight: 500; line-height: 1.35; }
+    .point-text { color: var(--text-secondary); font-size: 28px; font-weight: 500; line-height: 1.35; }
 
     .highlight-box {
       background: linear-gradient(135deg, var(--text-primary), #1e293b);
       color: #ffffff;
       border-radius: 20px;
-      padding: 22px 28px;
-      font-size: 25px;
+      padding: 24px 30px;
+      font-size: 28px;
       font-weight: 600;
       border-left: 6px solid var(--blue-primary);
       line-height: 1.35;
@@ -351,9 +351,9 @@
     .slide-cta .action-btn-box {
       background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)) !important;
       color: #ffffff !important; /* Texto Azul Marino Oscuro para Contraste Impecable */
-      padding: 24px 44px !important;
+      padding: 26px 48px !important;
       border-radius: 100px !important;
-      font-size: 28px !important;
+      font-size: 31px !important;
       font-weight: 900 !important;
       display: flex !important;
       align-items: center !important;
@@ -365,7 +365,7 @@
     }
 
     .footer { display: flex; justify-content: center; align-items: center; border-top: 2px dashed rgba(15, 23, 42, 0.1); padding-top: 20px; }
-    .footer-note { font-weight: 800; font-size: 24px; color: var(--blue-primary); }
+    .footer-note { font-weight: 800; font-size: 27px; color: var(--blue-primary); }
   </style>
 </head>
 <body>
@@ -855,22 +855,22 @@
               </header>
               <main class="main-body" style="gap: 16px;">
                 <span class="category-tag">No te quedes con esto</span>
-                <h1 class="main-question" style="font-size: 46px;">Lo que la IA genera <span>sin dirección</span></h1>
+                <h1 class="main-question" style="font-size: 54px;">Lo que la IA genera <span>sin dirección</span></h1>
 
                 <!-- MOCKUP CLICHÉ IA CODIFICADO -->
                 <div style="background: #090d16; border: 1px solid rgba(0, 163, 255, 0.4); border-radius: 18px; padding: 20px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.4);">
                   <div style="position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 200px; height: 100px; background: radial-gradient(circle, rgba(168,85,247,0.4) 0%, rgba(0,0,0,0) 70%); filter: blur(20px);"></div>
                   
-                  <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.4); color: #c084fc; padding: 4px 12px; border-radius: 50px; font-size: 14px; font-weight: 800; margin-bottom: 8px; position: relative; z-index: 2;">
+                  <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.4); color: #c084fc; padding: 4px 12px; border-radius: 50px; font-size: 18px; font-weight: 800; margin-bottom: 8px; position: relative; z-index: 2;">
                     ✨ LA PLATAFORMA #1
                   </div>
                   
-                  <div style="font-size: 22px; font-weight: 900; color: #ffffff; line-height: 1.2; margin-bottom: 6px; position: relative; z-index: 2;">
+                  <div style="font-size: 28px; font-weight: 900; color: #ffffff; line-height: 1.2; margin-bottom: 6px; position: relative; z-index: 2;">
                     Transforma tu pyme con soluciones inteligentes
                   </div>
                 </div>
 
-                <div class="intro-card" style="padding: 16px 20px;"><p style="font-size: 20px;">Si te quedas con la primera respuesta de la IA, tu marca pierde su personalidad y se ve como una plantilla genérica más.</p></div>
+                <div class="intro-card" style="padding: 22px 26px;"><p style="font-size: 26px;">Si te quedas con la primera respuesta de la IA, tu marca pierde su personalidad y se ve como una plantilla genérica más.</p></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para ver cómo reestructurar ➔</div></footer>
             </div>
@@ -889,7 +889,7 @@
               </header>
               <main class="main-body" style="gap: 16px;">
                 <span class="category-tag">Limpia tu Prompt</span>
-                <h1 class="main-question" style="font-size: 44px;">Instrucciones para <span>Eliminar Clichés</span></h1>
+                <h1 class="main-question" style="font-size: 52px;">Instrucciones para <span>Eliminar Clichés</span></h1>
                 
                 <div class="points-list">
                   <div class="point-item" style="border-left: 6px solid #ef4444;"><div class="point-icon" style="color: #ef4444; background: rgba(239,68,68,0.15);">❌</div><div class="point-text"><strong>Elimina:</strong> Resplandores neón exagerados estilo película Tron.</div></div>
@@ -914,11 +914,11 @@
               </header>
               <main class="main-body" style="gap: 18px;">
                 <span class="category-tag">Revisa y Compara</span>
-                <h1 class="main-question" style="font-size: 48px;">Compara tu Web con <span>otras de tu Rubro</span></h1>
+                <h1 class="main-question" style="font-size: 56px;">Compara tu Web con <span>otras de tu Rubro</span></h1>
 
                 <div class="intro-card"><p>Abre los sitios de tu competencia. Si tu web usa las mismas estructuras y palabras, tu cliente no sabrá por qué elegirte a ti.</p></div>
 
-                <div class="highlight-box" style="padding: 18px 22px; font-size: 22px;">💡 <span>La IA te da el primer borrador; <span>la estrategia te da la venta</span>.</span></div>
+                <div class="highlight-box" style="padding: 24px 30px; font-size: 28px;">💡 <span>La IA te da el primer borrador; <span>la estrategia te da la venta</span>.</span></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para conversar con nosotros ➔</div></footer>
             </div>
@@ -992,20 +992,20 @@
               </header>
               <main class="main-body" style="gap: 14px;">
                 <span class="category-tag">Claridad Comercial</span>
-                <h1 class="main-question" style="font-size: 42px;">De Frases Vacías a tu <span>Oferta Real</span></h1>
+                <h1 class="main-question" style="font-size: 50px;">De Frases Vacías a tu <span>Oferta Real</span></h1>
 
                 <div class="ui-split">
                   <div class="ui-split-bad">
-                    <span style="font-weight: 800; color: #ef4444; font-size: 16px;">❌ TITULAR VAGO DE IA:</span>
-                    <div style="font-size: 18px; font-weight: 800; color: #991b1b; margin-top: 2px;">"Revoluciona la sinergia de tu negocio con soluciones 10X"</div>
+                    <span style="font-weight: 800; color: #ef4444; font-size: 20px;">❌ TITULAR VAGO DE IA:</span>
+                    <div style="font-size: 24px; font-weight: 800; color: #991b1b; margin-top: 2px;">"Revoluciona la sinergia de tu negocio con soluciones 10X"</div>
                   </div>
                   <div class="ui-split-good">
-                    <span style="font-weight: 800; color: var(--blue-primary); font-size: 16px;">⚡ PROPUESTA CLARA DE VALOR:</span>
-                    <div style="font-size: 18px; font-weight: 800; color: var(--text-primary); margin-top: 2px;">"Instalación y Mantención de Aire Acondicionado en Santiago"</div>
+                    <span style="font-weight: 800; color: var(--blue-primary); font-size: 20px;">⚡ PROPUESTA CLARA DE VALOR:</span>
+                    <div style="font-size: 24px; font-weight: 800; color: var(--text-primary); margin-top: 2px;">"Instalación y Mantención de Aire Acondicionado en Santiago"</div>
                   </div>
                 </div>
 
-                <div class="intro-card" style="padding: 14px 18px;"><p style="font-size: 19px;">Explica en 3 segundos qué vendes y qué problema resuelves sin rodeos corporativos.</p></div>
+                <div class="intro-card" style="padding: 20px 24px;"><p style="font-size: 26px;">Explica en 3 segundos qué vendes y qué problema resuelves sin rodeos corporativos.</p></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para ver la ubicación local ➔</div></footer>
             </div>
@@ -1024,17 +1024,17 @@
               </header>
               <main class="main-body" style="gap: 14px;">
                 <span class="category-tag">Ubicación y Respaldo</span>
-                <h1 class="main-question" style="font-size: 44px;">De Marcas Ficticias a <span>Ciudades Reales</span></h1>
+                <h1 class="main-question" style="font-size: 52px;">De Marcas Ficticias a <span>Ciudades Reales</span></h1>
 
                 <!-- BARRA UBICACIÓN LOCAL -->
                 <div style="background: #0f172a; border-radius: 14px; padding: 14px; text-align: center; color: #fff;">
-                  <div style="font-size: 14px; color: #94a3b8; font-weight: 700; margin-bottom: 6px;">ATENCIÓN Y ENVÍOS EN CHILE</div>
-                  <div style="display: flex; justify-content: space-around; font-size: 16px; font-weight: 900; color: var(--blue-light);">
+                  <div style="font-size: 16px; color: #94a3b8; font-weight: 700; margin-bottom: 6px;">ATENCIÓN Y ENVÍOS EN CHILE</div>
+                  <div style="display: flex; justify-content: space-around; font-size: 20px; font-weight: 900; color: var(--blue-light);">
                     <span>📍 Santiago</span><span>📍 Concepción</span><span>📍 Valparaíso</span>
                   </div>
                 </div>
 
-                <div class="intro-card" style="padding: 14px 18px;"><p style="font-size: 19px;">Reemplaza las marcas genéricas inventadas por la IA con las ciudades o comunas donde prestas tus servicios.</p></div>
+                <div class="intro-card" style="padding: 20px 24px;"><p style="font-size: 26px;">Reemplaza las marcas genéricas inventadas por la IA con las ciudades o comunas donde prestas tus servicios.</p></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para ver los testimonios ➔</div></footer>
             </div>
@@ -1053,15 +1053,15 @@
               </header>
               <main class="main-body" style="gap: 16px;">
                 <span class="category-tag">Prueba Social Cercana</span>
-                <h1 class="main-question" style="font-size: 44px;">Sustituye Textos Armados por <span>Reseñas Reales</span></h1>
+                <h1 class="main-question" style="font-size: 52px;">Sustituye Textos Armados por <span>Reseñas Reales</span></h1>
 
                 <div style="background: #ffffff; border: 2px solid var(--blue-primary); border-radius: 18px; padding: 18px; box-shadow: 0 10px 20px rgba(0,0,0,0.08);">
-                  <div style="color: #f59e0b; font-size: 20px; margin-bottom: 4px;">⭐⭐⭐⭐⭐ 5.0 en Google</div>
-                  <p style="font-size: 18px; color: #334155; line-height: 1.35;">"Nos ayudaron a ordenar nuestros servicios en la web y ahora las consultas llegan directo a WhatsApp."</p>
-                  <div style="font-size: 15px; color: #64748b; margin-top: 6px; font-weight: 700;">— Pyme Cliente Verificada</div>
+<div style="color: #f59e0b; font-size: 24px; margin-bottom: 4px;">⭐⭐⭐⭐⭐ 5.0 en Google</div>
+                  <p style="font-size: 24px; color: #334155; line-height: 1.35;">"Nos ayudaron a ordenar nuestros servicios en la web y ahora las consultas llegan directo a WhatsApp."</p>
+                  <div style="font-size: 18px; color: #64748b; margin-top: 6px; font-weight: 700;">— Pyme Cliente Verificada</div>
                 </div>
 
-                <div class="intro-card" style="padding: 14px 18px;"><p style="font-size: 19px;">Muestra opiniones cercanas de compradores reales para construir confianza inmediata.</p></div>
+                <div class="intro-card" style="padding: 20px 24px;"><p style="font-size: 26px;">Muestra opiniones cercanas de compradores reales para construir confianza inmediata.</p></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para coordinar tu proyecto ➔</div></footer>
             </div>
@@ -1135,18 +1135,18 @@
               </header>
               <main class="main-body" style="gap: 16px;">
                 <span class="category-tag">Validación de Datos</span>
-                <h1 class="main-question" style="font-size: 42px;">Formularios <span>sin Filtro de Basura</span></h1>
+                <h1 class="main-question" style="font-size: 50px;">Formularios <span>sin Filtro de Basura</span></h1>
 
                 <!-- FORMULARIO SIN LIMITACIÓN DE CARACTERES CODIFICADO -->
                 <div style="background: #ffffff; border: 2px dashed #ef4444; border-radius: 18px; padding: 18px;">
-                  <div style="font-size: 16px; color: #ef4444; font-weight: 800; margin-bottom: 6px;">⚠️ CAMPO SIN LIMITACIÓN DE CARACTERES:</div>
-                  <div style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 10px; border-radius: 8px; font-size: 18px; color: #dc2626; font-weight: 700;">
+                  <div style="font-size: 20px; color: #ef4444; font-weight: 800; margin-bottom: 6px;">⚠️ CAMPO SIN LIMITACIÓN DE CARACTERES:</div>
+                  <div style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 10px; border-radius: 8px; font-size: 24px; color: #dc2626; font-weight: 700;">
                     Nombre: Juan123456789!!!!!
                   </div>
-                  <p style="font-size: 16px; color: #7f1d1d; margin-top: 8px;">La IA crea inputs simples que permiten números en nombres y texto infinito sin sanitizar.</p>
+                  <p style="font-size: 20px; color: #7f1d1d; margin-top: 8px;">La IA crea inputs simples que permiten números en nombres y texto infinito sin sanitizar.</p>
                 </div>
 
-                <div class="intro-card" style="padding: 14px 18px;"><p style="font-size: 19px;">Sin validación de caracteres, recibes spams y consultas falsas en tu bandeja.</p></div>
+                <div class="intro-card" style="padding: 20px 24px;"><p style="font-size: 26px;">Sin validación de caracteres, recibes spams y consultas falsas en tu bandeja.</p></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para ver la página 404 ➔</div></footer>
             </div>
@@ -1165,17 +1165,17 @@
               </header>
               <main class="main-body" style="gap: 16px;">
                 <span class="category-tag">Experiencia de Usuario</span>
-                <h1 class="main-question" style="font-size: 42px;">Página 404 <span>Fea del Servidor</span></h1>
+                <h1 class="main-question" style="font-size: 50px;">Página 404 <span>Fea del Servidor</span></h1>
 
                 <!-- MOCKUP PÁGINA 404 CRUDA DEL SERVIDOR -->
                 <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 18px; font-family: monospace; text-align: left; color: #000;">
-                  <div style="font-size: 22px; font-weight: 900; margin-bottom: 4px;">404 Not Found</div>
+                  <div style="font-size: 28px; font-weight: 900; margin-bottom: 4px;">404 Not Found</div>
                   <hr style="margin: 8px 0; border: 0; border-top: 1px solid #cbd5e1;">
-                  <div style="font-size: 14px; color: #64748b;">nginx/1.18.0 (Ubuntu)</div>
-                  <p style="font-size: 15px; color: #ef4444; margin-top: 10px; font-family: sans-serif; font-weight: 700;">❌ La IA no crea una 404 amigable si no se la pides. El servidor muestra este error feo y el cliente se va.</p>
+                  <div style="font-size: 18px; color: #64748b;">nginx/1.18.0 (Ubuntu)</div>
+                  <p style="font-size: 20px; color: #ef4444; margin-top: 10px; font-family: sans-serif; font-weight: 700;">❌ La IA no crea una 404 amigable si no se la pides. El servidor muestra este error feo y el cliente se va.</p>
                 </div>
 
-                <div class="intro-card" style="padding: 14px 18px;"><p style="font-size: 19px;">Un enlace roto sin página de rescate hace que el cliente cierre la pestaña para siempre.</p></div>
+                <div class="intro-card" style="padding: 20px 24px;"><p style="font-size: 26px;">Un enlace roto sin página de rescate hace que el cliente cierre la pestaña para siempre.</p></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para ver la regla de oro ➔</div></footer>
             </div>
@@ -1194,14 +1194,14 @@
               </header>
               <main class="main-body" style="gap: 16px;">
                 <span class="category-tag">Desarrollo Profesional</span>
-                <h1 class="main-question" style="font-size: 44px;">No te quedes con la <span>Primera Respuesta</span></h1>
+                <h1 class="main-question" style="font-size: 52px;">No te quedes con la <span>Primera Respuesta</span></h1>
 
                 <div class="points-list">
                   <div class="point-item"><div class="point-icon">🔍</div><div class="point-text"><strong>Revisa los Detalles:</strong> Formularios, páginas 404 y velocidad en redes 4G/5G.</div></div>
                   <div class="point-item"><div class="point-icon">💡</div><div class="point-text"><strong>Diferúnciate:</strong> Compara tu sitio con los mejores de tu rubro y destaca tu oferta.</div></div>
                 </div>
 
-                <div class="highlight-box" style="padding: 16px 20px; font-size: 20px;">💡 <span>Un sitio completo cuida cada detalle <span>para no perder ventas</span>.</span></div>
+                <div class="highlight-box" style="padding: 22px 28px; font-size: 28px;">💡 <span>Un sitio completo cuida cada detalle <span>para no perder ventas</span>.</span></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para auditar tu sitio ➔</div></footer>
             </div>
@@ -1275,23 +1275,23 @@
               </header>
               <main class="main-body" style="gap: 16px;">
                 <span class="category-tag">Barreras de Entrada</span>
-                <h1 class="main-question" style="font-size: 44px;">El Bot que <span>Frena la Venta</span></h1>
+                <h1 class="main-question" style="font-size: 52px;">El Bot que <span>Frena la Venta</span></h1>
 
                 <!-- POPUP CHATBOT FRÍO -->
                 <div style="background: #ffffff; border: 2px solid #cbd5e1; border-radius: 20px; padding: 18px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
                   <div style="display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 8px;">
-                    <span style="font-size: 22px;">🤖</span>
-                    <span style="font-weight: 800; font-size: 18px; color: #0f172a;">AI Virtual Assistant</span>
+                    <span style="font-size: 26px;">🤖</span>
+                    <span style="font-weight: 800; font-size: 22px; color: #0f172a;">AI Virtual Assistant</span>
                   </div>
-                  <p style="font-size: 17px; color: #475569; line-height: 1.3;">
+                  <p style="font-size: 22px; color: #475569; line-height: 1.3;">
                     "Para ser atendido, ingrese su correo de empresa y seleccione la opción 1 a 5..."
                   </p>
-                  <div style="margin-top: 8px; background: rgba(239,68,68,0.1); color: #dc2626; padding: 4px 10px; border-radius: 8px; font-size: 15px; font-weight: 800; text-align: center;">
+                  <div style="margin-top: 8px; background: rgba(239,68,68,0.1); color: #dc2626; padding: 6px 14px; border-radius: 8px; font-size: 20px; font-weight: 800; text-align: center;">
                     ❌ El cliente prefiere cerrar la página e irse.
                   </div>
                 </div>
 
-                <div class="intro-card" style="padding: 14px 18px;"><p style="font-size: 19px;">Obligar al usuario a pasar por preguntas automatizadas en su primer contacto genera fricción.</p></div>
+                <div class="intro-card" style="padding: 20px 24px;"><p style="font-size: 26px;">Obligar al usuario a pasar por preguntas automatizadas en su primer contacto genera fricción.</p></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para ver la alternativa directa ➔</div></footer>
             </div>
@@ -1310,27 +1310,27 @@
               </header>
               <main class="main-body" style="gap: 16px;">
                 <span class="category-tag">Conexión Inmediata</span>
-                <h1 class="main-question" style="font-size: 44px;">Atención Directa en <span>1 Clic</span></h1>
+                <h1 class="main-question" style="font-size: 52px;">Atención Directa en <span>1 Clic</span></h1>
 
                 <!-- CHAT DE WHATSAPP DARK MODE REALISTA -->
                 <div style="background: #0b141a; border: 2px solid #222d34; border-radius: 20px; padding: 18px; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
                   <div style="display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #202c33; padding-bottom: 8px; margin-bottom: 12px;">
-                    <div style="background: #25d366; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 18px;">💬</div>
+                    <div style="background: #25d366; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 22px;">💬</div>
                     <div>
-                      <div style="color: #e9edef; font-weight: 800; font-size: 18px;">Tu Pyme Conectada</div>
-                      <div style="color: #25d366; font-size: 13px; font-weight: 700;">en línea</div>
+                      <div style="color: #e9edef; font-weight: 800; font-size: 22px;">Tu Pyme Conectada</div>
+                      <div style="color: #25d366; font-size: 16px; font-weight: 700;">en línea</div>
                     </div>
                   </div>
                   
-                  <div style="background: #005c4b; color: #e9edef; padding: 12px 16px; border-radius: 14px 14px 2px 14px; max-width: 90%; font-size: 18px; line-height: 1.35; margin-left: auto;">
+                  <div style="background: #005c4b; color: #e9edef; padding: 14px 18px; border-radius: 14px 14px 2px 14px; max-width: 90%; font-size: 22px; line-height: 1.35; margin-left: auto;">
                     Hola! 👋 Vi su sitio web y quiero cotizar un Catálogo Web
-                    <div style="text-align: right; font-size: 13px; color: #8696a0; margin-top: 4px;">
+                    <div style="text-align: right; font-size: 16px; color: #8696a0; margin-top: 4px;">
                       14:35 <span style="color: #53bdeb; font-weight: bold;">✓✓</span>
                     </div>
                   </div>
                 </div>
 
-                <div class="intro-card" style="padding: 14px 18px;"><p style="font-size: 19px;">El cliente entra a tu WhatsApp con la frase lista. Tú o tu equipo responden directamente y cierran la venta.</p></div>
+                <div class="intro-card" style="padding: 20px 24px;"><p style="font-size: 26px;">El cliente entra a tu WhatsApp con la frase lista. Tú o tu equipo responden directamente y cierran la venta.</p></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para ver el impacto en ventas ➔</div></footer>
             </div>
@@ -1349,14 +1349,14 @@
               </header>
               <main class="main-body" style="gap: 16px;">
                 <span class="category-tag">Inmediatez Comercial</span>
-                <h1 class="main-question" style="font-size: 46px;">El 85% prefiere <span>Chatear por WhatsApp</span></h1>
+                <h1 class="main-question" style="font-size: 54px;">El 85% prefiere <span>Chatear por WhatsApp</span></h1>
 
                 <div class="points-list">
                   <div class="point-item"><div class="point-icon">⚡</div><div class="point-text"><strong>Menos Pasos:</strong> Pasar del navegador al chat toma solo 1 segundo.</div></div>
                   <div class="point-item"><div class="point-icon">🤝</div><div class="point-text"><strong>Cercanía:</strong> Tratar con una persona genera la confianza para transferir.</div></div>
                 </div>
 
-                <div class="highlight-box" style="padding: 16px 20px; font-size: 20px;">💡 <span>Facilita el contacto a tu cliente <span>para multiplicar tus consultas</span>.</span></div>
+                <div class="highlight-box" style="padding: 22px 28px; font-size: 28px;">💡 <span>Facilita el contacto a tu cliente <span>para multiplicar tus consultas</span>.</span></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para integrar WhatsApp en tu web ➔</div></footer>
             </div>
@@ -1430,21 +1430,21 @@
               </header>
               <main class="main-body" style="gap: 16px;">
                 <span class="category-tag">El Rol de la IA</span>
-                <h1 class="main-question" style="font-size: 46px;">La IA aporta <span>Velocidad</span></h1>
+                <h1 class="main-question" style="font-size: 54px;">La IA aporta <span>Velocidad</span></h1>
 
                 <!-- BENTO GRID CON CONTENEDORES CONTRASTADOS -->
                 <div class="ui-bento">
                   <div class="ui-bento-card" style="background: #ffffff; border: 1px solid var(--border-color); border-left: 6px solid var(--blue-primary); border-radius: 16px; padding: 18px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
-                    <div style="font-size: 26px;">⚡ Código Ágil</div>
-                    <p style="font-size: 17px; color: #475569; margin-top: 4px;">Generación rápida de la maqueta y estructura base.</p>
+                    <div style="font-size: 32px;">⚡ Código Ágil</div>
+                    <p style="font-size: 22px; color: #475569; margin-top: 4px;">Generación rápida de la maqueta y estructura base.</p>
                   </div>
                   <div class="ui-bento-card" style="background: #ffffff; border: 1px solid var(--border-color); border-left: 6px solid #10b981; border-radius: 16px; padding: 18px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
-                    <div style="font-size: 26px;">🔒 Rendimiento</div>
-                    <p style="font-size: 17px; color: #475569; margin-top: 4px;">Compresión técnica y velocidad de carga inicial.</p>
+                    <div style="font-size: 32px;">🔒 Rendimiento</div>
+                    <p style="font-size: 22px; color: #475569; margin-top: 4px;">Compresión técnica y velocidad de carga inicial.</p>
                   </div>
                 </div>
 
-                <div class="intro-card" style="padding: 14px 18px;"><p style="font-size: 19px;">Aprovecha la rapidez tecnológica para ahorrar semanas de trabajo técnico.</p></div>
+                <div class="intro-card" style="padding: 20px 24px;"><p style="font-size: 26px;">Aprovecha la rapidez tecnológica para ahorrar semanas de trabajo técnico.</p></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para ver la dirección humana ➔</div></footer>
             </div>
@@ -1463,21 +1463,21 @@
               </header>
               <main class="main-body" style="gap: 16px;">
                 <span class="category-tag">El Rol Humano</span>
-                <h1 class="main-question" style="font-size: 46px;">El Humano aporta <span>Estrategia</span></h1>
+                <h1 class="main-question" style="font-size: 54px;">El Humano aporta <span>Estrategia</span></h1>
 
                 <!-- BENTO GRID CON CONTENEDORES CONTRASTADOS -->
                 <div class="ui-bento">
                   <div class="ui-bento-card" style="background: #ffffff; border: 1px solid var(--border-color); border-left: 6px solid var(--blue-primary); border-radius: 16px; padding: 18px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
-                    <div style="font-size: 26px;">🎯 Copywriting</div>
-                    <p style="font-size: 17px; color: #475569; margin-top: 4px;">Mensajes persuasivos dirigidos a los dolores de tu cliente.</p>
+                    <div style="font-size: 32px;">🎯 Copywriting</div>
+                    <p style="font-size: 22px; color: #475569; margin-top: 4px;">Mensajes persuasivos dirigidos a los dolores de tu cliente.</p>
                   </div>
                   <div class="ui-bento-card" style="background: #ffffff; border: 1px solid var(--border-color); border-left: 6px solid #f59e0b; border-radius: 16px; padding: 18px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
-                    <div style="font-size: 26px;">🇨🇱 Identidad Chile</div>
-                    <p style="font-size: 17px; color: #475569; margin-top: 4px;">Precios en CLP, respaldo local y canal de venta en WhatsApp.</p>
+                    <div style="font-size: 32px;">🇨🇱 Identidad Chile</div>
+                    <p style="font-size: 22px; color: #475569; margin-top: 4px;">Precios en CLP, respaldo local y canal de venta en WhatsApp.</p>
                   </div>
                 </div>
 
-                <div class="intro-card" style="padding: 14px 18px;"><p style="font-size: 19px;">La estrategia comercial convierte una simple plantilla en un negocio rentable.</p></div>
+                <div class="intro-card" style="padding: 20px 24px;"><p style="font-size: 26px;">La estrategia comercial convierte una simple plantilla en un negocio rentable.</p></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para ver el resultado ➔</div></footer>
             </div>
@@ -1496,7 +1496,7 @@
               </header>
               <main class="main-body" style="gap: 16px;">
                 <span class="category-tag">Diferenciación Real</span>
-                <h1 class="main-question" style="font-size: 46px;">Una Web con <span>Sello Propio</span></h1>
+                <h1 class="main-question" style="font-size: 54px;">Una Web con <span>Sello Propio</span></h1>
 
                 <!-- NAVEGADOR ESTILIZADO CON INTERFAZ PERSONALIZADA DE ALTO IMPACTO -->
                 <div style="background: #0f172a; border: 2px solid var(--blue-primary); border-radius: 18px; overflow: hidden; box-shadow: 0 15px 35px rgba(0, 163, 255, 0.25);">
@@ -1508,29 +1508,29 @@
                       <span style="width: 10px; height: 10px; background: #f59e0b; border-radius: 50%; display: block;"></span>
                       <span style="width: 10px; height: 10px; background: #10b981; border-radius: 50%; display: block;"></span>
                     </div>
-                    <div style="background: #0f172a; border: 1px solid #334155; color: #38bdf8; font-size: 16px; font-weight: 700; padding: 4px 16px; border-radius: 30px; flex: 1; text-align: center; font-family: monospace; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                    <div style="background: #0f172a; border: 1px solid #334155; color: #38bdf8; font-size: 20px; font-weight: 700; padding: 6px 18px; border-radius: 30px; flex: 1; text-align: center; font-family: monospace; display: flex; align-items: center; justify-content: center; gap: 6px;">
                       <span>🔒</span> <span>https://www.tuempresa.cl</span>
                     </div>
                   </div>
 
                   <!-- Interior de la Web con UI/UX Distintiva de Marca -->
                   <div style="padding: 20px; background: linear-gradient(135deg, #0f172a, #1e293b); text-align: center; color: #ffffff;">
-                    <span style="background: rgba(0, 163, 255, 0.15); border: 1px solid var(--blue-primary); color: var(--blue-light); font-size: 14px; font-weight: 800; padding: 4px 12px; border-radius: 50px; display: inline-block; margin-bottom: 8px;">
+                    <span style="background: rgba(0, 163, 255, 0.15); border: 1px solid var(--blue-primary); color: var(--blue-light); font-size: 16px; font-weight: 800; padding: 6px 14px; border-radius: 50px; display: inline-block; margin-bottom: 8px;">
                       📍 Santiago &amp; Regiones · Entrega 24/48h
                     </span>
-                    <div style="font-size: 24px; font-weight: 900; color: #ffffff; line-height: 1.2; margin-bottom: 6px;">
+                    <div style="font-size: 30px; font-weight: 900; color: #ffffff; line-height: 1.2; margin-bottom: 6px;">
                       Servicios Profesionales de Mantención Industrial
                     </div>
-                    <div style="color: #f59e0b; font-size: 16px; margin-bottom: 12px; font-weight: 700;">
+                    <div style="color: #f59e0b; font-size: 20px; margin-bottom: 12px; font-weight: 700;">
                       ⭐⭐⭐⭐⭐ 4.9/5 en Google Reviews
                     </div>
-                    <div style="display: inline-flex; align-items: center; gap: 8px; background: #25d366; color: #fff; font-weight: 900; font-size: 16px; padding: 8px 20px; border-radius: 50px;">
+                    <div style="display: inline-flex; align-items: center; gap: 8px; background: #25d366; color: #fff; font-weight: 900; font-size: 20px; padding: 10px 22px; border-radius: 50px;">
                       💬 Cotizar Ahora por WhatsApp
                     </div>
                   </div>
                 </div>
 
-                <div class="highlight-box" style="padding: 16px 20px; font-size: 20px;">💡 <span>Haz que tu web destaque <span>frente a cualquier competidor</span>.</span></div>
+                <div class="highlight-box" style="padding: 22px 28px; font-size: 28px;">💡 <span>Haz que tu web destaque <span>frente a cualquier competidor</span>.</span></div>
               </main>
               <footer class="footer"><div class="footer-note">Desliza para cotizar tu proyecto ➔</div></footer>
             </div>
@@ -1630,7 +1630,7 @@
 
     // 3. Renderizar eliminando escala reducida en memoria.
     //    (Se usa un CLON completo oculto, sin transform:scale, para que html2canvas no grise
-    //     los fondos blancos ni desmaquete el texto al "estirar" la geometría reducida de 300px)
+    //     los fondos blancos ni desmaquete el texto al "estirar" la geometría reducida de 360px)
     const host = document.createElement('div');
     const cloneId = elementId + '-h2c';
     Object.assign(host.style, {
