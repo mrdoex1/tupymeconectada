@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrusel Instagram - Caso de Éxito EFISER</title>
+  
+  <!-- Tipografía Oficial Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Librería html2canvas para exportar imágenes en 1080p -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    :root {
+      --bg-main: #ffffff; 
+      --bg-surface: #f8fafc; 
+      --bg-gradient-end: #eef4fb;
+      --text-primary: #0f172a; 
+      --text-secondary: #334155; 
+      --border-color: rgba(15, 23, 42, 0.1);
+      --blue-primary: #00a3ff; 
+      --blue-light: #38bdf8; 
+      --blue-glow: rgba(0, 163, 255, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body { 
+      background-color: #0f172a; 
+      color: #0f172a;
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      padding: 30px 20px 80px 20px; 
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+    }
+
+    /* Navbar Superior */
+    .filter-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      width: 100%;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      margin-bottom: 30px;
+    }
+
+    .filter-title {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    /* Layout principal */
+    .carousels-main-container {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      width: 100%;
+      max-width: 1400px;
+    }
+
+    .carousel-section {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 20px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
+
+    .carousel-section.hidden { display: none !important; }
+
+    .carousel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 15px;
+    }
+
+    .carousel-info h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .carousel-info p {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    /* Fila horizontal de diapositivas */
+    .slides-row {
+      display: flex;
+      gap: 25px;
+      overflow-x: auto;
+      padding: 10px 5px 25px 5px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--blue-primary) #0f172a;
+    }
+
+    .slides-row::-webkit-scrollbar { height: 8px; }
+    .slides-row::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
+    .slides-row::-webkit-scrollbar-thumb { background: var(--blue-primary); border-radius: 10px; }
+
+    /* Diapositiva individual */
+    .slide-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 400px;
+    }
+
+    .download-btn {
+      background: var(--blue-primary);
+      color: #ffffff;
+      border: none;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 800;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(0, 163, 255, 0.3);
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .download-btn:hover {
+      background: #008be6;
+      transform: translateY(-2px);
+    }
+
+    /* Contenedor Vista Previa (400x500 px - Proporción 4:5) */
+    .slide-preview-box {
+      width: 400px;
+      height: 500px; 
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      background: #ffffff;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(15, 23, 42, 0.1);
+    }
+
+    .slide-preview-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 163, 255, 0.4);
+      border-color: var(--blue-primary);
+    }
+
+    /* CANVAS REAL (1080x1350) - Escalado mediante CSS Transform */
+    .slide-canvas {
+      width: 1080px !important;
+      height: 1350px !important;
+      background: #ffffff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top left;
+      transform: scale(0.37037037);
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .slide-canvas .content-wrapper {
+      padding: 60px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* HEADER Y LOGO TPM EN TODAS LAS SLIDES */
+    .header { 
+      display: flex !important; 
+      justify-content: space-between !important; 
+      align-items: center !important; 
+      width: 100% !important;
+      height: 80px !important;
+    }
+
+    .logo-container { 
+      height: 70px !important; 
+      max-height: 70px !important; 
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    .logo-container img { 
+      height: 70px !important; 
+      max-height: 70px !important; 
+      width: auto !important; 
+      max-width: 380px !important; 
+      object-fit: contain !important; 
+    }
+
+    .badge-info { 
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); 
+      color: #ffffff; 
+      padding: 12px 26px; 
+      border-radius: 100px; 
+      font-size: 22px; 
+      font-weight: 800; 
+      text-transform: uppercase; 
+      letter-spacing: 1px; 
+      white-space: nowrap;
+      box-shadow: 0 6px 16px rgba(0, 163, 255, 0.25);
+    }
+
+    /* Fondo Decorativo */
+    .bg-gradient-base { position: absolute; inset: 0; background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-gradient-end) 100%); z-index: 1; }
+    .diagonal-shape-top { position: absolute; top: -150px; right: -150px; width: 700px; height: 700px; background: linear-gradient(135deg, rgba(0, 163, 255, 0.08) 0%, rgba(56, 189, 248, 0.02) 100%); transform: rotate(20deg); border-radius: 80px; z-index: 2; }
+    .diagonal-stripe { position: absolute; top: 520px; right: -200px; width: 1000px; height: 120px; background: linear-gradient(90deg, var(--blue-primary), var(--blue-light)); transform: rotate(-25deg); border-radius: 50px; opacity: 0.12; z-index: 2; }
+    .diagonal-accent-bottom { position: absolute; bottom: -200px; left: -200px; width: 600px; height: 600px; background: var(--text-primary); transform: rotate(15deg); border-radius: 80px; z-index: 2; }
+    .blue-glow-spot { position: absolute; top: 450px; left: 100px; width: 600px; height: 600px; background: var(--blue-glow); filter: blur(160px); border-radius: 50%; z-index: 2; }
+
+    /* Cuerpo Principal */
+    .main-body { display: flex; flex-direction: column; gap: 24px; margin: auto 0; z-index: 10; }
+    .category-tag { font-size: 24px; font-weight: 800; color: var(--blue-primary); text-transform: uppercase; letter-spacing: 2.5px; display: block; }
+    
+    .main-question { 
+      font-size: 60px; 
+      font-weight: 900; 
+      color: var(--text-primary); 
+      line-height: 1.12; 
+      margin: 0; 
+      word-break: break-word;
+    }
+    .main-question span { 
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); 
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent; 
+    }
+
+    .intro-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-left: 8px solid var(--blue-primary);
+      border-radius: 22px;
+      padding: 26px 30px;
+      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.8);
+    }
+    .intro-card p { color: var(--text-secondary); font-size: 27px; font-weight: 600; line-height: 1.4; margin: 0; }
+
+    /* Listas de Puntos */
+    .points-list { display: flex; flex-direction: column; gap: 16px; }
+    .point-item { 
+      display: flex !important; 
+      align-items: center !important; 
+      gap: 20px; 
+      background: #ffffff; 
+      border-radius: 20px; 
+      padding: 22px 28px; 
+      border: 1px solid var(--border-color); 
+      box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+    }
+    .point-icon {
+      width: 52px; height: 52px; min-width: 52px;
+      background: rgba(0, 163, 255, 0.12);
+      color: var(--blue-primary);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 26px;
+    }
+    .point-text { color: var(--text-secondary); font-size: 26px; font-weight: 500; line-height: 1.35; }
+    .point-text strong { color: var(--text-primary); font-weight: 800; }
+
+    /* ESPACIO LIBRE PARA EDICIÓN EXTERNA */
+    .empty-mockup-space {
+      width: 100%;
+      height: 420px;
+    }
+
+    /* Tarjeta de Testimonio y Autor en 3 líneas */
+    .testimonial-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 28px 32px;
+      border: 2px solid rgba(0, 163, 255, 0.2);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+      position: relative;
+    }
+    .quote-icon {
+      font-size: 48px;
+      color: var(--blue-primary);
+      line-height: 1;
+      font-family: Georgia, serif;
+      display: block;
+      margin-bottom: -10px;
+    }
+    .testimonial-quote {
+      font-size: 23px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.38;
+      font-style: italic;
+      margin-bottom: 18px;
+    }
+    .client-profile {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 16px;
+    }
+    .client-avatar-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--blue-primary);
+      box-shadow: 0 4px 10px rgba(0,163,255,0.2);
+    }
+    
+    .client-details { display: flex; flex-direction: column; gap: 2px; }
+    .client-name { font-size: 24px; font-weight: 800; color: var(--text-primary); line-height: 1.2; }
+    .client-company { font-size: 20px; font-weight: 800; color: var(--blue-primary); line-height: 1.2; }
+    .client-domain { font-size: 18px; font-weight: 600; color: #64748b; line-height: 1.2; }
+    .stars { color: #f59e0b; font-size: 22px; margin-left: auto; align-self: flex-start; }
+
+    /* Botón CTA */
+    .action-btn-box {
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)) !important;
+      color: #ffffff !important;
+      padding: 26px 48px !important;
+      border-radius: 100px !important;
+      font-size: 30px !important;
+      font-weight: 900 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 14px !important;
+      box-shadow: 0 15px 35px rgba(0, 163, 255, 0.4) !important;
+      margin-top: 10px !important;
+      text-align: center !important;
+    }
+
+    .footer { 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      border-top: 2px dashed rgba(15, 23, 42, 0.1); 
+      padding-top: 22px; 
+      z-index: 10;
+    }
+    .footer-note { font-weight: 800; font-size: 27px; color: var(--blue-primary); }
+  </style>
+</head>
+<body>
+
+  <nav class="filter-navbar">
+    <div class="filter-title">🚀 Carrusel Caso de Éxito: EFISER (efiser.cl)</div>
+  </nav>
+
+  <div class="carousels-main-container">
+    <section class="carousel-section" data-carousel="efiser">
+      <div class="carousel-header">
+        <div class="carousel-info">
+          <h2>💻 Caso de Éxito: EFISER & Tu Pyme Conectada</h2>
+          <p>Sitio web corporativo desarrollado para efiser.cl (Región de Valparaíso)</p>
+        </div>
+      </div>
+      
+      <div class="slides-row">
+
+        <!-- ================= SLIDE 1: PORTADA CON ESPACIO LIBRE ================= -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c2-s1', 'slide1-portada')">⬇ Descargar Slide 1</button>
+          <div class="slide-preview-box">
+            <div class="slide-canvas" id="c2-s1">
+              <div class="bg-gradient-base"></div>
+              <div class="diagonal-shape-top"></div>
+              <div class="diagonal-stripe"></div>
+              <div class="diagonal-accent-bottom"></div>
+              <div class="blue-glow-spot"></div>
+
+              <div class="content-wrapper">
+                <header class="header">
+                  <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                  <div class="badge-info">Servicios PyME</div>
+                </header>
+
+                <main class="main-body">
+                  <span class="category-tag">Nuevo Sitio Web</span>
+                  <h1 class="main-question">Nuevo Sitio Web Oficial para <span></br>EFISER.cl</span> ❄️</h1>
+                  
+                  <!-- ESPACIO RESERVADO LIBRE -->
+                  <div class="empty-mockup-space"></div>
+                </main>
+
+                <footer class="footer">
+                  <div class="footer-note">Desliza para ver la solución ➔</div>
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SLIDE 2: EL CLIENTE Y EL RETO ================= -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c2-s2', 'slide2-cliente')">⬇ Descargar Slide 2</button>
+          <div class="slide-preview-box">
+            <div class="slide-canvas" id="c2-s2">
+              <div class="bg-gradient-base"></div>
+              <div class="diagonal-shape-top"></div>
+              <div class="diagonal-stripe"></div>
+              <div class="diagonal-accent-bottom"></div>
+              <div class="blue-glow-spot"></div>
+
+              <div class="content-wrapper">
+                <header class="header">
+                  <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                  <div class="badge-info">El Desafío</div>
+                </header>
+
+                <main class="main-body">
+                  <span class="category-tag">Sobre la Marca</span>
+                  <h1 class="main-question">Climatización Industrial en la <span>Región de Valparaíso</span></h1>
+                  
+                  <div class="intro-card">
+                    <p><strong>EFISER</strong> es experto en instalación, mantenimiento y gestión de sistemas de climatización industrial.</p>
+                  </div>
+
+                  <div class="points-list">
+                    <div class="point-item">
+                      <div class="point-icon">❄️</div>
+                      <div class="point-text"><strong>El Objetivo:</strong> Proyectar autoridad corporativa pero en un diseño moderno de tipo One Page</div>
+                    </div>
+                    <div class="point-item">
+                      <div class="point-icon">📩</div>
+                      <div class="point-text"><strong>Canales Duales:</strong> Formalidad para cotizaciones y respuesta inmediata a dudas.</div>
+                    </div>
+                  </div>
+                </main>
+
+                <footer class="footer">
+                  <div class="footer-note">Desliza para ver los canales ➔</div>
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SLIDE 3: LA SOLUCIÓN WEB Y CANALES ================= -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c2-s3', 'slide3-solucion')">⬇ Descargar Slide 3</button>
+          <div class="slide-preview-box">
+            <div class="slide-canvas" id="c2-s3">
+              <div class="bg-gradient-base"></div>
+              <div class="diagonal-shape-top"></div>
+              <div class="diagonal-stripe"></div>
+              <div class="diagonal-accent-bottom"></div>
+              <div class="blue-glow-spot"></div>
+
+              <div class="content-wrapper">
+                <header class="header">
+                  <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                  <div class="badge-info">La Solución</div>
+                </header>
+
+                <main class="main-body">
+                  <span class="category-tag">Canales Integrados</span>
+                  <h1 class="main-question">Canales de Contacto <span>Estratégicos</span></h1>
+                  
+                  <div class="points-list">
+                    <div class="point-item">
+                      <div class="point-icon">📧</div>
+                      <div class="point-text"><strong>Cotizaciones Formales:</strong> Formulario vía correo para requerimientos de proyectos e inspecciones.</div>
+                    </div>
+                    <div class="point-item">
+                      <div class="point-icon">💬</div>
+                      <div class="point-text"><strong>Contacto Rápido:</strong> Botón directo a WhatsApp para resolver dudas al instante.</div>
+                    </div>
+                    <div class="point-item">
+                      <div class="point-icon">⚡</div>
+                      <div class="point-text"><strong>Web 100% Optimizada:</strong> Navegación fluida en escritorio y móviles en www.efiser.cl.</div>
+                    </div>
+                  </div>
+                </main>
+
+                <footer class="footer">
+                  <div class="footer-note">Desliza para ver la opinión de Pablo ➔</div>
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SLIDE 4: TESTIMONIO CLIENTE ================= -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c2-s4', 'slide4-testimonio')">⬇ Descargar Slide 4</button>
+          <div class="slide-preview-box">
+            <div class="slide-canvas" id="c2-s4">
+              <div class="bg-gradient-base"></div>
+              <div class="diagonal-shape-top"></div>
+              <div class="diagonal-stripe"></div>
+              <div class="diagonal-accent-bottom"></div>
+              <div class="blue-glow-spot"></div>
+
+              <div class="content-wrapper">
+                <header class="header">
+                  <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                  <div class="badge-info">Prueba Social</div>
+                </header>
+
+                <main class="main-body">
+                  <span class="category-tag">La Voz del Cliente</span>
+                  <h1 class="main-question">Lo que dice <span>Pablo Abarca</span> de nuestro trabajo</h1>
+                  
+                  <div class="testimonial-card">
+                    <span class="quote-icon">“</span>
+                    <p class="testimonial-quote">
+                      "Excelente experiencia con Tu Pyme Conectada. En EFISER hemos trabajado con Bastián y destaco especialmente su profesionalismo, buena disposición y rapidez para responder y solucionar nuestros requerimientos. Siempre atento y preocupado de que todo funcione correctamente. Muy buen servicio y totalmente recomendable."
+                    </p>
+                    
+                    <div class="client-profile">
+                      <img src="recursos/imagenes/feedback/feedback1.webp" alt="Pablo Abarca EFISER" class="client-avatar-img" onerror="this.style.display='none'">
+                      
+                      <div class="client-details">
+                        <div class="client-name">Pablo Abarca</div>
+                        <div class="client-company">EFISER</div>
+                        <div class="client-domain">www.efiser.cl</div>
+                      </div>
+                      
+                      <div class="stars">⭐⭐⭐⭐⭐</div>
+                    </div>
+                  </div>
+                </main>
+
+                <footer class="footer">
+                  <div class="footer-note">Desliza para tu propio sitio ➔</div>
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SLIDE 5: CTA CONVERSIÓN ================= -->
+        <div class="slide-wrapper">
+          <button class="download-btn" onclick="downloadCanvas('c2-s5', 'slide5-cta')">⬇ Descargar Slide 5</button>
+          <div class="slide-preview-box">
+            <div class="slide-canvas" id="c2-s5">
+              <div class="bg-gradient-base"></div>
+              <div class="diagonal-shape-top"></div>
+              <div class="diagonal-stripe"></div>
+              <div class="diagonal-accent-bottom"></div>
+              <div class="blue-glow-spot"></div>
+
+              <div class="content-wrapper">
+                <header class="header">
+                  <div class="logo-container"><img src="recursos/imagenes/logoTPC-dark.png" alt="Mi Logo"></div>
+                  <div class="badge-info">Tu Turno</div>
+                </header>
+
+                <main class="main-body">
+                  <span class="category-tag">Conecta Tu Pyme</span>
+                  <h1 class="main-question">¿Listo para un Sitio Web como el de <span>EFISER</span>?</h1>
+                  
+                  <div class="intro-card">
+                    <p>En <strong>Tu Pyme Conectada</strong> Diseñamos sitios web enfocados en convertir visitantes en clientes reales, integrando canales directos de cotización y respuesta rápida.</p>
+                  </div>
+
+                  <div class="action-btn-box">
+                    💬 Escríbenos por DM
+                  </div>
+                </main>
+
+                <footer class="footer">
+                  <div class="footer-note">Te asesoramos gratis en tu proyecto 📩</div>
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- SCRIPT DE DESCARGA E INTEGRACIÓN DE VISTA PREVIA -->
+  <script>
+    // Envuelve cada canvas en un contenedor de vista previa 'slide-preview-box' para evitar superposición
+    function setupPreviewBoxes() {
+      const canvases = document.querySelectorAll('.slide-canvas');
+      canvases.forEach(canvas => {
+        if (!canvas.parentElement.classList.contains('slide-preview-box')) {
+          const box = document.createElement('div');
+          box.className = 'slide-preview-box';
+          canvas.parentNode.insertBefore(box, canvas);
+          box.appendChild(canvas);
+        }
+      });
+    }
+
+    // Función de Filtrado de Carruseles
+    function filterCarousel(category, btnElement) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      btnElement.classList.add('active');
+
+      const sections = document.querySelectorAll('.carousel-section');
+      sections.forEach(sec => {
+        if (category === 'all' || sec.getAttribute('data-carousel') === category) {
+          sec.classList.remove('hidden');
+        } else {
+          sec.classList.add('hidden');
+        }
+      });
+    }
+
+    // Función de Descargar Canvas (1080x1350 px sin deformación ni espacios en blanco)
+    async function downloadCanvas(elementId, baseFileName) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+
+      // 1. Convertir TODAS las imágenes a Base64 dinámicamente (evita el error "Tainted canvas")
+      const images = Array.from(element.querySelectorAll('img'));
+      const pending = images.map((img) => {
+        if (img.src && img.src.startsWith('data:')) return Promise.resolve(true);
+        return fetch(img.src)
+          .then((res) => res.blob())
+          .then((blob) => new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              img.dataset.base64 = reader.result;
+              resolve(true);
+            };
+            reader.onerror = () => resolve(false);
+            reader.readAsDataURL(blob);
+          }))
+          .catch(() => resolve(false));
+      });
+
+      await Promise.all(pending);
+      images.forEach(img => {
+        if (img.dataset.base64) {
+          img.src = img.dataset.base64;
+        }
+      });
+
+      // 2. Definir dimensiones objetivo (Publicación 4:5 Instagram)
+      const targetWidth = 1080;
+      const targetHeight = 1350;
+      const fileName = baseFileName + '-carousel-4x5.png';
+
+      // 3. Renderizar eliminando escala reducida en memoria.
+      const host = document.createElement('div');
+      const cloneId = elementId + '-h2c';
+      Object.assign(host.style, {
+        position: 'fixed',
+        left: '-100000px',
+        top: '0',
+        width: targetWidth + 'px',
+        height: targetHeight + 'px',
+        overflow: 'visible',
+        zIndex: '-1'
+      });
+      const dup = element.cloneNode(true);
+      dup.id = cloneId;
+      dup.style.setProperty('transform', 'none', 'important');
+      dup.style.setProperty('position', 'relative', 'important');
+      dup.style.setProperty('top', '0', 'important');
+      dup.style.setProperty('left', '0', 'important');
+      dup.style.setProperty('width', targetWidth + 'px', 'important');
+      dup.style.setProperty('height', targetHeight + 'px', 'important');
+      dup.style.setProperty('margin', '0', 'important');
+      dup.style.setProperty('box-shadow', 'none', 'important');
+      host.appendChild(dup);
+      document.body.appendChild(host);
+      void host.offsetHeight; void dup.offsetHeight;
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+      html2canvas(dup, {
+        scale: 1,
+        width: targetWidth,
+        height: targetHeight,
+        windowWidth: targetWidth,
+        windowHeight: targetHeight,
+        scrollX: 0,
+        scrollY: 0,
+        useCORS: true,
+        allowTaint: false,
+        backgroundColor: '#ffffff',
+        onclone: (clonedDoc) => {
+          const clonedElement = clonedDoc.getElementById(cloneId);
+          if (!clonedElement) return;
+
+          // RESET DE ESCALA: Forzar expansión a 1080p
+          clonedElement.style.setProperty('transform', 'none', 'important');
+          clonedElement.style.setProperty('position', 'relative', 'important');
+          clonedElement.style.setProperty('top', '0', 'important');
+          clonedElement.style.setProperty('left', '0', 'important');
+          clonedElement.style.setProperty('width', targetWidth + 'px', 'important');
+          clonedElement.style.setProperty('height', targetHeight + 'px', 'important');
+          clonedElement.style.setProperty('box-shadow', 'none', 'important');
+          clonedElement.style.setProperty('margin', '0', 'important');
+
+          // Limpiar sombras de las cajas
+          const allBoxes = clonedElement.querySelectorAll('div, .ui-bento-card, .ui-bento-full, .point-item, .intro-card, .highlight-box, .ui-browser, .ui-chat, .ui-tweet, .ui-ticket, .ui-split-good, .ui-split-bad');
+          allBoxes.forEach(box => {
+            box.style.boxShadow = 'none';
+          });
+
+          // FIX 1: Reparar .intro-card
+          const introCards = clonedElement.querySelectorAll('.intro-card');
+          introCards.forEach(card => {
+            card.style.backgroundColor = '#ffffff';
+            card.style.boxShadow = 'none';
+            card.style.border = '1px solid rgba(15, 23, 42, 0.1)';
+            card.style.borderLeft = '8px solid #00a3ff';
+          });
+
+          // FIX 2: Forzar fondo blanco sólido en .ui-bento-card
+          const bentoCards = clonedElement.querySelectorAll('.ui-bento-card');
+          bentoCards.forEach(card => {
+            card.style.backgroundColor = '#ffffff';
+            card.style.boxShadow = 'none';
+          });
+
+          // FIX TEXTOS DEGRADADOS (-webkit-background-clip:text)
+          const gradStyle = clonedDoc.createElement('style');
+          gradStyle.textContent = `
+            .slide-canvas .main-question span,
+            .slide-canvas .ui-stat-num,
+            [style*="-webkit-background-clip: text"], [style*="background-clip: text"],
+            [style*="-webkit-text-fill-color: transparent"] {
+              background: none !important;
+              background-image: none !important;
+              -webkit-background-clip: initial !important;
+              background-clip: initial !important;
+              -webkit-text-fill-color: #00a3ff !important;
+              color: #00a3ff !important;
+            }
+          `;
+          clonedDoc.head.appendChild(gradStyle);
+          clonedElement.querySelectorAll('.main-question span, .ui-stat-num').forEach(span => {
+            span.style.setProperty('-webkit-text-fill-color', '#00a3ff', 'important');
+            span.style.setProperty('color', '#00a3ff', 'important');
+            span.style.setProperty('background', 'none', 'important');
+            span.style.setProperty('background-image', 'none', 'important');
+            span.style.setProperty('-webkit-background-clip', 'initial', 'important');
+            span.style.setProperty('background-clip', 'initial', 'important');
+          });
+
+          clonedElement.querySelectorAll('*').forEach(el => {
+            if (!(el instanceof clonedDoc.defaultView.Element)) return;
+            const cs = clonedDoc.defaultView.getComputedStyle(el);
+            const clip = String(cs.backgroundClip || cs.webkitBackgroundClip || '').toLowerCase();
+            const isGradientText = clip.includes('text') &&
+                                   (cs.webkitTextFillColor === 'transparent' ||
+                                    String(cs.backgroundImage || '').includes('linear-gradient'));
+            if (!isGradientText) return;
+            let color = '#00a3ff';
+            const m = String(cs.backgroundImage || '').match(/rgba?\([^)]+\)/g);
+            if (m && m.length) color = m[0];
+            el.style.setProperty('background', 'none', 'important');
+            el.style.setProperty('-webkit-background-clip', 'initial', 'important');
+            el.style.setProperty('background-clip', 'initial', 'important');
+            el.style.setProperty('background-image', 'none', 'important');
+            el.style.setProperty('-webkit-text-fill-color', 'initial', 'important');
+            el.style.setProperty('color', color, 'important');
+          });
+
+          // FIX 3: Corregir el filtro blur difuminado
+          const glowSpots = clonedElement.querySelectorAll('.blue-glow-spot');
+          glowSpots.forEach(glow => {
+            glow.style.filter = 'none';
+            glow.style.background = 'radial-gradient(circle, rgba(0,163,255,0.25) 0%, rgba(255,255,255,0) 70%)';
+          });
+        }
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }).catch(err => {
+        console.error("Error al generar la imagen del carrusel:", err);
+      }).finally(() => {
+        host.remove();
+      });
+    }
+
+    // Inicializar vista previa al cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+      setupPreviewBoxes();
+    });
+  </script>
+</body>
+</html>
