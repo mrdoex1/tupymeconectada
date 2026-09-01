@@ -1740,56 +1740,9 @@ a {
         transition: var(--transition);
       }
 
-      .pricing-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: var(--primary);
-      }
-
       .pricing-card:hover {
         border-color: var(--border-glow);
         transform: translateY(-4px);
-      }
-
-      .pricing-card-top {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 18px;
-      }
-
-      .pricing-card-top .pricing-icon {
-        font-size: 1.3rem;
-        color: var(--primary);
-        background: rgba(0, 163, 255, 0.1);
-        width: 52px;
-        height: 52px;
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid var(--border-glow);
-        flex-shrink: 0;
-      }
-
-      .pricing-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: rgba(0, 163, 255, 0.1);
-        border: 1px solid var(--border-glow);
-        color: var(--primary);
-        font-size: 0.68rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        padding: 5px 12px;
-        border-radius: 50px;
-        margin-bottom: 0;
       }
 
       .pricing-title {
