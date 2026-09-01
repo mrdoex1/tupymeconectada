@@ -1873,6 +1873,13 @@ a {
         flex-shrink: 0;
       }
 
+      .pricing-features li.pricing-more {
+        gap: 0;
+        color: var(--text-dark-muted);
+        font-style: italic;
+        letter-spacing: 0.02em;
+      }
+
       .pricing-cta {
         display: flex;
         align-items: center;
