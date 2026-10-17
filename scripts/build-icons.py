@@ -51,7 +51,10 @@ def build_font(source: str, unicodes: list[int], out: Path) -> None:
     options.layout_features = []
     options.name_IDs = ["*"]
     options.notdef_outline = True
-    font = TTFont(TABLER / "fonts" / source)
+    # Tabler guarda xMin=0 en cada glifo aunque el contorno empieza más a la
+    # derecha; si fontTools recalcula los bordes, desplaza los íconos a la
+    # izquierda y quedan descentrados.
+    font = TTFont(TABLER / "fonts" / source, recalcBBoxes=False)
     subsetter = subset.Subsetter(options)
     subsetter.populate(unicodes=unicodes)
     subsetter.subset(font)
