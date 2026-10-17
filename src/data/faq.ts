@@ -26,7 +26,7 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: '¿Puedo editar mi web por mi cuenta después?',
-        a: 'Sí. Todos los sitios incluyen un administrador sencillo para cambiar textos e imágenes sin saber programar y sin romper el diseño.',
+        a: 'Sí. Todos los sitios incluyen un administrador sencillo, sin saber programar y sin romper el diseño. En One Page y Sitio Corporativo cambias textos e imágenes; en el Catálogo agregas y editas productos y precios.',
       },
     ],
   },
@@ -71,7 +71,11 @@ export const faqGroups: FaqGroup[] = [
     faqs: [
       {
         q: '¿Qué incluye el plan mensual?',
-        a: 'Respaldos, actualizaciones de seguridad, corrección de errores, optimización de velocidad y SEO técnico, hosting y 2 horas al mes para tus cambios.',
+        a: 'Respaldos, actualizaciones de seguridad, corrección de errores, optimización de velocidad y SEO técnico, y 2 horas al mes para tus cambios.',
+      },
+      {
+        q: '¿Es obligatorio el plan de Mantenimiento?',
+        a: 'No. Tu web funciona igual sin él y el hosting sigue siendo gratuito. El plan es para quienes prefieren que nos encarguemos de respaldos, seguridad, velocidad y de hacer sus cambios cada mes.',
       },
       {
         q: '¿Estoy amarrado a un contrato?',
@@ -97,8 +101,12 @@ export const faqGroups: FaqGroup[] = [
         a: '50% al iniciar el proyecto y 50% cuando tu web está publicada. Puedes pagar por transferencia bancaria o Mercado Pago.',
       },
       {
+        q: '¿Y si quiero cambios después de publicar?',
+        a: 'Los textos e imágenes los puedes cambiar tú desde el administrador. Si prefieres que los hagamos nosotros, el plan de Mantenimiento incluye 2 horas al mes para tus cambios. Las páginas o funciones nuevas se cotizan aparte.',
+      },
+      {
         q: '¿Incluyen hosting y dominio?',
-        a: 'El hosting del primer año va incluido en todos los sitios. Desde el segundo año va incluido en el plan de Mantenimiento o se renueva por $39.990 al año. El dominio .cl se paga aparte en NIC Chile (aprox. $10.000 al año) y te ayudamos a inscribirlo a tu nombre.',
+        a: 'El hosting va incluido gratis en todos los sitios, sin pago anual ni renovación. Si prefieres otro hosting, te ayudamos a publicar tu web ahí. El dominio .cl se paga aparte en NIC Chile (aprox. $10.000 al año) y te ayudamos a inscribirlo a tu nombre.',
       },
       {
         q: '¿Hacen tiendas online con pago en línea?',

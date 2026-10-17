@@ -39,7 +39,7 @@ export const planes: Plan[] = [
       'Administrador para editar textos e imágenes sin programar',
       'Carga rápida y certificado SSL',
       'SEO técnico para que Google entienda tu sitio',
-      'Hosting el primer año incluido',
+      'Hosting gratuito incluido, sin pago anual',
       '1 ronda de cambios antes de publicar',
     ],
     noIncluye: 'No incluye redacción de textos ni dominio.',
@@ -66,6 +66,7 @@ export const planes: Plan[] = [
       'Configuración de Google Search Console y envío de tu sitio a Google',
       'Galería de trabajos o productos',
       '2 rondas de cambios antes de publicar',
+      'Hosting gratuito incluido, sin pago anual',
     ],
     noIncluye: 'No incluye dominio.',
     boton: 'Quiero la One Page Pro',
@@ -90,7 +91,7 @@ export const planes: Plan[] = [
       'Administrador para agregar y editar productos y precios',
       'Diseño adaptado a celular, tablet y computador',
       'Carga rápida, certificado SSL y SEO técnico',
-      'Hosting el primer año incluido',
+      'Hosting gratuito incluido, sin pago anual',
     ],
     noIncluye:
       'No incluye pago en línea ni dominio. Cobras como ya lo haces (transferencia o al entregar). Más de 30 productos: se cotiza.',
@@ -114,7 +115,7 @@ export const planes: Plan[] = [
       'Administrador para editar textos e imágenes sin programar',
       'Diseño adaptado a celular, tablet y computador',
       'Carga rápida, certificado SSL y SEO técnico en cada página',
-      'Hosting el primer año incluido',
+      'Hosting gratuito incluido, sin pago anual',
     ],
     noIncluye:
       'No incluye dominio. Páginas adicionales y módulos como blog o portafolio se cotizan aparte.',
@@ -136,7 +137,6 @@ export const planes: Plan[] = [
       'Corrección de errores',
       'Optimización de velocidad y SEO técnico',
       '2 horas al mes para tus cambios (no acumulables)',
-      'Hosting incluido mientras el plan esté activo',
     ],
     noIncluye: 'Páginas nuevas, funciones nuevas o rediseños se cotizan aparte.',
     boton: 'Quiero el plan mensual',
@@ -155,7 +155,7 @@ export const buenoSaber = [
   {
     titulo: 'Hosting',
     texto:
-      'El primer año va incluido en todos los sitios. Desde el segundo año, va incluido en el plan de Mantenimiento o lo renuevas por $39.990 al año.',
+      'Va incluido gratis en todos los sitios, sin pago anual ni renovación. Si prefieres usar otro hosting, te ayudamos a publicar tu web ahí.',
   },
   {
     titulo: 'Pago',
