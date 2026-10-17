@@ -1,128 +1,92 @@
 ---
+import { site } from '../../data/site';
+import { planes, buenoSaber, proyectosAMedida } from '../../data/planes';
 ---
 
 <section id="servicios" class="pp-section pp-section--dark">
-      <div class="pp-inner">
-          <div class="pp-head pp-reveal">
-            <h2>Servicios</h2>
-          </div>
-          <div>
-            <p>Soluciones a medida para que tu negocio venda por internet</p>
-          </div>
+  <div class="pp-inner">
+    <div class="pp-head pp-reveal">
+      <h2>Planes y precios de páginas web para pymes</h2>
+      <p>
+        Precios fijos y publicados. Sabes desde el inicio cuánto pagas, qué
+        incluye y cuándo está lista tu web.
+      </p>
+    </div>
 
-
-        <div class="servicios-carousel pp-reveal">
-          <button class="carousel-btn prev" id="srvPrevBtn" aria-label="Servicio anterior"><i class="ti ti-chevron-left"></i></button>
-          <div class="pricing-wrap" id="pricingWrap">
-          <div class="pricing-card">
-            <h3 class="pricing-title">One Page Web</h3>
-            <p class="pricing-audience-label"><i class="ti ti-bolt"></i> Una página, un objetivo, más clientes</p>
+    <div class="servicios-carousel pp-reveal">
+      <button class="carousel-btn prev" id="srvPrevBtn" aria-label="Servicio anterior"><i class="ti ti-chevron-left"></i></button>
+      <div class="pricing-wrap" id="pricingWrap">
+        {planes.map((plan) => (
+          <div
+            id={`plan-${plan.id}`}
+            class:list={[
+              'pricing-card',
+              { 'pricing-card--feature': plan.feature },
+              { 'pricing-card--wide': plan.ancho },
+            ]}
+          >
+            {plan.destacado && (
+              <span class="pricing-badge">Recomendado</span>
+            )}
+            <h3 class="pricing-title">{plan.nombre}</h3>
+            <p class="pricing-bajada">{plan.bajada}</p>
             <div class="pricing-price">
-              <span class="amount">$79.990 – $149.990</span>
-              <span class="note">Entrega 3 – 5 días</span>
+              {plan.desde && <span class="pricing-from">desde</span>}
+              <span class="amount">${plan.precio}</span>
+              <span class="note">{plan.precioNota}</span>
             </div>
+            {plan.plazo && (
+              <p class="pricing-plazo"><i class="ti ti-calendar-time" aria-hidden="true"></i> {plan.plazo}</p>
+            )}
+            {plan.condicion && (
+              <p class="pricing-condicion"><i class="ti ti-circle-check" aria-hidden="true"></i> {plan.condicion}</p>
+            )}
+            {plan.paraQuien && (
+              <div class="pricing-audience">
+                <p>{plan.paraQuien}</p>
+              </div>
+            )}
             <ul class="pricing-features">
-              <li><i class="ti ti-circle-check"></i><span>Ofrece tus servicios con botón directo a WhatsApp.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Administrador de contenidos: editas textos e imágenes sin romper el diseño.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Carga ultrarrápida y certificado SSL.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Se ve bien en todos los dispositivos.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>SEO técnico implementado para que aparezcas en Google.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Hosting incluido o usa el que ya tengas.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Soporte post entrega.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Botones a tus redes sociales.</span></li>
-              <li class="pricing-more">… y más.</li>
+              {plan.incluyeLead && <li class="pricing-lead">{plan.incluyeLead}</li>}
+              {plan.incluye.map((item) => (
+                <li><i class="ti ti-circle-check" aria-hidden="true"></i><span>{item}</span></li>
+              ))}
             </ul>
+            <p class="pricing-exclude">{plan.noIncluye}</p>
             <div class="pricing-actions">
-              <a class="pricing-cta" href="https://wa.me/56973173721?text=Hola,%20quiero%20cotizar%20una%20one%20page%20web" target="_blank" rel="noopener noreferrer">
-                <i class="ti ti-brand-whatsapp"></i> Cotizar One Page
+              <a class="pricing-cta" href={site.whatsapp[plan.whatsappKey]} target="_blank" rel="noopener noreferrer">
+                <i class="ti ti-brand-whatsapp"></i> {plan.boton}
               </a>
-              <a class="pp-link-catalogo" href="/catalogo.html?f=landing" target="_blank" rel="noopener noreferrer">Ver detalle <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
             </div>
           </div>
-
-          <div class="pricing-card">
-            <h3 class="pricing-title">Catálogo WhatsApp</h3>
-            <p class="pricing-audience-label"><i class="ti ti-bolt"></i> Pedidos que llegan directo a tu teléfono</p>
-            <div class="pricing-price">
-              <span class="amount">$79.990 – $149.990</span>
-              <span class="note">Entrega 3 – 5 días</span>
-            </div>
-            <ul class="pricing-features">
-              <li><i class="ti ti-circle-check"></i><span>Tu catálogo en línea: fotos, categorías y precios.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>El cliente arma su pedido y te llega por WhatsApp.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Administrador de contenidos para tus productos y precios.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Carga ultrarrápida y certificado SSL.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Se ve bien en todos los dispositivos.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Retiro / Delivery según lo que vendas.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Hosting incluido o usa el que ya tengas.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Soporte post entrega.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Botones a tus redes sociales.</span></li>
-              <li class="pricing-more">… y más.</li>
-            </ul>
-            <div class="pricing-actions">
-              <a class="pricing-cta" href="https://wa.me/56973173721?text=Hola,%20quiero%20cotizar%20un%20cat%C3%A1logo%20WhatsApp" target="_blank" rel="noopener noreferrer">
-                <i class="ti ti-brand-whatsapp"></i> Cotizar Catálogo
-              </a>
-              <a class="pp-link-catalogo" href="/catalogo.html?f=catalogo" target="_blank" rel="noopener noreferrer">Ver detalle <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
-            </div>
-          </div>
-
-          <div class="pricing-card">
-            <h3 class="pricing-title">Sitio Corporativo</h3>
-            <p class="pricing-audience-label"><i class="ti ti-bolt"></i> Proyecta autoridad con una web completa</p>
-            <div class="pricing-price">
-              <span class="amount">$249.990</span>
-              <span class="note">Hasta 4 páginas · Entrega 8 – 10 días</span>
-            </div>
-            <ul class="pricing-features">
-              <li><i class="ti ti-circle-check"></i><span>Hasta 4 páginas: Inicio, Nosotros, Servicios y Contacto.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Administrador de contenidos para editar sin programar.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Carga ultrarrápida y certificado SSL.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Se ve bien en todos los dispositivos.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>SEO técnico implementado para que aparezcas en Google.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Botón de WhatsApp y formulario que llega a tu correo.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Hosting incluido o usa el que ya tengas.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Soporte post entrega.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Botones a tus redes sociales.</span></li>
-              <li class="pricing-more">… y más.</li>
-            </ul>
-            <div class="pricing-actions">
-              <a class="pricing-cta" href="https://wa.me/56973173721?text=Hola,%20quiero%20cotizar%20mi%20sitio%20corporativo" target="_blank" rel="noopener noreferrer">
-                <i class="ti ti-brand-whatsapp"></i> Cotizar Sitio
-              </a>
-              <a class="pp-link-catalogo" href="/catalogo.html?f=corporativo" target="_blank" rel="noopener noreferrer">Ver detalle <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
-            </div>
-          </div>
-
-          <div class="pricing-card">
-            <h3 class="pricing-title">Mantenimiento y Optimización</h3>
-            <p class="pricing-audience-label"><i class="ti ti-bolt"></i> Tu web cuidada, rápida y segura</p>
-            <div class="pricing-price">
-              <span class="amount">$29.990 / mes</span>
-              <span class="note">Sin contrato · Cancelable con aviso</span>
-            </div>
-            <ul class="pricing-features">
-              <li><i class="ti ti-circle-check"></i><span>Backups, seguridad y corrección de errores.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>Optimización de velocidad y SEO técnico.</span></li>
-              <li><i class="ti ti-circle-check"></i><span>2 horas mensuales de soporte y ajustes.</span></li>
-              <li class="pricing-more">… y más.</li>
-            </ul>
-            <div class="pricing-actions">
-              <a class="pricing-cta" href="https://wa.me/56973173721?text=Hola,%20quiero%20contratar%20el%20plan%20de%20mantenimiento%20y%20optimizaci%C3%B3n" target="_blank" rel="noopener noreferrer">
-                <i class="ti ti-brand-whatsapp"></i> Cotizar Plan
-              </a>
-              <a class="pp-link-catalogo" href="/catalogo.html?f=mantenimiento" target="_blank" rel="noopener noreferrer">Ver detalle <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
-            </div>
-          </div>
-        </div>
-          <button class="carousel-btn next" id="srvNextBtn" aria-label="Servicio siguiente"><i class="ti ti-chevron-right"></i></button>
-        </div>
-
-        <div class="pp-srv-dots" id="ppSrvDots" aria-live="polite" role="tablist" aria-label="Navegación de servicios">
-          <button class="pp-srv-dot" aria-label="Ir a servicio 1" data-index="0" aria-current="true"></button>
-          <button class="pp-srv-dot" aria-label="Ir a servicio 2" data-index="1"></button>
-          <button class="pp-srv-dot" aria-label="Ir a servicio 3" data-index="2"></button>
-          <button class="pp-srv-dot" aria-label="Ir a servicio 4" data-index="3"></button>
-        </div>
+        ))}
       </div>
-    </section>
+      <button class="carousel-btn next" id="srvNextBtn" aria-label="Servicio siguiente"><i class="ti ti-chevron-right"></i></button>
+    </div>
+
+    <div class="pp-srv-dots" id="ppSrvDots" aria-live="polite" role="tablist" aria-label="Navegación de servicios">
+      {planes.map((_, i) => (
+        <button class="pp-srv-dot" aria-label={`Ir a servicio ${i + 1}`} data-index={i} aria-current={i === 0}></button>
+      ))}
+    </div>
+
+    <div class="pp-buenosaber pp-reveal">
+      <h3>Bueno saber antes de cotizar</h3>
+      <div class="pp-buenosaber-grid">
+        {buenoSaber.map((item) => (
+          <div class="pp-buenosaber-item">
+            <b>{item.titulo}</b>
+            <p>{item.texto}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="pp-medida pp-reveal">
+      <p>{proyectosAMedida.texto}</p>
+      <a class="pp-btn pp-btn--outline" href={site.whatsapp.aMedida} target="_blank" rel="noopener noreferrer">
+        {proyectosAMedida.boton} <i class="ti ti-arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</section>

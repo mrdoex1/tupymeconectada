@@ -1,192 +1,45 @@
 ---
+import { faqGroups } from '../../data/faq';
 ---
 
 <section id="faq" class="pp-section pp-section--dark">
   <div class="pp-inner">
     <div class="pp-head">
-      <h2>Preguntas Frecuentes</h2>
+      <h2>Preguntas frecuentes sobre páginas web</h2>
       <p>Todo lo que necesitas saber antes de empezar</p>
     </div>
 
     <div class="pp-chips pp-reveal" role="group" aria-label="Filtrar preguntas">
-      <button class="pp-chip active" data-filter="landing" aria-pressed="true">One Page Web</button>
-      <button class="pp-chip" data-filter="catalogo" aria-pressed="false">Catálogo WhatsApp</button>
-      <button class="pp-chip" data-filter="corporativo" aria-pressed="false">Sitio Corporativo</button>
-      <button class="pp-chip" data-filter="mantenimiento" aria-pressed="false">Mantenimiento y Optimización</button>
-      <button class="pp-chip" data-filter="proceso" aria-pressed="false">Proceso y Pagos</button>
+      {faqGroups.map((group, i) => (
+        <button
+          class:list={['pp-chip', { active: i === 0 }]}
+          data-filter={group.id}
+          aria-pressed={i === 0}
+        >
+          {group.etiqueta}
+        </button>
+      ))}
     </div>
 
-<div class="pp-faq-group" data-group="landing">
-      <h3 class="pp-faq-group-title"><i class="ti ti-code" aria-hidden="true"></i> One Page Web</h3>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Qué incluye mi one page?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>Un sitio de una página para <strong>ofrecer tus servicios</strong> y que te contacten directo por WhatsApp. Se arma con secciones claras: encabezado con tu propuesta, a quién le vendes o atiendes, lo que necesitan resolver, cómo tu servicio lo resuelve, beneficios, paso a paso para contratarte, opiniones de clientes y respuestas a dudas frecuentes. Incluye <strong>botón de WhatsApp, botones a tus redes sociales</strong>, administrador de contenidos, carga ultrarrápida, SSL y se entrega en <strong>3 – 5 días hábiles</strong>.</p>
-        </div></div>
+    {faqGroups.map((group, i) => (
+      <div class="pp-faq-group" data-group={group.id} hidden={i !== 0}>
+        <h3 class="pp-faq-group-title">
+          <i class={group.icono} aria-hidden="true"></i> {group.etiqueta}
+        </h3>
+        {group.faqs.map((faq) => (
+          <div class="pp-faq-item">
+            <button class="pp-faq-q" aria-expanded="false">
+              {faq.q}
+              <i class="ti ti-chevron-down" aria-hidden="true"></i>
+            </button>
+            <div class="pp-faq-a">
+              <div class="pp-faq-a-inner">
+                <p>{faq.a}</p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Puedo editar mi web por mi cuenta después?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>Sí, la one page incluye un <strong>administrador de contenidos sencillo</strong> para modificar textos e imágenes sin saber programar y sin romper el diseño.</p>
-        </div></div>
-      </div>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Los sitios se ven bien en el celular?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>Sí, todos los sitios que creamos están <strong>100% adaptados a celulares</strong>, que es donde navega la mayoría de tus clientes. Se ven y funcionan impecable en el teléfono y en el computador.</p>
-        </div></div>
-      </div>
-    </div>
-
-    <div class="pp-faq-group" data-group="catalogo" hidden>
-      <h3 class="pp-faq-group-title"><i class="ti ti-shopping-cart" aria-hidden="true"></i> Catálogo WhatsApp</h3>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Cómo llega el pedido?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>El cliente ve tus productos con fotos, arma su pedido y <strong>llega directo a tu WhatsApp</strong>. Tú gestionas el pago como ya lo haces (transferencia o entrega).</p>
-        </div></div>
-      </div>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Qué secciones tiene mi catálogo?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>Tu catálogo incluye <strong>grilla de productos</strong> con fotos y precios, <strong>categorías</strong> para organizar, <strong>búsqueda y filtros</strong> por precio, y una sección de <strong>retiro / delivery</strong> para que el cliente elija cómo recibir. También lleva <strong>botones a tus redes sociales</strong>.</p>
-        </div></div>
-      </div>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Puedo manejar yo mis productos?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>Sí, desde un <strong>administrador de contenidos sencillo</strong> agregas o editas tus productos, precios y categorías cuando quieras. Te dejamos productos de ejemplo para empezar.</p>
-        </div></div>
-      </div>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Sirve para delivery o retiro?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>Sí, incluye la sección de <strong>Retiro / Delivery</strong>, ideal para negocios de comida o que envían por app o retiran en local.</p>
-        </div></div>
-      </div>
-    </div>
-
-    <div class="pp-faq-group" data-group="corporativo" hidden>
-      <h3 class="pp-faq-group-title"><i class="ti ti-building" aria-hidden="true"></i> Sitio Corporativo</h3>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Qué páginas incluye mi sitio?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>El sitio corporativo incluye hasta <strong>4 páginas base</strong>: Inicio, Quiénes Somos, Servicios y Contacto. Se entrega en <strong>8 a 10 días hábiles</strong>.</p>
-        </div></div>
-      </div>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Puedo administrar el contenido yo mismo?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>Sí, el sitio incluye un <strong>administrador de contenidos</strong> para editar textos e imágenes de tus páginas, sin programar y sin romper el diseño.</p>
-        </div></div>
-      </div>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Qué más está incluido?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>Diseño <strong>responsive</strong>, formulario a tu correo, velocidad y SSL, SEO técnico y <strong>hosting incluido</strong> (o usa el que ya tengas), además de <strong>botones a tus redes sociales</strong>. Módulos como Blog o Portafolio se cotizan aparte.</p>
-        </div></div>
-      </div>
-    </div>
-
-    <div class="pp-faq-group" data-group="mantenimiento" hidden>
-      <h3 class="pp-faq-group-title"><i class="ti ti-lifebuoy" aria-hidden="true"></i> Mantenimiento y Optimización</h3>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Qué incluye el plan mensual?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>Mantenimiento preventivo y seguridad (backups y soporte correctivo), <strong>optimización de velocidad y SEO técnico</strong>, y una <strong>bolsa de 2 horas mensuales</strong> para tus cambios.</p>
-        </div></div>
-      </div>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Estoy atado a un contrato?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>No. Es un <strong>pago mensual sin contrato de arriendo forzoso</strong>, cancelable con aviso previo, y las horas no usadas no se acumulan.</p>
-        </div></div>
-      </div>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Qué no está incluido?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>La creación de páginas nuevas, funcionalidades avanzadas, rediseños estructurales o contenido desde cero <strong>se cotizan por separado</strong>.</p>
-        </div></div>
-      </div>
-    </div>
-
-    <div class="pp-faq-group" data-group="proceso" hidden>
-      <h3 class="pp-faq-group-title"><i class="ti ti-checklist" aria-hidden="true"></i> Proceso, entrega y pagos</h3>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Cómo es el proceso de trabajo?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>El proceso es simple: <strong>conversamos</strong> de tu negocio, <strong>diseñamos la propuesta</strong>, la <strong>revisas con nosotros</strong>, <strong>desarrollamos</strong> tu sitio y lo <strong>publicamos</strong>. Quedas capacitado para autogestionarlo y con seguimiento post-entrega.</p>
-        </div></div>
-      </div>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Cuánto demora la entrega de mi sitio?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>Los plazos varían según el servicio: <strong>One Page Web</strong> y <strong>Catálogo WhatsApp</strong> en 3 – 5 días hábiles, y <strong>Sitio Corporativo</strong> en 8 – 10 días hábiles. El plazo comienza a regir una vez que <strong>entregues la totalidad de los contenidos</strong> (textos, imágenes y accesos) y se realice el <strong>pago del 50% inicial</strong>.</p>
-        </div></div>
-      </div>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Cuál es la modalidad de pago?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>El pago se puede realizar mediante <strong>Mercado Pago</strong> o <strong>transferencia bancaria</strong>: <strong>50% al iniciar el proyecto</strong> y el <strong>50% restante contra la entrega final publicada</strong>. El mantenimiento es pago mensual.</p>
-        </div></div>
-      </div>
-      <div class="pp-faq-item">
-        <button class="pp-faq-q" aria-expanded="false">
-          ¿Cómo consigo clientes por WhatsApp desde mi web?
-          <i class="ti ti-chevron-down" aria-hidden="true"></i>
-        </button>
-        <div class="pp-faq-a"><div class="pp-faq-a-inner">
-          <p>Tu sitio se diseña para <strong>convertir visitas en contactos</strong>: botones de WhatsApp y llamados a la acción claros que llevan al cliente directo a conversar contigo.</p>
-        </div></div>
-      </div>
-    </div>
+    ))}
   </div>
 </section>

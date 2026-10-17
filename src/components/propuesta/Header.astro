@@ -1,4 +1,5 @@
 ---
+import { site } from '../../data/site';
 ---
 
 <header class="pp-header">
@@ -6,20 +7,22 @@
     <img
       src="/recursos/imagenes/logoTPC-dark.png"
       alt="Logo Tu Pyme Conectada"
+      width="106"
+      height="30"
     />
   </a>
 
   <nav class="pp-nav" id="ppNav" aria-label="Navegación principal">
-    <a href="#servicios">Servicios</a>
+    <a href="#trabajos">Trabajos</a>
+    <a href="#servicios">Planes y precios</a>
     <a href="#proceso">Proceso</a>
-    <a href="#quienes-somos">Quiénes somos</a>
+    <a href="#quienes-somos">Nosotros</a>
     <a href="#faq">FAQ</a>
-    <a href="#contacto">Contacto</a>
   </nav>
 
   <div class="pp-nav-actions">
     <a
-      href="https://www.instagram.com/tupymeconectada/"
+      href={site.instagram}
       target="_blank"
       rel="noopener noreferrer"
       class="pp-social"
@@ -28,7 +31,7 @@
       ><i class="ti ti-brand-instagram" aria-hidden="true"></i
     ></a>
     <a
-      href="https://wa.me/56973173721?text=Hola,%20quiero%20cotizar%20un%20sitio%20web"
+      href={site.whatsapp.general}
       class="pp-btn pp-btn--primary"
       target="_blank"
       rel="noopener noreferrer"

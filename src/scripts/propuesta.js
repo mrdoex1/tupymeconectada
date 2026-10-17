@@ -35,6 +35,18 @@ const initApp = () => {
       e.preventDefault();
       const top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
       window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
+
+      // Si el destino es una tarjeta del carrusel de planes, centrarla y destacarla
+      const wrap = target.closest('#pricingWrap');
+      if (wrap && target.classList.contains('pricing-card')) {
+        if (wrap.scrollWidth > wrap.clientWidth + 4) {
+          const left = target.offsetLeft - (wrap.clientWidth - target.offsetWidth) / 2;
+          wrap.scrollTo({ left: Math.max(0, left), behavior: reduceMotion ? 'auto' : 'smooth' });
+        }
+        target.classList.remove('pp-plan-flash');
+        void target.offsetWidth;
+        target.classList.add('pp-plan-flash');
+      }
     });
   });
 

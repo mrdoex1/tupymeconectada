@@ -1,5 +1,8 @@
 ---
 import '../styles/propuesta.css';
+import { site } from '../data/site';
+import { planes } from '../data/planes';
+import { faqGroups } from '../data/faq';
 
 interface Props {
   title?: string;
@@ -7,117 +10,71 @@ interface Props {
 }
 
 const {
-  title = 'Diseño Web para PYMES en Chile | Tu Pyme Conectada',
-  description = 'Sitios web limpios, rápidos y enfocados en vender más. Creación de sitios web, rediseño, mantenimiento y SEO local para pymes en Chile. Habla directo por WhatsApp.',
+  title = 'Páginas Web para Pymes en Chile desde $79.990 | Tu Pyme Conectada',
+  description = 'Páginas web para pymes en Chile: One Page desde $79.990, lista en 3 a 5 días hábiles y con botón directo a WhatsApp. Precios claros y sin letra chica.',
 } = Astro.props;
 
-const LOCAL_BUSINESS_JSONLD = {
+const SERVICE_DESCRIPTIONS: Record<string, string> = {
+  'one-page-esencial':
+    'Página web de una sola sección con botón a WhatsApp, lista en 3 a 5 días hábiles.',
+  'one-page-pro':
+    'One Page con redacción de textos, mapa, formulario, galería y configuración de Google Search Console.',
+  'catalogo-whatsapp':
+    'Catálogo online de hasta 30 productos con pedidos directo a WhatsApp.',
+  'sitio-corporativo':
+    'Sitio web de hasta 4 páginas con formulario y botón de WhatsApp.',
+  mantenimiento:
+    'Plan mensual con respaldos, seguridad, velocidad, SEO técnico, hosting y 2 horas de cambios.',
+};
+
+const BUSINESS_JSONLD = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
+  '@id': 'https://tupymeconectada.cl/#negocio',
   name: 'Tu Pyme Conectada',
-  image: 'https://tupymeconectada.cl/recursos/imagenes/logoTPC-dark.png',
-  url: 'https://tupymeconectada.cl',
-  telephone: '+56 9 5990 9150',
-  email: 'contacto@tupymeconectada.cl',
-  priceRange: '$$',
+  url: 'https://tupymeconectada.cl/',
+  logo: 'https://tupymeconectada.cl/recursos/imagenes/logoTPC-dark.png',
+  image: 'https://tupymeconectada.cl/recursos/imagenes/bannerFacebook-v2.jpg',
   description:
-    'Creación de sitios web para pymes en Chile: diseño web, rediseño, mantenimiento mensual y SEO local con atención directa por WhatsApp.',
+    'Diseño de páginas web para pymes en Chile: One Page, catálogos con pedidos por WhatsApp, sitios corporativos y mantenimiento web.',
+  telephone: '+56973173721',
+  email: site.email,
+  priceRange: '$79.990 - $249.990',
   address: {
     '@type': 'PostalAddress',
+    addressLocality: 'Santiago',
+    addressRegion: 'Región Metropolitana',
     addressCountry: 'CL',
   },
   areaServed: { '@type': 'Country', name: 'Chile' },
-  sameAs: [
-    'https://www.instagram.com/tupymeconectada/',
-    'https://wa.me/56973173721',
-  ],
+  sameAs: [site.instagram],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Planes de páginas web',
+    itemListElement: planes.map((plan) => ({
+      '@type': 'Offer',
+      name: plan.nombre,
+      price: plan.esPrecio,
+      priceCurrency: 'CLP',
+      itemOffered: {
+        '@type': 'Service',
+        name: plan.nombre,
+        description: SERVICE_DESCRIPTIONS[plan.id],
+      },
+    })),
+  },
 };
 
 const FAQ_JSONLD = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: [
-    {
+  mainEntity: faqGroups.flatMap((group) =>
+    group.faqs.map((faq) => ({
       '@type': 'Question',
-      name: '¿Qué tipos de sitios web puedo pedirte?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Ofrecemos one page webs, catálogos con pedido por WhatsApp, sitios corporativos multipágina y un plan de mantenimiento y optimización web. Cada servicio se adapta al objetivo de tu negocio: captar clientes, mostrar tus servicios o vender por internet.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Qué incluye mi one page?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Un sitio de una página para ofrecer tus servicios y que te contacten directo por WhatsApp, con secciones claras: tu propuesta, el problema que resuelves, tu solución, beneficios, cómo funciona, opiniones y dudas frecuentes. Incluye botón de WhatsApp, botones a tus redes sociales, administrador de contenidos, carga ultrarrápida, SSL y se entrega en 3 a 5 días hábiles.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Cómo funciona el Catálogo WhatsApp?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'El cliente ve tus productos con fotos, arma su pedido y llega directo a tu teléfono. Tú gestionas el pago como ya lo haces (transferencia o entrega). Incluye Retiro / Delivery.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Qué páginas incluye el sitio corporativo?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Incluye hasta 4 páginas base: Inicio, Quiénes Somos, Servicios y Contacto, con administrador de contenidos para editar textos e imágenes sin programar.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Qué incluye el plan de mantenimiento?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Mantenimiento preventivo y seguridad (backups y soporte correctivo), optimización de velocidad y SEO técnico, y una bolsa de 2 horas mensuales para tus cambios. Pago mensual sin contrato forzoso.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Los sitios se ven bien en el celular?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Sí, todos los sitios que creamos están 100% adaptados a celulares, que es donde navega la mayoría de tus clientes. Se ven y funcionan impecable en el teléfono y en el computador.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Puedo editar mi web por mi cuenta después?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Sí, los sitios incluyen un administrador de contenidos sencillo para modificar textos e imágenes, sin saber programar y sin romper el diseño.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Cuánto demora la entrega?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'One Page Web y Catálogo WhatsApp en 3 a 5 días hábiles; Sitio Corporativo en 8 a 10 días hábiles. El plazo comienza al recibir todos los contenidos y el pago del 50% inicial.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Cuál es la modalidad de pago?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'El pago se puede realizar mediante Mercado Pago o transferencia bancaria: 50% al iniciar el proyecto y el 50% restante contra la entrega final publicada. El plan de mantenimiento es pago mensual.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Incluyen hosting?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'En los proyectos te ofrecemos hosting sin costo (o puedes usar el hosting que ya tengas). El dominio .cl se gestiona por separado.',
-      },
-    },
-  ],
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    }))
+  ),
 };
 ---
 
@@ -140,7 +97,7 @@ const FAQ_JSONLD = {
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://tupymeconectada.cl" />
+    <meta property="og:url" content="https://tupymeconectada.cl/" />
     <meta property="og:locale" content="es_CL" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -157,11 +114,11 @@ const FAQ_JSONLD = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Caveat:wght@500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Gelasio:wght@400;500;600;700&family=Karla:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
-    <script type="application/ld+json" set:html={JSON.stringify(LOCAL_BUSINESS_JSONLD)} />
+    <script type="application/ld+json" set:html={JSON.stringify(BUSINESS_JSONLD)} />
     <script type="application/ld+json" set:html={JSON.stringify(FAQ_JSONLD)} />
   </head>
   <body>

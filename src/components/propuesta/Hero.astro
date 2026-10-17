@@ -1,4 +1,18 @@
 ---
+import { site } from '../../data/site';
+import { planes } from '../../data/planes';
+
+const plan = (id: string) => planes.find((p) => p.id === id)!;
+
+// Atajos del hero hacia cada plan: precio y plazo salen de planes.ts.
+const OPCIONES = [
+  // One Page tiene dos versiones (Esencial y Pro): se muestra como "One Page desde".
+  { titulo: 'Presentar mi negocio', icono: 'ti ti-building-store', plan: plan('one-page-esencial'), nombre: 'One Page', desde: true },
+  { titulo: 'Vender mis productos', icono: 'ti ti-shopping-cart', plan: plan('catalogo-whatsapp') },
+  { titulo: 'Una web para mi empresa', icono: 'ti ti-building', plan: plan('sitio-corporativo') },
+];
+const mantenimiento = plan('mantenimiento');
+
 const PARTICLES = Array.from({ length: 60 });
 ---
 
@@ -10,66 +24,58 @@ const PARTICLES = Array.from({ length: 60 });
     <div class="pp-hero-layout">
       <div class="pp-hero-aside">
         <h1>
-          Sitios web limpios, rápidos y enfocados en <em>vender más</em>
+          Páginas web para pymes en Chile, hechas <em>para que tus clientes te escriban</em>
         </h1>
         <p>
-          Ayudo a tu negocio a dar el salto digital con plataformas modernas,
-          optimizadas para celulares y listas para conectar directamente con tus
-          clientes por WhatsApp. ¿Tu sitio actual carga lento? También lo
-          optimizo para que vuelva a ser rápido y a convertir.
+          Diseñamos sitios rápidos, adaptados al celular y conectados directo a
+          tu WhatsApp. Si tu web actual carga lento o no te trae contactos,
+          también la optimizamos.
         </p>
+        <div class="pp-hero-anchors" aria-label="Resumen de la propuesta">
+          <span class="pp-hero-anchor">One Page desde $79.990</span>
+          <span class="pp-hero-anchor">Lista en 3 a 5 días hábiles</span>
+          <span class="pp-hero-anchor">Pagas 50% al iniciar</span>
+        </div>
         <div class="pp-hero-actions">
+          <a
+            href={site.whatsapp.general}
+            class="pp-btn pp-btn--primary pp-btn--hero"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Cotizar por
+            WhatsApp</a
+          >
           <a href="#servicios" class="pp-link-underline"
-            >Ver servicios <i class="ti ti-arrow-down" aria-hidden="true"></i
+            >Ver planes y precios <i class="ti ti-arrow-down" aria-hidden="true"></i
           ></a>
         </div>
       </div>
 
-      <div class="pp-brief pp-chat" role="group" aria-label="Así respondo por WhatsApp">
-        <div class="pp-chat-head">
-          <span class="pp-chat-avatar"><img src="/recursos/imagenes/logoTPC-dark.png" alt="Tu Pyme Conectada" /></span>
-          <div class="pp-chat-id">
-            <span class="pp-chat-name">Tu Pyme Conectada</span>
-            <span class="pp-chat-status"><i class="pp-chat-dot" aria-hidden="true"></i> Respuesta rápida</span>
-          </div>
-        </div>
-
-        <div class="pp-chat-cap">Así respondemos cuando alguien quiere su primera web: primero ayudamos, después proponemos.</div>
-
-        <div class="pp-chat-body">
-          <div class="pp-chat-msg pp-chat--in">
-            <div class="pp-chat-bubble">hola, esta es mi primera web y no sé por dónde empezar, me ayudas? 😅</div>
-          </div>
-
-          <div class="pp-chat-msg pp-chat--out">
-            <div class="pp-chat-bubble">
-              claro, estamos para eso. te hacemos unas preguntas para entender tu negocio y te proponemos algo a tu medida, sin compromiso.
-              <span class="pp-chat-meta">11:02 <i class="ti ti-checks" aria-hidden="true"></i></span>
-            </div>
-          </div>
-
-          <div class="pp-chat-msg pp-chat--in">
-            <div class="pp-chat-bubble">¿cuánto se demora en tener mi web lista?</div>
-          </div>
-
-          <div class="pp-chat-msg pp-chat--out">
-            <div class="pp-chat-bubble">
-              cuando nos cuentes qué necesitas te damos una fecha por escrito desde el inicio. Así sabes qué esperar y cuándo.
-              <span class="pp-chat-meta">11:04 <i class="ti ti-checks" aria-hidden="true"></i></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="pp-chat-foot">
-          <a
-            href="https://wa.me/56973173721?text=Hola,%20me%20gustaría%20hacer%20mi%20primera%20web"
-            class="pp-chat-cta"
-            target="_blank"
-            rel="noopener noreferrer"
-            ><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Iniciar conversación</a
-          >
-        </div>
-      </div>
+      <nav class="pp-picker" aria-labelledby="pp-picker-title">
+        <span class="pp-picker-kicker">Elige por dónde partir</span>
+        <h2 id="pp-picker-title" class="pp-picker-title">¿Qué necesitas?</h2>
+        <ul class="pp-picker-list">
+          {OPCIONES.map((op) => (
+            <li>
+              <a class="pp-picker-opt" href={`#plan-${op.plan.id}`}>
+                <span class="pp-picker-icon" aria-hidden="true"><i class={op.icono}></i></span>
+                <span class="pp-picker-copy">
+                  <b>{op.titulo}</b>
+                  <small>
+                    {op.nombre ?? op.plan.nombre} · {op.desde ?? op.plan.desde ? 'desde ' : ''}${op.plan.precio}
+                  </small>
+                  <small class="pp-picker-plazo">{op.plan.plazo}</small>
+                </span>
+                <i class="ti ti-chevron-right pp-picker-arrow" aria-hidden="true"></i>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a class="pp-picker-foot" href={`#plan-${mantenimiento.id}`}>
+          ¿Ya tienes web? Mantención por ${mantenimiento.precio} {mantenimiento.precioNota}
+          <i class="ti ti-arrow-right" aria-hidden="true"></i>
+        </a>
+      </nav>
     </div>
   </div>
 </section>
