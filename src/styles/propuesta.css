@@ -1,4 +1,4 @@
-@import "@tabler/icons-webfont/dist/tabler-icons.min.css";
+@import "./icons/icons.css";
 
 :root {
   --pp-blue: #00a3ff;
@@ -434,12 +434,17 @@ a {
   margin-bottom: 6px;
 }
 
-.pp-picker-title {
+/* Es un <p> (no un encabezado de sección): se sube la especificidad
+   para que no herede el estilo de .pp-hero p. */
+.pp-hero .pp-picker-title {
+  font-family: "Gelasio", Georgia, serif;
   font-size: 1.5rem;
   font-weight: 600;
+  line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--pp-text);
   margin-bottom: 18px;
+  max-width: none;
 }
 
 .pp-picker-list {

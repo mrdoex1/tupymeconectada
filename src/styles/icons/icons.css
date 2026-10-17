@@ -1,0 +1,56 @@
+/* Generado por scripts/build-icons.py — no editar a mano (npm run icons). */
+@font-face {
+  font-family: "tabler-icons";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("./tabler-subset.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "tabler-icons-filled";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("./tabler-filled-subset.woff2") format("woff2");
+}
+
+.ti {
+  font-family: "tabler-icons" !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ti-antenna-bars-5:before { content: "\eccb"; }
+.ti-arrow-down:before { content: "\ea16"; }
+.ti-arrow-right:before { content: "\ea1f"; }
+.ti-battery-3:before { content: "\ea31"; }
+.ti-brand-instagram:before { content: "\ec20"; }
+.ti-brand-whatsapp:before { content: "\ec74"; }
+.ti-building:before { content: "\ea4f"; }
+.ti-building-store:before { content: "\ea4e"; }
+.ti-calendar-time:before { content: "\ee21"; }
+.ti-checklist:before { content: "\f074"; }
+.ti-chevron-down:before { content: "\ea5f"; }
+.ti-chevron-left:before { content: "\ea60"; }
+.ti-chevron-right:before { content: "\ea61"; }
+.ti-circle-check:before { content: "\ea67"; }
+.ti-code:before { content: "\ea77"; }
+.ti-device-mobile:before { content: "\ea8a"; }
+.ti-external-link:before { content: "\ea99"; }
+.ti-home:before { content: "\eac1"; }
+.ti-lifebuoy:before { content: "\eadd"; }
+.ti-mail:before { content: "\eae5"; }
+.ti-menu-2:before { content: "\ec42"; }
+.ti-shopping-cart:before { content: "\eb25"; }
+.ti-tag:before { content: "\10096"; }
+.ti-wifi:before { content: "\eb52"; }
+.ti-x:before { content: "\eb55"; }
+.ti.ti-star-filled { font-family: "tabler-icons-filled" !important; }
+.ti-star-filled:before { content: "\f6a6"; }
