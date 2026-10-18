@@ -42,7 +42,7 @@ export const planes: Plan[] = [
       'Hosting incluido, sin costo adicional',
       '1 ronda de cambios antes de publicar',
     ],
-    noIncluye: 'No incluye redacción de textos ni dominio.',
+    noIncluye: 'No incluye redacción de textos, dominio ni correo corporativo.',
     boton: 'Quiero la One Page Esencial',
     whatsappKey: 'onePageEsencial',
     esPrecio: '79990',
@@ -68,7 +68,7 @@ export const planes: Plan[] = [
       '2 rondas de cambios antes de publicar',
       'Hosting incluido, sin costo adicional',
     ],
-    noIncluye: 'No incluye dominio.',
+    noIncluye: 'No incluye dominio ni correo corporativo.',
     boton: 'Quiero la One Page Pro',
     whatsappKey: 'onePagePro',
     esPrecio: '119990',
@@ -94,7 +94,7 @@ export const planes: Plan[] = [
       'Hosting incluido, sin costo adicional',
     ],
     noIncluye:
-      'No incluye pago en línea ni dominio. Cobras como ya lo haces (transferencia o al entregar). Más de 30 productos: se cotiza.',
+      'No incluye pago en línea, dominio ni correo corporativo. Cobras como ya lo haces (transferencia o al entregar). Más de 30 productos: se cotiza.',
     boton: 'Quiero mi Catálogo',
     whatsappKey: 'catalogo',
     esPrecio: '129990',
@@ -118,7 +118,7 @@ export const planes: Plan[] = [
       'Hosting incluido, sin costo adicional',
     ],
     noIncluye:
-      'No incluye dominio. Páginas adicionales y módulos como blog o portafolio se cotizan aparte.',
+      'No incluye dominio ni correo corporativo. Páginas adicionales y módulos como blog o portafolio se cotizan aparte.',
     boton: 'Cotizar Sitio Corporativo',
     whatsappKey: 'corporativo',
     esPrecio: '249990',
@@ -168,7 +168,7 @@ export const buenoSaber = [
       'Corren desde que recibimos tus textos, imágenes y accesos, y se realiza el primer pago.',
   },
   {
-    titulo: 'Correo con tu dominio',
+    titulo: 'Correo corporativo',
     texto:
       'No está incluido. Si quieres un correo como contacto@tunegocio.cl, te ayudamos a configurarlo; el servicio de correo (por ejemplo Google Workspace) se paga directamente al proveedor.',
   },

@@ -113,8 +113,8 @@ export const faqGroups: FaqGroup[] = [
         a: 'Porque tu web es un sitio rápido que no necesita servidor ni base de datos, y proveedores como Cloudflare alojan este tipo de sitios sin costo. No es una promoción: no hay cobro después ni renovación. La cuenta queda a tu nombre y la web se puede mover a otro hosting cuando quieras.',
       },
       {
-        q: '¿Incluye correo con mi dominio?',
-        a: 'No. Si quieres un correo como contacto@tunegocio.cl, te ayudamos a configurarlo; el servicio de correo (por ejemplo Google Workspace) se paga directamente al proveedor.',
+        q: '¿Incluye correo corporativo?',
+        a: 'No. Si quieres un correo corporativo como contacto@tunegocio.cl, te ayudamos a configurarlo; el servicio de correo (por ejemplo Google Workspace) se paga directamente al proveedor.',
       },
       {
         q: '¿Hacen tiendas online con pago en línea?',
