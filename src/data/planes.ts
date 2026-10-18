@@ -39,7 +39,7 @@ export const planes: Plan[] = [
       'Administrador para editar textos e imágenes sin programar',
       'Carga rápida y certificado SSL',
       'SEO técnico para que Google entienda tu sitio',
-      'Hosting gratuito incluido, sin pago anual',
+      'Hosting incluido, sin costo adicional',
       '1 ronda de cambios antes de publicar',
     ],
     noIncluye: 'No incluye redacción de textos ni dominio.',
@@ -66,7 +66,7 @@ export const planes: Plan[] = [
       'Configuración de Google Search Console y envío de tu sitio a Google',
       'Galería de trabajos o productos',
       '2 rondas de cambios antes de publicar',
-      'Hosting gratuito incluido, sin pago anual',
+      'Hosting incluido, sin costo adicional',
     ],
     noIncluye: 'No incluye dominio.',
     boton: 'Quiero la One Page Pro',
@@ -91,7 +91,7 @@ export const planes: Plan[] = [
       'Administrador para agregar y editar productos y precios',
       'Diseño adaptado a celular, tablet y computador',
       'Carga rápida, certificado SSL y SEO técnico',
-      'Hosting gratuito incluido, sin pago anual',
+      'Hosting incluido, sin costo adicional',
     ],
     noIncluye:
       'No incluye pago en línea ni dominio. Cobras como ya lo haces (transferencia o al entregar). Más de 30 productos: se cotiza.',
@@ -115,7 +115,7 @@ export const planes: Plan[] = [
       'Administrador para editar textos e imágenes sin programar',
       'Diseño adaptado a celular, tablet y computador',
       'Carga rápida, certificado SSL y SEO técnico en cada página',
-      'Hosting gratuito incluido, sin pago anual',
+      'Hosting incluido, sin costo adicional',
     ],
     noIncluye:
       'No incluye dominio. Páginas adicionales y módulos como blog o portafolio se cotizan aparte.',
@@ -155,7 +155,7 @@ export const buenoSaber = [
   {
     titulo: 'Hosting',
     texto:
-      'Va incluido gratis en todos los sitios, sin pago anual ni renovación. Si prefieres usar otro hosting, te ayudamos a publicar tu web ahí.',
+      'Usamos hosting gratuito de proveedores como Cloudflare, pensado para sitios como el tuyo: rápido, seguro y sin costo para ti. La cuenta queda a tu nombre, y si el proveedor cambiara sus condiciones, tu web se puede mover a otro hosting sin rehacerla. Si prefieres otro hosting, te ayudamos a publicarla ahí; ese costo lo pagas directamente al proveedor.',
   },
   {
     titulo: 'Pago',
@@ -167,10 +167,15 @@ export const buenoSaber = [
     texto:
       'Corren desde que recibimos tus textos, imágenes y accesos, y se realiza el primer pago.',
   },
+  {
+    titulo: 'Correo con tu dominio',
+    texto:
+      'No está incluido. Si quieres un correo como contacto@tunegocio.cl, te ayudamos a configurarlo; el servicio de correo (por ejemplo Google Workspace) se paga directamente al proveedor.',
+  },
 ];
 
 export const proyectosAMedida = {
   texto:
-    '¿Necesitas una tienda online con pago en línea o un proyecto a medida? Escríbenos y lo cotizamos según lo que necesitas.',
+    '¿Necesitas una tienda online con pago en línea o un proyecto a medida? Escríbenos y lo cotizamos según lo que necesitas, incluido el hosting.',
   boton: 'Cotizar proyecto a medida',
 };

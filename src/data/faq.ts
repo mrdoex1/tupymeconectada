@@ -75,7 +75,7 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: '¿Es obligatorio el plan de Mantenimiento?',
-        a: 'No. Tu web funciona igual sin él y el hosting sigue siendo gratuito. El plan es para quienes prefieren que nos encarguemos de respaldos, seguridad, velocidad y de hacer sus cambios cada mes.',
+        a: 'No. Tu web funciona igual sin él y el hosting sigue incluido sin costo. El plan es para quienes prefieren que nos encarguemos de respaldos, seguridad, velocidad y de hacer sus cambios cada mes.',
       },
       {
         q: '¿Estoy amarrado a un contrato?',
@@ -106,11 +106,19 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: '¿Incluyen hosting y dominio?',
-        a: 'El hosting va incluido gratis en todos los sitios, sin pago anual ni renovación. Si prefieres otro hosting, te ayudamos a publicar tu web ahí. El dominio .cl se paga aparte en NIC Chile (aprox. $10.000 al año) y te ayudamos a inscribirlo a tu nombre.',
+        a: 'El hosting va incluido sin costo adicional en todos los sitios. Si prefieres otro hosting, te ayudamos a publicar tu web ahí; ese costo lo pagas directamente al proveedor. El dominio .cl se paga aparte en NIC Chile (aprox. $10.000 al año) y te ayudamos a inscribirlo a tu nombre.',
+      },
+      {
+        q: '¿Por qué el hosting no tiene costo?',
+        a: 'Porque tu web es un sitio rápido que no necesita servidor ni base de datos, y proveedores como Cloudflare alojan este tipo de sitios sin costo. No es una promoción: no hay cobro después ni renovación. La cuenta queda a tu nombre y la web se puede mover a otro hosting cuando quieras.',
+      },
+      {
+        q: '¿Incluye correo con mi dominio?',
+        a: 'No. Si quieres un correo como contacto@tunegocio.cl, te ayudamos a configurarlo; el servicio de correo (por ejemplo Google Workspace) se paga directamente al proveedor.',
       },
       {
         q: '¿Hacen tiendas online con pago en línea?',
-        a: 'Sí, como proyecto a medida. Escríbenos por WhatsApp, cuéntanos qué vendes y te enviamos una cotización.',
+        a: 'Sí, como proyecto a medida. Como necesitan un hosting pagado, ese costo se incluye en la cotización. Escríbenos por WhatsApp, cuéntanos qué vendes y te enviamos una cotización.',
       },
     ],
   },

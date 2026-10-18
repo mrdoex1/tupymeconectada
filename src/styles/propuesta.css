@@ -2447,6 +2447,11 @@ a {
         border-color: var(--border-glow);
       }
 
+      /* Si la cantidad de bloques es impar, el último ocupa todo el ancho */
+      .pp-buenosaber-item:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+      }
+
       .pp-buenosaber-item b {
         display: block;
         color: var(--pp-text-dark);
