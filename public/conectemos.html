@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu Pyme Conectada | Enlaces y Servicios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gelasio:wght@500;600;700&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/recursos/imagenes/favicon.png" />
+  <style>
+    /* Mismos tokens que src/styles/propuesta.css */
+    :root {
+      --pp-blue: #00a3ff;
+      --pp-blue-soft: rgba(0, 163, 255, 0.12);
+      --pp-blue-glow: rgba(0, 163, 255, 0.3);
+      --pp-ink: #0e1726;
+      --pp-paper: #ffffff;
+      --pp-paper-warm: #eef4fb;
+      --pp-card: #ffffff;
+      --pp-text: #0f172a;
+      --pp-text-muted: #475569;
+      --pp-border-light: rgba(15, 23, 42, 0.08);
+      --pp-shadow-soft: 0 20px 50px rgba(15, 23, 42, 0.08);
+      --pp-wa: #28d366;
+      --pp-transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      --pp-underline: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 14'%3e%3cpath d='M3 9 C 40 3, 70 12, 108 8 C 146 4, 180 11, 217 6' fill='none' stroke='%2300a3ff' stroke-width='4' stroke-linecap='round'/%3e%3c/svg%3e");
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Karla", system-ui, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    h1, .links-tagline {
+      font-family: "Gelasio", Georgia, serif;
+      letter-spacing: -0.015em;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--pp-blue);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      color: var(--pp-text);
+      line-height: 1.7;
+      background: linear-gradient(180deg, var(--pp-paper) 0%, var(--pp-paper-warm) 100%);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Partículas que suben, como en el hero del sitio */
+    .pp-particles {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .pp-particle {
+      position: absolute;
+      bottom: -12px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #38bdf8 0%, rgba(0, 163, 255, 0.6) 100%);
+      opacity: 0;
+      animation: ppRise linear infinite;
+    }
+
+    @keyframes ppRise {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      10% { opacity: 0.9; }
+      80% { opacity: 0.55; }
+      100% { transform: translateY(-100vh) translateX(28px); opacity: 0; }
+    }
+
+    .pp-particle:nth-child(1)  { left: 6%;  width: 4px; height: 4px; animation-duration: 9.4s;  animation-delay: 0.4s; }
+    .pp-particle:nth-child(2)  { left: 14%; width: 3px; height: 3px; animation-duration: 11.2s; animation-delay: 3.1s; }
+    .pp-particle:nth-child(3)  { left: 23%; width: 5px; height: 5px; animation-duration: 10.4s; animation-delay: 6.2s; }
+    .pp-particle:nth-child(4)  { left: 31%; width: 2px; height: 2px; animation-duration: 8.7s;  animation-delay: 1.3s; }
+    .pp-particle:nth-child(5)  { left: 42%; width: 3px; height: 3px; animation-duration: 12.1s; animation-delay: 4.4s; }
+    .pp-particle:nth-child(6)  { left: 55%; width: 4px; height: 4px; animation-duration: 9.6s;  animation-delay: 2.8s; }
+    .pp-particle:nth-child(7)  { left: 63%; width: 2px; height: 2px; animation-duration: 10.8s; animation-delay: 7.1s; }
+    .pp-particle:nth-child(8)  { left: 72%; width: 5px; height: 5px; animation-duration: 11.7s; animation-delay: 0.9s; }
+    .pp-particle:nth-child(9)  { left: 81%; width: 3px; height: 3px; animation-duration: 9.2s;  animation-delay: 5.5s; }
+    .pp-particle:nth-child(10) { left: 89%; width: 4px; height: 4px; animation-duration: 12.6s; animation-delay: 3.6s; }
+    .pp-particle:nth-child(11) { left: 95%; width: 2px; height: 2px; animation-duration: 10.1s; animation-delay: 1.5s; }
+    .pp-particle:nth-child(12) { left: 48%; width: 3px; height: 3px; animation-duration: 8.2s;  animation-delay: 8.3s; }
+
+    /* Tarjeta principal */
+    .links-card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 460px;
+      background: var(--pp-card);
+      border: 1px solid var(--pp-border-light);
+      border-radius: 28px;
+      padding: 40px 28px 32px;
+      box-shadow: var(--pp-shadow-soft);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .links-avatar {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      padding: 4px;
+      background: #ffffff;
+      border: 2px solid var(--pp-blue);
+      box-shadow: 0 12px 30px var(--pp-blue-soft);
+    }
+
+    .links-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .links-name {
+      margin-top: 18px;
+      font-size: 1.55rem;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--pp-text);
+    }
+
+    /* Disponibilidad, igual que el cierre del sitio */
+    .links-avail {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--pp-text-muted);
+    }
+
+    .links-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #25d366;
+      animation: ppDotPulse 2.2s ease-out infinite;
+    }
+
+    @keyframes ppDotPulse {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55); }
+      70% { box-shadow: 0 0 0 8px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+
+    .links-tagline {
+      margin-top: 22px;
+      font-size: 1.28rem;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--pp-text);
+    }
+
+    .links-tagline em {
+      font-style: normal;
+      white-space: nowrap;
+      color: var(--pp-blue);
+      padding-bottom: 5px;
+      background-image: var(--pp-underline);
+      background-repeat: no-repeat;
+      background-size: 100% 10px;
+      background-position: 0 100%;
+    }
+
+    .links-bio {
+      margin-top: 12px;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: var(--pp-text-muted);
+    }
+
+    /* Atributos de marca como píldoras, igual que .pp-hero-anchor */
+    .links-traits {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 20px;
+      list-style: none;
+    }
+
+    .links-trait {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pp-card);
+      border: 1px solid var(--pp-border-light);
+      color: var(--pp-text-muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 11px;
+      border-radius: 100px;
+    }
+
+    .links-trait svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: var(--pp-blue);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Botones con la forma de .pp-btn */
+    .links-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .pp-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 54px;
+      padding: 14px 24px;
+      border-radius: 100px;
+      font-size: 0.98rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--pp-transition);
+    }
+
+    .pp-btn svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .pp-btn--primary {
+      background: var(--pp-wa);
+      color: #ffffff;
+      box-shadow: 0 12px 28px rgba(40, 211, 102, 0.28);
+    }
+
+    .pp-btn--primary svg { fill: #ffffff; }
+
+    .pp-btn--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(40, 211, 102, 0.36);
+    }
+
+    .pp-btn--ghost {
+      background: transparent;
+      color: var(--pp-text);
+      border: 1.5px solid rgba(15, 23, 42, 0.18);
+    }
+
+    .pp-btn--ghost svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .pp-btn--ghost:hover {
+      border-color: var(--pp-blue);
+      color: var(--pp-blue);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 420px) {
+      body { padding: 20px 14px; }
+      .links-card { padding: 32px 20px 26px; border-radius: 24px; }
+      .links-name { font-size: 1.4rem; }
+      .links-tagline { font-size: 1.15rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pp-particle, .links-dot { animation: none; }
+      .pp-btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pp-particles" aria-hidden="true">
+    <span class="pp-particle"></span><span class="pp-particle"></span><span class="pp-particle"></span>
+    <span class="pp-particle"></span><span class="pp-particle"></span><span class="pp-particle"></span>
+    <span class="pp-particle"></span><span class="pp-particle"></span><span class="pp-particle"></span>
+    <span class="pp-particle"></span><span class="pp-particle"></span><span class="pp-particle"></span>
+  </div>
+
+  <main class="links-card">
+    <div class="links-avatar">
+      <img src="recursos/imagenes/logoInsta.png" alt="Logo Tu Pyme Conectada">
+    </div>
+
+    <h1 class="links-name">@tupymeconectada</h1>
+
+    <span class="links-avail"><i class="links-dot" aria-hidden="true"></i> Disponibles para tu proyecto</span>
+
+    <p class="links-tagline">Páginas web para tu pyme, <em>sin letra chica</em></p>
+
+    <p class="links-bio">
+      Creamos presencia digital profesional para negocios como el tuyo, con atención
+      cercana desde la primera conversación hasta después de la entrega.
+    </p>
+
+    <ul class="links-traits">
+      <li class="links-trait">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+        Precios claros
+      </li>
+      <li class="links-trait">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.4 8.6 8 9.9 4.6-1.3 8-4.9 8-9.9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        Soporte post-entrega
+      </li>
+      <li class="links-trait">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12.6 12 20l-7.5-7.4A5 5 0 1 1 12 6a5 5 0 1 1 7.5 6.6Z"/></svg>
+        Trato cercano
+      </li>
+    </ul>
+
+    <nav class="links-list" aria-label="Enlaces">
+      <a href="https://wa.me/56973173721?text=Hola,%20me%20interesa%20cotizar%20una%20p%C3%A1gina%20web%20para%20mi%20negocio." target="_blank" rel="noopener" class="pp-btn pp-btn--primary">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        Escríbenos por WhatsApp
+      </a>
+
+      <a href="https://tupymeconectada.cl/#servicios" target="_blank" rel="noopener" class="pp-btn pp-btn--ghost">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+        Ver precios
+      </a>
+
+      <a href="https://tupymeconectada.cl" target="_blank" rel="noopener" class="pp-btn pp-btn--ghost">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Visita nuestro sitio web
+      </a>
+    </nav>
+
+  </main>
+</body>
+</html>
