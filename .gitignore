@@ -16,3 +16,11 @@ pnpm-debug.log*
 .DS_Store
 # material de prospectos (fotos originales, notas)
 _material/
+
+# Salida temporal del inspector de diseño
+.taste-skill/
+
+# herramientas locales de IA (no deben subirse)
+.claude/
+.opencode/
+.impeccable/
