@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portadas de destacados · liss.mania</title>
+  <link rel="icon" type="image/png" href="/recursos/imagenes/favicon.png">
+  <style>
+    :root {
+      --rosa: #fc56a0;
+      --rosa-oscuro: #c81d6b;
+      --fondo: #fff5fa;
+      --tinta: #3b1029;
+      --gris: #7a5568;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--fondo);
+      color: var(--tinta);
+      padding: 40px 16px 60px;
+    }
+
+    header {
+      max-width: 1100px;
+      margin: 0 auto 32px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    h1 span { color: var(--rosa); }
+
+    header p {
+      margin-top: 8px;
+      color: var(--gris);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .acciones {
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      font: inherit;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 22px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    button:hover { transform: translateY(-2px); }
+
+    .btn-principal { background: var(--rosa); color: #fff; }
+    .btn-principal:hover { background: var(--rosa-oscuro); }
+
+    .btn-secundario {
+      background: #fff;
+      color: var(--tinta);
+      border: 1.5px solid rgba(59, 16, 41, 0.15);
+    }
+
+    .grilla {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 22px;
+    }
+
+    .tarjeta {
+      background: #fff;
+      border-radius: 22px;
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 14px 34px rgba(200, 29, 107, 0.1);
+    }
+
+    /* Vista previa: cuadrado completo (lo que se descarga) */
+    .portada {
+      width: 100%;
+      max-width: 200px;
+      aspect-ratio: 1;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .portada svg { width: 100%; height: 100%; display: block; }
+
+    /* Vista previa: cómo se ve recortada en Instagram */
+    .vista-ig {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .vista-ig .circulo {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      padding: 3px;
+      background: #fff;
+      box-shadow: 0 0 0 1.5px #dbdbdb;
+    }
+
+    .vista-ig .circulo div {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .vista-ig svg { width: 100%; height: 100%; display: block; }
+
+    .vista-ig small {
+      font-size: 0.75rem;
+      color: var(--tinta);
+    }
+
+    .tarjeta button { width: 100%; }
+
+    .nota {
+      max-width: 1100px;
+      margin: 32px auto 0;
+      text-align: center;
+      color: var(--gris);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Portadas de destacados · <span>liss.mania</span></h1>
+    <p>PNG de 1080 × 1080 con fondo #fc56a0. Abajo de cada una ves cómo queda en el círculo de Instagram.</p>
+    <div class="acciones">
+      <button class="btn-principal" id="descargarTodas">Descargar todas</button>
+      <button class="btn-secundario" id="alternarAro">Ocultar aro</button>
+    </div>
+  </header>
+
+  <main class="grilla" id="grilla"></main>
+
+  <p class="nota">Para usarlas: en Instagram abre el destacado → Editar destacado → Editar portada → elige la imagen descargada.</p>
+
+  <script>
+    const ROSA = '#fc56a0';
+
+    // Íconos en un lienzo de 100×100, trazo blanco. Todo cabe dentro del círculo central.
+    const ICONOS = [
+      {
+        id: 'vinilo',
+        nombre: 'Vinilo',
+        svg: `
+          <ellipse cx="30" cy="38" rx="7" ry="13"/>
+          <ellipse cx="30" cy="38" rx="2.5" ry="5" fill="#fff" stroke="none"/>
+          <path d="M30 25 H68 A7 13 0 0 1 68 51 H30"/>
+          <path d="M33 51 V76 H71 V51"/>
+          <path d="M52 71 C44 65 43 59 47.5 57.5 C50 56.7 51.5 58.3 52 59.5 C52.5 58.3 54 56.7 56.5 57.5 C61 59 60 65 52 71 Z" fill="#fff" stroke="none"/>`
+      },
+      {
+        id: 'disenos-dtf',
+        nombre: 'Diseños DTF',
+        svg: `
+          <path d="M37 22 L28 27 L19 40 L29 46 L32 42 V78 H68 V42 L71 46 L81 40 L72 27 L63 22 C61 29 56 32 50 32 C44 32 39 29 37 22 Z"/>
+          <path d="M50 64 C41 58 40.5 51 45.5 49.5 C48 48.8 49.5 50.4 50 51.8 C50.5 50.4 52 48.8 54.5 49.5 C59.5 51 59 58 50 64 Z" fill="#fff" stroke="none"/>
+          <path d="M60 41 l1.6 -3.4 l1.6 3.4 l3.4 1.6 l-3.4 1.6 l-1.6 3.4 l-1.6 -3.4 l-3.4 -1.6 Z" fill="#fff" stroke="none"/>`
+      },
+      {
+        id: 'carteras',
+        nombre: 'Carteras',
+        svg: `
+          <path d="M37 42 C37 24 63 24 63 42"/>
+          <path d="M24 42 H76 L71 76 C70.6 78.4 69 80 66.5 80 H33.5 C31 80 29.4 78.4 29 76 Z"/>
+          <path d="M24 42 L50 57 L76 42"/>
+          <circle cx="50" cy="58" r="4" fill="#fff" stroke="none"/>`
+      },
+      {
+        id: 'straps',
+        nombre: 'Straps',
+        svg: `
+          <rect x="20" y="17" width="12" height="10" rx="3"/>
+          <rect x="68" y="17" width="12" height="10" rx="3"/>
+          <path d="M21 27 C21 82 79 82 79 27"/>
+          <path d="M31 27 C31 70 69 70 69 27"/>
+          <path d="M26 30 C26 76 74 76 74 30" stroke-width="2" stroke-dasharray="3 4"/>`
+      },
+      {
+        id: 'mochilas',
+        nombre: 'Mochilas',
+        svg: `
+          <path d="M42 30 V26 C42 21 45 18 50 18 C55 18 58 21 58 26 V30"/>
+          <rect x="27" y="30" width="46" height="50" rx="13"/>
+          <path d="M27 46 C40 53 60 53 73 46"/>
+          <rect x="36" y="58" width="28" height="15" rx="5"/>
+          <path d="M44 58 V63" stroke-width="3"/>`
+      },
+      {
+        id: 'chapitas',
+        nombre: 'Chapitas',
+        svg: `
+          <circle cx="50" cy="50" r="27"/>
+          <circle cx="50" cy="50" r="20.5" stroke-width="2" stroke-dasharray="2.5 4"/>
+          <path d="M33 41 A19 19 0 0 1 41 32" stroke-width="3.5"/>
+          <path d="M50 61 C42 55.5 41.5 48.5 46 47 C48.3 46.3 49.6 47.7 50 49 C50.4 47.7 51.7 46.3 54 47 C58.5 48.5 58 55.5 50 61 Z" fill="#fff" stroke="none"/>`
+      },
+      {
+        id: 'scrunchies',
+        nombre: 'Scrunchies',
+        svg: () => {
+          // Aro de tela fruncida: borde exterior ondulado y pliegues hacia el centro
+          const ondas = 9;
+          const aro = (radio, amplitud, fase) => {
+            const puntos = [];
+            for (let i = 0; i <= 320; i++) {
+              const a = (i / 320) * Math.PI * 2;
+              const r = radio + amplitud * Math.cos(a * ondas + fase);
+              puntos.push(`${(50 + r * Math.cos(a)).toFixed(2)} ${(50 + r * Math.sin(a)).toFixed(2)}`);
+            }
+            return `<path d="M${puntos.join(' L')} Z"/>`;
+          };
+          // Pliegues en espiral: se lee como tela torcida y no como pétalos
+          const pliegues = Array.from({ length: ondas }, (_, i) => {
+            const a = (i / ondas) * Math.PI * 2;
+            const p = (r, d) => `${(50 + r * Math.cos(a + d)).toFixed(2)} ${(50 + r * Math.sin(a + d)).toFixed(2)}`;
+            return `<path d="M${p(13, 0)} Q${p(22, 0.08)} ${p(28, 0.55)}" stroke-width="2.6"/>`;
+          }).join('');
+          return `${aro(28.5, 1.4, 0)}<circle cx="50" cy="50" r="13"/>${pliegues}`;
+        }
+      }
+    ];
+
+    let mostrarAro = true;
+
+    function svgPortada(icono) {
+      const dibujo = typeof icono.svg === 'function' ? icono.svg() : icono.svg;
+      const aro = mostrarAro
+        ? `<circle cx="50" cy="50" r="43" fill="none" stroke="#fff" stroke-opacity="0.55" stroke-width="1.2"/>`
+        : '';
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="${icono.nombre}">
+        <rect width="100" height="100" fill="${ROSA}"/>
+        ${aro}
+        <g transform="translate(50 50) scale(0.82) translate(-50 -50)" fill="none" stroke="#fff"
+           stroke-width="4" stroke-linecap="round" stroke-linejoin="round">${dibujo}</g>
+      </svg>`;
+    }
+
+    function pintar() {
+      document.getElementById('grilla').innerHTML = ICONOS.map((icono) => {
+        const svg = svgPortada(icono);
+        return `
+          <article class="tarjeta">
+            <div class="portada">${svg}</div>
+            <div class="vista-ig">
+              <div class="circulo"><div>${svg}</div></div>
+              <small>${icono.nombre}</small>
+            </div>
+            <button class="btn-principal" data-id="${icono.id}">Descargar PNG</button>
+          </article>`;
+      }).join('');
+    }
+
+    // SVG → PNG de 1080×1080 en el navegador, sin librerías
+    function descargar(icono) {
+      return new Promise((resolve) => {
+        const tamano = 1080;
+        const svg = svgPortada(icono).replace('viewBox', `width="${tamano}" height="${tamano}" viewBox`);
+        const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = canvas.height = tamano;
+          canvas.getContext('2d').drawImage(img, 0, 0, tamano, tamano);
+          URL.revokeObjectURL(url);
+          canvas.toBlob((blob) => {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `destacado-liss-${icono.id}.png`;
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+            resolve();
+          }, 'image/png');
+        };
+        img.src = url;
+      });
+    }
+
+    document.getElementById('grilla').addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-id]');
+      if (btn) descargar(ICONOS.find((i) => i.id === btn.dataset.id));
+    });
+
+    document.getElementById('descargarTodas').addEventListener('click', async () => {
+      for (const icono of ICONOS) {
+        await descargar(icono);
+        await new Promise((r) => setTimeout(r, 350));
+      }
+    });
+
+    document.getElementById('alternarAro').addEventListener('click', (e) => {
+      mostrarAro = !mostrarAro;
+      e.target.textContent = mostrarAro ? 'Ocultar aro' : 'Mostrar aro';
+      pintar();
+    });
+
+    pintar();
+  </script>
+</body>
+</html>
