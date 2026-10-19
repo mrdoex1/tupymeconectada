@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Los Trineos | Hospital veterinario en Cerrillos</title>
+  <meta name="description" content="Hospital Veterinario Los Trineos, Dr. Marcelo Riquelme. Av. Dos 2816, Cerrillos. Consulta, vacunas, cirugía, peluquería y baño. Agenda por WhatsApp.">
+  <link rel="icon" href="img/ilustracion.webp" type="image/webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <style>
+    :root {
+      --verde: #5B21E6;
+      --noche: #1E1B5E;
+      --amarillo: #F7D96B;
+      --rosado: #8FD4D6;
+      --rosado-50: #FFF6D6;
+      --menta: #EFE9FF;
+      --blanco: #FFFFFF;
+      --texto: #1E1B5E;
+      --wsp: #1FA855;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: 'Gabarito', system-ui, sans-serif; font-size: 19px; line-height: 1.5; color: var(--texto); background: var(--blanco); -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; height: auto; display: block; }
+    h1, h2, h3, p { margin: 0; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--amarillo); outline-offset: 3px; border-radius: 8px; }
+    .contenedor { width: min(1220px, 100% - 40px); margin-inline: auto; }
+
+    .btn { display: inline-flex; align-items: center; gap: 10px; min-height: 58px; padding: 0 28px; border-radius: 999px; font: inherit; font-weight: 700; font-size: 18px; text-decoration: none; border: 0; cursor: pointer; transition: transform .15s ease; }
+    .btn:hover { transform: translateY(-2px) rotate(-1deg); }
+    .btn i { font-size: 24px; }
+    .btn--amarillo { background: var(--amarillo); color: var(--noche); box-shadow: 0 6px 0 #C9A73A; }
+    .btn--blanco { background: var(--blanco); color: var(--noche); }
+
+    /* Inicio verde */
+    .inicio { background: var(--verde); color: #fff; overflow: hidden; position: relative; }
+    .header { display: flex; align-items: center; gap: 20px; padding: 22px 0; position: relative; z-index: 2; }
+    .logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; margin-right: auto; }
+    .logo { background: var(--blanco); padding: 8px 20px 8px 12px; border-radius: 999px; }
+    .logo img { width: 96px; height: auto; }
+    .logo__nombre { color: var(--noche); }
+    .logo__bajada { opacity: 1 !important; color: #3D7FB5; font-weight: 600; }
+    .logo__nombre { font-weight: 800; font-size: 27px; letter-spacing: -0.02em; line-height: 1; display: block; }
+    .logo__bajada { font-size: 14px; opacity: .8; display: block; margin-top: 2px; }
+    .estado { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; background: rgba(0,0,0,.16); padding: 10px 16px; border-radius: 999px; }
+    .estado__punto { width: 10px; height: 10px; border-radius: 50%; background: var(--rosado); }
+    .estado.abierto .estado__punto { background: var(--amarillo); box-shadow: 0 0 0 4px rgba(247,217,107,.35); }
+    .header__wsp { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 700; padding: 11px 18px; border-radius: 999px; background: var(--blanco); color: var(--noche); font-size: 17px; }
+    .header__wsp i { font-size: 22px; color: var(--wsp); }
+
+    .inicio__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; padding: clamp(28px, 5vw, 64px) 0 clamp(72px, 9vw, 120px); position: relative; z-index: 1; }
+    .inicio h1 { font-size: clamp(52px, 8vw, 112px); font-weight: 900; line-height: .9; letter-spacing: -0.035em; }
+    .inicio__texto { font-size: 22px; margin-top: 28px; max-width: 30ch; font-weight: 500; }
+    .inicio__acciones { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+    .inicio__lugar { margin-top: 26px; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+    .inicio__lugar i { font-size: 22px; color: var(--amarillo); }
+
+    /* Placas de identificación */
+    .placas { position: relative; container-type: inline-size; width: 100%; aspect-ratio: 100 / 115; }
+    .placa { position: absolute; margin: 0; left: calc(var(--x) * 1cqw); top: calc(var(--y) * 1cqw); width: calc(var(--w) * 1cqw); transform: rotate(var(--r)); transform-origin: 50% 50%; transition: transform .6s cubic-bezier(.3,1.6,.5,1); }
+    .placa:hover { transform: rotate(0deg); }
+    .placa__foto { border-radius: 50%; overflow: hidden; border: 1.5cqw solid var(--c); background: var(--c); box-shadow: 0 22px 36px -18px rgba(0,0,0,.5); }
+    .placa__foto img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+    .placa figcaption { position: absolute; left: 50%; bottom: -2cqw; transform: translateX(-50%) rotate(-3deg); background: var(--blanco); color: var(--noche); font-weight: 800; font-size: clamp(11px, 2.9cqw, 17px); padding: .9cqw 2.6cqw; border-radius: 999px; white-space: nowrap; box-shadow: 0 8px 18px -10px rgba(0,0,0,.5); }
+    .placa--1 { --x: 0;  --y: 13; --w: 52; --c: var(--amarillo); --r: -3deg; }
+    .placa--2 { --x: 55; --y: 7;  --w: 33; --c: var(--rosado); --r: 3deg; }
+    .placa--3 { --x: 68; --y: 48; --w: 30; --c: var(--blanco); --r: -2deg; }
+    .placa--4 { --x: 4;  --y: 80; --w: 32; --c: #E3D6FF; --r: 2deg; }
+    .placa--5 { --x: 41; --y: 79; --w: 34; --c: var(--amarillo); --r: -3deg; }
+
+    /* Banda amarilla */
+    .banda { background: var(--amarillo); }
+    .banda__fila { display: grid; grid-template-columns: auto 1fr; gap: clamp(20px, 4vw, 56px); align-items: center; padding: clamp(36px, 5vw, 56px) 0; }
+    .banda__nota { font-size: clamp(76px, 10vw, 140px); font-weight: 900; line-height: .85; letter-spacing: -0.05em; color: var(--noche); }
+    .banda__nota small { display: block; font-size: 22px; letter-spacing: 0; margin-top: 10px; }
+    .banda blockquote { margin: 0; font-size: clamp(24px, 2.8vw, 36px); font-weight: 600; line-height: 1.18; letter-spacing: -0.015em; max-width: 30ch; }
+    .banda blockquote span { display: block; font-size: 17px; font-weight: 500; margin-top: 14px; opacity: .75; letter-spacing: 0; }
+
+    /* Ayuda */
+    .ayuda { padding: clamp(72px, 10vw, 128px) 0; }
+    .ayuda h2 { font-size: clamp(42px, 6vw, 80px); font-weight: 900; line-height: .95; letter-spacing: -0.035em; max-width: 14ch; }
+    .ayuda__intro { font-size: 21px; margin-top: 18px; max-width: 44ch; color: #4A4780; }
+    .ayuda__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(28px, 4vw, 56px); margin-top: 48px; align-items: start; }
+    .opciones { display: flex; flex-wrap: wrap; gap: 12px; align-content: flex-start; }
+    .opcion { font: inherit; font-size: 20px; font-weight: 700; cursor: pointer; color: var(--noche); background: var(--fondo, var(--menta)); border: 3px solid transparent; border-radius: 999px; padding: 14px 22px; display: inline-flex; align-items: center; gap: 10px; transition: transform .15s, border-color .15s; }
+    .opcion i { font-size: 24px; }
+    .opcion:hover { transform: rotate(-1.5deg); }
+    .opcion[aria-pressed="true"] { border-color: var(--noche); transform: rotate(-1.5deg); }
+    .opcion:nth-child(1) { --fondo: var(--amarillo); }
+    .opcion:nth-child(2) { --fondo: var(--rosado); }
+    .opcion:nth-child(3) { --fondo: #E3D6FF; }
+    .opcion:nth-child(4) { --fondo: #FFD9B8; }
+    .opcion:nth-child(5) { --fondo: #FFD9B8; }
+    .respuesta { background: var(--verde); color: #fff; border-radius: 36px; display: grid; grid-template-columns: .75fr 1.25fr; overflow: hidden; min-height: 380px; }
+    .respuesta img { width: 100%; height: 100%; object-fit: cover; }
+    .respuesta__cuerpo { padding: clamp(26px, 3vw, 40px); display: flex; flex-direction: column; }
+    .respuesta__servicio { align-self: flex-start; background: var(--amarillo); color: var(--noche); font-weight: 800; font-size: 15px; padding: 5px 14px; border-radius: 999px; }
+    .respuesta h3 { font-size: clamp(26px, 2.6vw, 34px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; margin-top: 16px; }
+    .respuesta p { margin-top: 14px; font-size: 18px; }
+    .respuesta .espacio { flex: 1; min-height: 22px; }
+    .respuesta .btn { align-self: flex-start; white-space: nowrap; font-size: 17px; padding: 0 22px; }
+    .respuesta.cambia { animation: aparece .35s ease; }
+    @keyframes aparece { from { opacity: .4; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    /* Clínica */
+    .clinica { background: var(--rosado-50); padding: clamp(72px, 10vw, 128px) 0; }
+    .clinica h2 { font-size: clamp(40px, 5.6vw, 76px); font-weight: 900; line-height: .95; letter-spacing: -0.035em; max-width: 15ch; }
+    .clinica__fotos { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 52px; }
+    .clinica__foto { margin: 0; background: var(--blanco); border-radius: 36px; padding: 14px 14px 28px; transform: rotate(-1.2deg); }
+    .clinica__foto:nth-child(2) { transform: rotate(1.4deg); margin-top: 40px; }
+    .clinica__foto img { width: 100%; aspect-ratio: 5 / 4; object-fit: cover; border-radius: 26px; }
+    .clinica__foto figcaption { padding: 20px 12px 0; }
+    .clinica__foto strong { display: block; font-size: 30px; font-weight: 900; letter-spacing: -0.02em; line-height: 1; }
+    .clinica__foto span { display: block; margin-top: 8px; font-size: 18px; color: #4A4780; }
+    .servicios { list-style: none; padding: 0; margin: 64px 0 0; display: flex; flex-wrap: wrap; gap: 14px; }
+    .servicios li { background: var(--noche); color: #fff; border-radius: 999px; padding: 14px 24px 14px 16px; display: inline-flex; align-items: center; gap: 12px; font-size: 21px; font-weight: 700; }
+    .servicios li i { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--amarillo); color: var(--noche); font-size: 20px; }
+
+    /* Visita */
+    .visita { background: var(--noche); color: #fff; padding: clamp(72px, 10vw, 128px) 0; }
+    .visita__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 5vw, 72px); align-items: stretch; }
+    .visita h2 { font-size: clamp(40px, 5.6vw, 76px); font-weight: 900; line-height: .95; letter-spacing: -0.035em; }
+    .visita__dir { font-size: 26px; font-weight: 700; margin-top: 22px; color: var(--amarillo); }
+    .visita__dir span { display: block; color: rgba(255,255,255,.75); font-size: 18px; font-weight: 500; }
+    .horario { width: 100%; border-collapse: collapse; margin-top: 30px; font-size: 19px; }
+    .horario td { padding: 11px 0; border-top: 1px solid rgba(255,255,255,.14); }
+    .horario td:last-child { text-align: right; }
+    .horario tr.hoy td { color: var(--amarillo); font-weight: 800; }
+    .horario tr.hoy td:first-child::after { content: " (hoy)"; font-weight: 500; }
+    .visita__acciones { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+    .visita__mapa { border-radius: 36px; overflow: hidden; border: 8px solid var(--amarillo); min-height: 460px; background: #2E2A80; }
+    .visita__mapa iframe { width: 100%; height: 100%; min-height: 444px; border: 0; display: block; }
+
+    /* Pie */
+    .pie { background: var(--verde); color: #fff; padding: 44px 0 30px; }
+    .pie__fila { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 22px; }
+    .pie__sello { width: 210px; height: 210px; border-radius: 50%; background: #fff; padding: 6px; box-shadow: 0 0 0 6px rgba(255,255,255,.18); }
+    .pie__sello .sello { width: 100%; height: 100%; display: block; }
+    .pie__links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .pie__links a { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 700; padding: 10px 16px; border-radius: 999px; background: rgba(0,0,0,.16); font-size: 16px; }
+    .pie__links a:hover { background: rgba(0,0,0,.28); }
+    .pie__base { margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 15px; opacity: .85; }
+
+    .flotante { position: fixed; right: 18px; bottom: 18px; z-index: 60; width: 64px; height: 64px; border-radius: 50%; background: var(--wsp); color: #fff; display: grid; place-items: center; font-size: 34px; text-decoration: none; box-shadow: 0 6px 0 #127A3B, 0 16px 30px -10px rgba(0,0,0,.4); transform: scale(0); transition: transform .25s ease; }
+    .flotante.visible { transform: scale(1); }
+
+    @media (max-width: 980px) {
+      .inicio__grid, .ayuda__grid, .visita__grid { grid-template-columns: 1fr; }
+      .placas { max-width: 540px; margin-inline: auto; margin-top: 24px; }
+      .respuesta { grid-template-columns: 1fr; }
+      .respuesta img { aspect-ratio: 16 / 10; height: auto; }
+      .banda__fila { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      body { font-size: 18px; }
+      .estado { display: none; }
+      .header__wsp span { display: none; }
+      .header__wsp { padding: 11px 13px; }
+      .logo__nombre { font-size: 24px; }
+      .inicio__texto { font-size: 20px; }
+      .inicio__acciones .btn { width: 100%; justify-content: center; }
+      .clinica__fotos { grid-template-columns: 1fr; }
+      .clinica__foto:nth-child(2) { margin-top: 0; }
+      .opcion { font-size: 18px; padding: 12px 18px; }
+      .respuesta .btn, .visita__acciones .btn { width: 100%; justify-content: center; font-size: 17px; padding: 0 18px; }
+      .servicios li { font-size: 18px; }
+      .visita__mapa, .visita__mapa iframe { min-height: 320px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="inicio">
+    <div class="contenedor">
+      <header class="header">
+        <a class="logo" href="#" aria-label="Los Trineos, inicio">
+          <img src="img/ilustracion.webp" alt="" width="1172" height="468">
+          <span><span class="logo__nombre">Los Trineos</span><span class="logo__bajada">Hospital veterinario</span></span>
+        </a>
+        <span class="estado" id="estado"><span class="estado__punto"></span><span id="estado-texto">Lunes a sábado desde las 11:00</span></span>
+        <a class="header__wsp" href="https://wa.me/56998379420?text=Hola%20Los%20Trineos%2C%20quiero%20agendar%20una%20hora" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i><span>+56 9 9837 9420</span></a>
+      </header>
+
+      <div class="inicio__grid">
+        <div>
+          <h1>El veterinario de barrio que tu mascota quiere ver.</h1>
+          <p class="inicio__texto">Consulta, vacunas, cirugía, peluquería y baño para perros y gatos en Cerrillos.</p>
+          <div class="inicio__acciones">
+            <a class="btn btn--amarillo" href="https://wa.me/56998379420?text=Hola%20Los%20Trineos%2C%20quiero%20agendar%20una%20hora" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i>Agendar por WhatsApp</a>
+            <a class="btn btn--blanco" href="#ayuda">¿Qué necesita tu mascota?</a>
+          </div>
+          <p class="inicio__lugar"><i class="ti ti-map-pin-filled"></i>Av. Dos 2816, Cerrillos</p>
+        </div>
+        <div class="placas" aria-label="Algunos de nuestros pacientes">
+          <figure class="placa placa--1"><div class="placa__foto"><img src="img/westie.webp" alt="Perrito blanco en control con el veterinario" width="804" height="1080" style="object-position:30% 40%"></div><figcaption>En su control</figcaption></figure>
+          <figure class="placa placa--2"><div class="placa__foto"><img src="img/husky.webp" alt="Husky blanco en la tina de baño" width="1000" height="1004"></div><figcaption>Día de baño</figcaption></figure>
+          <figure class="placa placa--3"><div class="placa__foto"><img src="img/perro-mesa.webp" alt="Perro en la mesa de peluquería" width="1000" height="1284" style="object-position:center 22%"></div><figcaption>Listo para su corte</figcaption></figure>
+          <figure class="placa placa--4"><div class="placa__foto"><img src="img/poodle.webp" alt="Poodle con collar rosado" width="1000" height="1055"></div><figcaption>Recién arreglada</figcaption></figure>
+          <figure class="placa placa--5"><div class="placa__foto"><img src="img/bulldog.webp" alt="Bulldog atendido por el veterinario" width="1100" height="1159" style="object-position:62% center"></div><figcaption>Revisión general</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="banda">
+    <div class="contenedor banda__fila">
+      <p class="banda__nota">4,7<small>★★★★★ en Google, 129 opiniones</small></p>
+      <blockquote>"El doctor Raúl fue delicado al vacunar a nuestro perro Apollo y nos explicó todo con claridad. Amable con todos."<span>Opinión en Google</span></blockquote>
+    </div>
+  </section>
+
+  <main>
+    <section class="ayuda" id="ayuda">
+      <div class="contenedor">
+        <h2>¿Qué necesita tu mascota?</h2>
+        <p class="ayuda__intro">Toca lo que le pasa y te contamos cómo lo atendemos. El mensaje de WhatsApp queda listo para enviar.</p>
+        <div class="ayuda__grid">
+          <div class="opciones" role="group" aria-label="Situaciones">
+            <button class="opcion" type="button" data-i="0" aria-pressed="true"><i class="ti ti-vaccine"></i>Le toca su vacuna</button>
+            <button class="opcion" type="button" data-i="1" aria-pressed="false"><i class="ti ti-mood-sick"></i>No come o vomita</button>
+            <button class="opcion" type="button" data-i="2" aria-pressed="false"><i class="ti ti-bath"></i>Necesita baño y corte</button>
+            <button class="opcion" type="button" data-i="3" aria-pressed="false"><i class="ti ti-heart-plus"></i>Quiero esterilizarlo</button>
+            <button class="opcion" type="button" data-i="4" aria-pressed="false"><i class="ti ti-help-circle"></i>Tengo dudas tras su cirugía</button>
+          </div>
+          <div class="respuesta" id="respuesta" aria-live="polite">
+            <img id="r-img" src="img/westie.webp" alt="" width="804" height="1080">
+            <div class="respuesta__cuerpo">
+              <span class="respuesta__servicio" id="r-servicio">Consulta y vacunas</span>
+              <h3 id="r-titulo">Revisamos que esté sano y dejamos su calendario al día</h3>
+              <p id="r-texto">Lo revisamos completo y te contamos qué vacunas y desparasitaciones le tocan. Trae su carnet de vacunación.</p>
+              <span class="espacio"></span>
+              <a class="btn btn--amarillo" id="r-btn" href="#" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i>Pedir hora para su vacuna</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="clinica" id="clinica">
+      <div class="contenedor">
+        <h2>Salud y peluquería en el mismo lugar.</h2>
+        <div class="clinica__fotos">
+          <figure class="clinica__foto">
+            <img src="img/cirugia.webp" alt="Veterinario en pabellón" width="1000" height="1034" loading="lazy" style="object-position:center 30%">
+            <figcaption><strong>Cirugía y hospitalización</strong><span>Pabellón propio para esterilizaciones y otras cirugías, con controles hasta que se recupere.</span></figcaption>
+          </figure>
+          <figure class="clinica__foto">
+            <img src="img/husky.webp" alt="Husky en la tina de baño" width="1000" height="1004" loading="lazy">
+            <figcaption><strong>Peluquería y baño</strong><span>Baño, secado y corte en nuestra sala de peluquería, para que vuelva a casa impecable.</span></figcaption>
+          </figure>
+        </div>
+        <ul class="servicios" aria-label="Servicios">
+          <li><i class="ti ti-stethoscope"></i>Consulta general</li>
+          <li><i class="ti ti-vaccine"></i>Vacunas y desparasitación</li>
+          <li><i class="ti ti-scissors"></i>Cirugía y esterilización</li>
+          <li><i class="ti ti-building-hospital"></i>Hospitalización</li>
+          <li><i class="ti ti-bath"></i>Peluquería y baño</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="visita" id="visita">
+      <div class="contenedor visita__grid">
+        <div>
+          <h2>Te esperamos en Cerrillos.</h2>
+          <p class="visita__dir">Av. Dos 2816<span>Cerrillos, Región Metropolitana</span></p>
+          <table class="horario" id="horario">
+            <tr data-d="1"><td>Lunes</td><td>11:00 a 18:00</td></tr>
+            <tr data-d="2"><td>Martes</td><td>11:00 a 18:00</td></tr>
+            <tr data-d="3"><td>Miércoles</td><td>11:00 a 18:00</td></tr>
+            <tr data-d="4"><td>Jueves</td><td>11:00 a 18:00</td></tr>
+            <tr data-d="5"><td>Viernes</td><td>11:00 a 18:00</td></tr>
+            <tr data-d="6"><td>Sábado</td><td>11:00 a 15:00</td></tr>
+            <tr data-d="0"><td>Domingo</td><td>Cerrado</td></tr>
+          </table>
+          <div class="visita__acciones">
+            <a class="btn btn--amarillo" href="https://wa.me/56998379420?text=Hola%20Los%20Trineos%2C%20quiero%20agendar%20una%20hora" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i>Agendar por WhatsApp</a>
+            <a class="btn btn--blanco" href="https://www.google.com/maps/search/?api=1&query=Av.+Dos+2816,+Cerrillos" target="_blank" rel="noopener"><i class="ti ti-map-2"></i>Cómo llegar</a>
+          </div>
+        </div>
+        <div class="visita__mapa">
+          <iframe src="https://www.google.com/maps?q=Av.+Dos+2816,+Cerrillos&output=embed" loading="lazy" title="Mapa de Los Trineos" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <div class="pie__fila">
+        <a class="logo" href="#" aria-label="Los Trineos, inicio">
+          <img src="img/ilustracion.webp" alt="" width="1172" height="468">
+          <span><span class="logo__nombre">Los Trineos</span><span class="logo__bajada">Hospital veterinario</span></span>
+        </a>
+        <nav class="pie__links" aria-label="Enlaces">
+          <a href="https://www.instagram.com/veterinaria_los_trineos/" target="_blank" rel="noopener"><i class="ti ti-brand-instagram"></i>@veterinaria_los_trineos</a>
+          <a href="https://wa.me/56998379420" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i>WhatsApp</a>
+        </nav>
+      </div>
+      <div class="pie__base">
+        <span>© <span id="anio">2026</span> Hospital Veterinario Los Trineos, Dr. Marcelo Riquelme. Cerrillos.</span>
+        <span>Propuesta de diseño por <a href="https://tupymeconectada.cl" target="_blank" rel="noopener">Tu Pyme Conectada</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="flotante" href="https://wa.me/56998379420?text=Hola%20Los%20Trineos%2C%20quiero%20agendar%20una%20hora" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+
+  <script>
+    (() => {
+      const partes = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Santiago', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(new Date());
+      const get = t => partes.find(p => p.type === t).value;
+      const dia = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }[get('weekday')];
+      const min = (parseInt(get('hour'), 10) % 24) * 60 + parseInt(get('minute'), 10);
+      const horas = { 1: [660, 1080], 2: [660, 1080], 3: [660, 1080], 4: [660, 1080], 5: [660, 1080], 6: [660, 900] };
+      const estado = document.getElementById('estado');
+      const texto = document.getElementById('estado-texto');
+      document.querySelector(`#horario tr[data-d="${dia}"]`)?.classList.add('hoy');
+      const h = horas[dia];
+      if (h && min >= h[0] && min < h[1]) { estado.classList.add('abierto'); texto.textContent = 'Abierto ahora, cierra a las ' + (dia === 6 ? '15:00' : '18:00'); }
+      else if (h && min < h[0]) texto.textContent = 'Cerrado, hoy abre a las 11:00';
+      else texto.textContent = (dia === 6 || dia === 0) ? 'Cerrado, abre el lunes a las 11:00' : 'Cerrado, mañana abre a las 11:00';
+    })();
+
+    const WSP = 'https://wa.me/56998379420?text=';
+    const respuestas = [
+      { img: 'img/westie.webp', servicio: 'Consulta y vacunas', titulo: 'Revisamos que esté sano y dejamos su calendario al día', texto: 'Lo revisamos completo y te contamos qué vacunas y desparasitaciones le tocan. Trae su carnet de vacunación.', boton: 'Pedir hora para su vacuna', msg: 'Hola Los Trineos, quiero agendar una hora para vacunar a mi mascota' },
+      { img: 'img/bulldog.webp', servicio: 'Consulta general', titulo: 'Lo vemos lo antes posible para encontrar la causa', texto: 'Lo examinamos con calma y te explicamos qué tiene y qué hacer. Escríbenos y te damos la hora más cercana.', boton: 'Pedir la hora más cercana', msg: 'Hola Los Trineos, mi mascota no está bien (no come o vomita). ¿Tienen hora disponible?' },
+      { img: 'img/husky.webp', servicio: 'Peluquería y baño', titulo: 'Sale limpio, peinado y feliz', texto: 'Baño, secado y corte en nuestra sala de peluquería, con productos para su tipo de pelo.', boton: 'Agendar baño y corte', msg: 'Hola Los Trineos, quiero agendar baño y corte para mi mascota' },
+      { img: 'img/cirugia.webp', servicio: 'Cirugía y esterilización', titulo: 'Una cirugía segura, con controles antes y después', texto: 'Lo evaluamos antes de operar, te explicamos los cuidados de la recuperación y lo controlamos hasta que esté bien.', boton: 'Consultar por esterilización', msg: 'Hola Los Trineos, quiero consultar por la esterilización de mi mascota' },
+      { img: 'img/perro-mesa.webp', servicio: 'Después de la cirugía', titulo: 'Escríbenos, respondemos tus dudas', texto: 'Si después de una cirugía notas algo raro o tienes preguntas, te orientamos y, si hace falta, lo revisamos en la consulta.', boton: 'Hacer una consulta', msg: 'Hola Los Trineos, tengo una duda sobre la recuperación de mi mascota después de su cirugía' }
+    ];
+    const caja = document.getElementById('respuesta');
+    const pintar = (i, animar = true) => {
+      const r = respuestas[i];
+      document.getElementById('r-img').src = r.img;
+      document.getElementById('r-servicio').textContent = r.servicio;
+      document.getElementById('r-titulo').textContent = r.titulo;
+      document.getElementById('r-texto').textContent = r.texto;
+      const btn = document.getElementById('r-btn');
+      btn.href = WSP + encodeURIComponent(r.msg);
+      btn.lastChild.textContent = r.boton;
+      if (animar) { caja.classList.remove('cambia'); void caja.offsetWidth; caja.classList.add('cambia'); }
+    };
+    document.querySelectorAll('.opcion').forEach(b => b.addEventListener('click', () => {
+      document.querySelectorAll('.opcion').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+      pintar(+b.dataset.i);
+    }));
+    pintar(0, false);
+
+    const inicio = document.querySelector('.inicio');
+    const flotante = document.querySelector('.flotante');
+    addEventListener('scroll', () => flotante.classList.toggle('visible', scrollY > inicio.offsetHeight - 120), { passive: true });
+
+    document.getElementById('anio').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

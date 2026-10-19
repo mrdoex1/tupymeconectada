@@ -14,3 +14,5 @@ pnpm-debug.log*
 .env.production
 # macOS-specific files
 .DS_Store
+# material de prospectos (fotos originales, notas)
+_material/
