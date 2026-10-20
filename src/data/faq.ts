@@ -110,7 +110,7 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: '¿Por qué el hosting no tiene costo?',
-        a: 'Porque tu web es un sitio rápido que no necesita servidor ni base de datos. Hoy no tiene cobro para ti. La cuenta queda a tu nombre, y si el proveedor cambiara sus condiciones, la web se puede mover a otro hosting sin rehacerla.',
+        a: 'Porque tu web es un sitio liviano, sin base de datos ni aplicaciones complejas. Ese tipo de sitio tiene alojamiento gratuito en plataformas modernas. Hoy no tiene cobro para ti. La cuenta queda a tu nombre, y si el proveedor cambiara sus condiciones, la web se puede mover a otro hosting sin rehacerla.',
       },
       {
         q: '¿Incluye correo corporativo?',

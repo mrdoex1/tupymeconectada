@@ -155,7 +155,7 @@ export const buenoSaber = [
   {
     titulo: 'Hosting',
     texto:
-      'Tu web se aloja sin costo para ti, pensada para sitios rápidos y seguros como el tuyo. La cuenta queda a tu nombre, y si el proveedor cambiara sus condiciones, tu web se puede mover a otro hosting sin rehacerla. Si prefieres otro hosting, te ayudamos a publicarla ahí; ese costo lo pagas directamente al proveedor.',
+      'Tu web es un sitio liviano, sin base de datos ni aplicaciones complejas. Ese tipo de sitio tiene alojamiento gratuito en plataformas modernas, por eso no tiene cobro para ti. La cuenta queda a tu nombre, y si el proveedor cambiara sus condiciones, tu web se puede mover a otro hosting sin rehacerla. Si prefieres otro hosting, te ayudamos a publicarla ahí; ese costo lo pagas directamente al proveedor.',
   },
   {
     titulo: 'Pago',
