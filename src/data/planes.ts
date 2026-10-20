@@ -42,7 +42,7 @@ export const planes: Plan[] = [
       'Hosting incluido, sin costo adicional',
       '1 ronda de cambios antes de publicar',
     ],
-    noIncluye: 'No incluye redacción de textos, dominio ni correo corporativo.',
+    noIncluye: 'No incluye redacción de textos. Dominio y correo corporativo se pueden solicitar aparte.',
     boton: 'Quiero la One Page Esencial',
     whatsappKey: 'onePageEsencial',
     esPrecio: '79990',
@@ -68,7 +68,7 @@ export const planes: Plan[] = [
       '2 rondas de cambios antes de publicar',
       'Hosting incluido, sin costo adicional',
     ],
-    noIncluye: 'No incluye dominio ni correo corporativo.',
+    noIncluye: 'Dominio y correo corporativo se pueden solicitar aparte.',
     boton: 'Quiero la One Page Pro',
     whatsappKey: 'onePagePro',
     esPrecio: '119990',
@@ -94,7 +94,7 @@ export const planes: Plan[] = [
       'Hosting incluido, sin costo adicional',
     ],
     noIncluye:
-      'No incluye pago en línea, dominio ni correo corporativo. Cobras como ya lo haces (transferencia o al entregar). Más de 30 productos: se cotiza.',
+      'No incluye pago en línea. Dominio y correo corporativo se pueden solicitar aparte. Cobras como ya lo haces (transferencia o al entregar). Más de 30 productos: se cotiza.',
     boton: 'Quiero mi Catálogo',
     whatsappKey: 'catalogo',
     esPrecio: '129990',
@@ -118,7 +118,7 @@ export const planes: Plan[] = [
       'Hosting incluido, sin costo adicional',
     ],
     noIncluye:
-      'No incluye dominio ni correo corporativo. Páginas adicionales y módulos como blog o portafolio se cotizan aparte.',
+      'Dominio y correo corporativo se pueden solicitar aparte. Páginas adicionales y módulos como blog o portafolio se cotizan aparte.',
     boton: 'Cotizar Sitio Corporativo',
     whatsappKey: 'corporativo',
     esPrecio: '249990',
@@ -155,7 +155,7 @@ export const buenoSaber = [
   {
     titulo: 'Hosting',
     texto:
-      'Usamos hosting gratuito de proveedores como Cloudflare, pensado para sitios como el tuyo: rápido, seguro y sin costo para ti. La cuenta queda a tu nombre, y si el proveedor cambiara sus condiciones, tu web se puede mover a otro hosting sin rehacerla. Si prefieres otro hosting, te ayudamos a publicarla ahí; ese costo lo pagas directamente al proveedor.',
+      'Tu web se aloja sin costo para ti, pensada para sitios rápidos y seguros como el tuyo. La cuenta queda a tu nombre, y si el proveedor cambiara sus condiciones, tu web se puede mover a otro hosting sin rehacerla. Si prefieres otro hosting, te ayudamos a publicarla ahí; ese costo lo pagas directamente al proveedor.',
   },
   {
     titulo: 'Pago',
@@ -170,7 +170,7 @@ export const buenoSaber = [
   {
     titulo: 'Correo corporativo',
     texto:
-      'No está incluido. Si quieres un correo como contacto@tunegocio.cl, te ayudamos a configurarlo; el servicio de correo (por ejemplo Google Workspace) se paga directamente al proveedor.',
+      'No está incluido en los planes, pero se puede solicitar aparte. Si quieres un correo como contacto@tunegocio.cl, te ayudamos a configurarlo y te enviamos una cotización según cuántas cuentas necesites.',
   },
 ];
 

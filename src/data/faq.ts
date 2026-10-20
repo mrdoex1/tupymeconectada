@@ -106,15 +106,15 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: '¿Incluyen hosting y dominio?',
-        a: 'El hosting va incluido sin costo adicional en todos nuestros planes: One Page, Catálogo WhatsApp y Sitio Corporativo. Las tiendas online y proyectos a medida necesitan un hosting pagado, que se incluye en su cotización. Si prefieres otro hosting, te ayudamos a publicar tu web ahí; ese costo lo pagas directamente al proveedor. El dominio .cl se paga aparte en NIC Chile (aprox. $10.000 al año) y te ayudamos a inscribirlo a tu nombre.',
+        a: 'El hosting va incluido sin costo adicional en todos nuestros planes: One Page, Catálogo WhatsApp y Sitio Corporativo. Las tiendas online y proyectos a medida necesitan un hosting pagado, que se incluye en su cotización. Si prefieres otro hosting, te ayudamos a publicar tu web ahí; ese costo lo pagas directamente al proveedor. El dominio .cl no está incluido y se puede solicitar aparte. Se paga en NIC Chile (aprox. $10.000 al año) y te ayudamos a inscribirlo a tu nombre.',
       },
       {
         q: '¿Por qué el hosting no tiene costo?',
-        a: 'Porque tu web es un sitio rápido que no necesita servidor ni base de datos, y proveedores como Cloudflare alojan este tipo de sitios sin costo. No es una promoción: no hay cobro después ni renovación. La cuenta queda a tu nombre y la web se puede mover a otro hosting cuando quieras.',
+        a: 'Porque tu web es un sitio rápido que no necesita servidor ni base de datos. Hoy no tiene cobro para ti. La cuenta queda a tu nombre, y si el proveedor cambiara sus condiciones, la web se puede mover a otro hosting sin rehacerla.',
       },
       {
         q: '¿Incluye correo corporativo?',
-        a: 'No. Si quieres un correo corporativo como contacto@tunegocio.cl, te ayudamos a configurarlo; el servicio de correo (por ejemplo Google Workspace) se paga directamente al proveedor.',
+        a: 'No está incluido en los planes, pero se puede solicitar aparte. Si quieres un correo corporativo como contacto@tunegocio.cl, te ayudamos a configurarlo y te enviamos una cotización según cuántas cuentas necesites.',
       },
       {
         q: '¿Hacen tiendas online con pago en línea?',
