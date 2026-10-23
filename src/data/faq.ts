@@ -21,8 +21,8 @@ export const faqGroups: FaqGroup[] = [
         a: 'Es un sitio web de una sola página donde tus clientes encuentran todo lo importante con solo bajar: qué ofreces, por qué elegirte, opiniones y cómo contactarte. Está pensada para que te escriban directo por WhatsApp.',
       },
       {
-        q: '¿Qué diferencia hay entre One Page Esencial y One Page Pro?',
-        a: 'En la Esencial tú entregas los textos y las fotos. En la Pro nosotros redactamos todos los textos y además sumamos mapa de Google, formulario de contacto, galería, configuración de Google Search Console y 2 rondas de cambios.',
+        q: '¿Qué incluye la One Page y qué puedo sumar?',
+        a: 'La One Page parte desde $79.990 e incluye los textos escritos por nosotros, botón flotante de WhatsApp, botones a tus redes, diseño adaptado a todos los dispositivos, administrador para editar, certificado SSL, SEO técnico, hosting sin costo adicional y 1 ronda de cambios. Si necesitas más, podemos sumar extras como mapa, formulario de contacto (los mensajes te llegan directo a tu correo), galería o preguntas frecuentes. Esos extras se cotizan aparte, según lo que necesites.',
       },
       {
         q: '¿Puedo editar mi web por mi cuenta después?',
@@ -94,7 +94,7 @@ export const faqGroups: FaqGroup[] = [
     faqs: [
       {
         q: '¿Cuánto demora la entrega?',
-        a: 'One Page y Catálogo WhatsApp: 3 a 5 días hábiles. Sitio Corporativo: 8 a 10 días hábiles. El plazo corre desde que recibimos tus textos, imágenes y accesos, y se realiza el primer pago.',
+        a: 'One Page (versión base) y Catálogo WhatsApp: 3 a 5 días hábiles; si sumas extras, te confirmamos el plazo en la cotización. Sitio Corporativo: 8 a 10 días hábiles. El plazo corre desde que recibimos tus textos, imágenes y accesos, y se realiza el primer pago.',
       },
       {
         q: '¿Cómo se paga?',
@@ -110,7 +110,7 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: '¿Por qué el hosting no tiene costo?',
-        a: 'Porque tu web es un sitio liviano, sin base de datos ni aplicaciones complejas. Ese tipo de sitio tiene alojamiento gratuito en plataformas modernas. Hoy no tiene cobro para ti. La cuenta queda a tu nombre, y si el proveedor cambiara sus condiciones, la web se puede mover a otro hosting sin rehacerla.',
+        a: 'Porque tu web es un sitio liviano, sin base de datos ni aplicaciones complejas. Plataformas modernas alojan ese tipo de sitio sin costo, por eso hoy no tiene cobro adicional para ti. La cuenta queda a tu nombre, y si el proveedor cambiara sus condiciones, la web se puede mover a otro hosting sin rehacerla.',
       },
       {
         q: '¿Incluye correo corporativo?',

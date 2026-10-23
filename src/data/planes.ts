@@ -14,6 +14,7 @@ export interface Plan {
   feature?: boolean;
   ancho?: boolean;
   incluye: string[];
+  extras?: string[];
   incluyeLead?: string;
   noIncluye: string;
   boton: string;
@@ -23,17 +24,19 @@ export interface Plan {
 
 export const planes: Plan[] = [
   {
-    id: 'one-page-esencial',
-    nombre: 'One Page Esencial',
-    bajada: 'Tu negocio en internet, simple y listo para recibir clientes.',
+    id: 'one-page',
+    nombre: 'One Page',
+    bajada: 'Tu negocio en internet, con los textos escritos por nosotros y listo para recibir clientes.',
     precio: '79.990',
+    desde: true,
     precioNota: 'pago único',
     plazo: 'Lista en 3 a 5 días hábiles',
-    paraQuien: 'Ideal si ya tienes tus textos y fotos y quieres partir rápido.',
+    paraQuien: 'Ideal para presentar tu negocio y que te escriban directo por WhatsApp.',
     feature: true,
     incluye: [
       'Página de una sola sección con tu propuesta, servicios, opiniones y contacto',
-      'Botón directo a tu WhatsApp',
+      'Textos escritos por nosotros',
+      'Botón flotante de WhatsApp, siempre visible',
       'Botones a tus redes sociales',
       'Diseño adaptado a celular, tablet y computador',
       'Administrador para editar textos e imágenes sin programar',
@@ -42,36 +45,11 @@ export const planes: Plan[] = [
       'Hosting incluido, sin costo adicional',
       '1 ronda de cambios antes de publicar',
     ],
-    noIncluye: 'No incluye redacción de textos. Dominio y correo corporativo se pueden solicitar aparte.',
-    boton: 'Quiero la One Page Esencial',
-    whatsappKey: 'onePageEsencial',
-    esPrecio: '79990',
-  },
-  {
-    id: 'one-page-pro',
-    nombre: 'One Page Pro',
-    bajada: 'Nosotros escribimos, tú solo revisas.',
-    precio: '119.990',
-    precioNota: 'pago único',
-    plazo: 'Lista en 3 a 5 días hábiles',
-    paraQuien:
-      'Ideal si no tienes tiempo de escribir o quieres una web mejor preparada para aparecer en Google.',
-    destacado: true,
-    feature: true,
-    incluyeLead: 'Todo lo de One Page Esencial, más:',
-    incluye: [
-      'Redacción de todos los textos, pensados para que te contacten',
-      'Mapa de Google con tu zona de atención',
-      'Formulario de contacto que llega a tu correo',
-      'Configuración de Google Search Console y envío de tu sitio a Google',
-      'Galería de trabajos o productos',
-      '2 rondas de cambios antes de publicar',
-      'Hosting incluido, sin costo adicional',
-    ],
+    extras: ['mapa', 'formulario de contacto (los mensajes te llegan directo a tu correo)', 'galería', 'preguntas frecuentes'],
     noIncluye: 'Dominio y correo corporativo se pueden solicitar aparte.',
-    boton: 'Quiero la One Page Pro',
-    whatsappKey: 'onePagePro',
-    esPrecio: '119990',
+    boton: 'Cotizar mi One Page',
+    whatsappKey: 'onePage',
+    esPrecio: '79990',
   },
   {
     id: 'catalogo-whatsapp',
@@ -155,7 +133,7 @@ export const buenoSaber = [
   {
     titulo: 'Hosting',
     texto:
-      'Tu web es un sitio liviano, sin base de datos ni aplicaciones complejas. Ese tipo de sitio tiene alojamiento gratuito en plataformas modernas, por eso no tiene cobro para ti. La cuenta queda a tu nombre, y si el proveedor cambiara sus condiciones, tu web se puede mover a otro hosting sin rehacerla. Si prefieres otro hosting, te ayudamos a publicarla ahí; ese costo lo pagas directamente al proveedor.',
+      'Tu web es un sitio liviano, sin base de datos ni aplicaciones complejas. Plataformas modernas alojan ese tipo de sitio sin costo, por eso no tiene cobro adicional para ti. La cuenta queda a tu nombre, y si el proveedor cambiara sus condiciones, tu web se puede mover a otro hosting sin rehacerla. Si prefieres otro hosting, te ayudamos a publicarla ahí; ese costo lo pagas directamente al proveedor.',
   },
   {
     titulo: 'Pago',

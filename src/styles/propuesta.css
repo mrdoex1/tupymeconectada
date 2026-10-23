@@ -1974,12 +1974,12 @@ a {
 
       /* Cards de ancho relativo: 3 visibles en desktop, 2 en tablet, 1 en móvil.
          Cada card mide (100% - gaps)/N, así siempre se ven N completas y el resto queda fuera. */
-      /* Desktop: grilla de 2 columnas. Fila 1 = tarjetas destacadas (Esencial/Pro),
-         Fila 2 = Catálogo/Corporativo, Mantenimiento ocupa todo el ancho. */
+      /* Desktop: grilla de 3 columnas. Fila 1 = One Page, Catálogo y Sitio Corporativo,
+         Fila 2 = Mantenimiento a todo el ancho. */
       @media (min-width: 1025px) {
         .pricing-wrap {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 24px;
           overflow: visible;
           padding: 10px 0 0;

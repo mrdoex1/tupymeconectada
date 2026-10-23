@@ -8,8 +8,7 @@ import { planes, buenoSaber, proyectosAMedida } from '../../data/planes';
     <div class="pp-head pp-reveal">
       <h2>Planes y precios de páginas web para pymes</h2>
       <p>
-        Precios fijos y publicados. Sabes desde el inicio cuánto pagas, qué
-        incluye y cuándo está lista tu web.
+        Parte desde un precio claro. Sabes qué incluye y cuándo está lista tu web; los extras los cotizamos según lo que necesites.
       </p>
     </div>
 
@@ -52,6 +51,9 @@ import { planes, buenoSaber, proyectosAMedida } from '../../data/planes';
                 <li><i class="ti ti-circle-check" aria-hidden="true"></i><span>{item}</span></li>
               ))}
             </ul>
+            {plan.extras && (
+              <p class="pricing-exclude"><b>Puedes sumar, con cotización aparte:</b> {plan.extras.join(', ')}.</p>
+            )}
             <p class="pricing-exclude">{plan.noIncluye}</p>
             <div class="pricing-actions">
               <a class="pricing-cta" href={site.whatsapp[plan.whatsappKey]} target="_blank" rel="noopener noreferrer">

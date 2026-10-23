@@ -6,8 +6,7 @@ const plan = (id: string) => planes.find((p) => p.id === id)!;
 
 // Atajos del hero hacia cada plan: precio y plazo salen de planes.ts.
 const OPCIONES = [
-  // One Page tiene dos versiones (Esencial y Pro): se muestra como "One Page desde".
-  { titulo: 'Presentar mi negocio', icono: 'ti ti-building-store', plan: plan('one-page-esencial'), nombre: 'One Page', desde: true },
+  { titulo: 'Presentar mi negocio', icono: 'ti ti-building-store', plan: plan('one-page') },
   { titulo: 'Vender mis productos', icono: 'ti ti-shopping-cart', plan: plan('catalogo-whatsapp') },
   { titulo: 'Una web para mi empresa', icono: 'ti ti-building', plan: plan('sitio-corporativo') },
 ];
